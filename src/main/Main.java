@@ -9,6 +9,16 @@ public class Main {
 		for (int i=0; i<=50;i++) {
 			System.out.print("*" +" ".repeat(49) + "*\n");
 		}
+		
+		int dungeon_dim = 100;
+		
+		Room room = Room.create();
+		
+		RoomDisplayer rDisp = RoomDisplayer.get(dungeon_dim);
+		
+		rDisp.display(dungeon);
+			
+		display(room);
 
 	}
 
