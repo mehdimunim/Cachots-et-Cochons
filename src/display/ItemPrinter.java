@@ -2,19 +2,13 @@ package display;
 
 import inventory.Item;
 
-public class ItemPrinter implements Displayer {
-	
+public class ItemPrinter {
+
 	// static method to print a character
-		public static void printItem(Item item) {
-			
-			System.out.println(item.toString());
-		}
+	public static void display(Item item) {
 
-		@Override
-		public void display() {
-			// TODO Auto-generated method stub
-			
-		}
-
+		System.out.print(item.toString());
+		
+	}
 
 }

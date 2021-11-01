@@ -2,19 +2,39 @@ package character;
 
 public class Hero extends Character{
 
-	private Hero hero;
+	private static Hero defaultHero;
+	private static Hero hero;
+	private String name;
 	
-	private Hero(int HP, int XP, int attack, int defense, int move) {super(HP, XP, attack, defense, move);};
+	private Hero(int HP, int XP, int attack, int defense, int move, String name) {
+		super(HP, XP, attack, defense, move);
+		this.name = name;
+	};
 	
 	
-	public Hero createHero(int HP, int XP, int attack, int defense, int move) {
+	public static Hero getDefaultHero() {
 		
-		if (this.hero == null) {
-			this.hero = new Hero(HP, XP, attack, defense, move);
+		if (defaultHero == null) {
+			defaultHero = new Hero(120, 80, 100, 100, 100, "PigSlayer");
 		}
 		
-		return this.hero;
+		return defaultHero;
 	}
+	
+public static Hero getHero(String name) {
+		
+		if (hero == null) {
+			hero = new Hero(120, 80, 100, 100, 100, name);
+		}
+		
+		else if (hero.name != name) {
+			hero.name = name;
+		}
+		
+		return hero;
+	}
+	
+	
 	public void useItem(inventory.Item item) {
 		
 	};
@@ -25,12 +45,9 @@ public class Hero extends Character{
 	}
 
 
-	public Hero getHero() {
-		return hero;
+	public String getName() {
+		return this.name;
 	}
-
-
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
+	
+	
 }

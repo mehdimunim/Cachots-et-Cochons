@@ -1,17 +1,11 @@
 package display;
 
-public class CharacterPrinter implements Displayer{
+public class CharacterPrinter {
 
-	// static method to print a character
-	public static void printCharacter(Character character) {
-		
-		System.out.println(character.toString());
-	}
+	public static void display(character.Character character) {
 
-	@Override
-	public void display() {
-		// TODO Auto-generated method stub
-		
+		System.out.print(character.toString());
+
 	}
 
 }

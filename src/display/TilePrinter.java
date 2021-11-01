@@ -1,34 +1,32 @@
 package display;
 
 import inventory.Item;
+import dungeon.Tile;
 
-public class TilePrinter implements Displayer {
+public class TilePrinter {
 
-	
-	public static void printTile(dungeon.Tile tile) {
-		
-		Character chara = tile.getCharacter();
+	public static void display(Tile tile) {
+
+		// set priority for displaying characters against items
+
+		character.Character chara = tile.getCharacter();
 		Item item = tile.getItem();
-		
-		if (chara == null && item == null) {
-			
-			System.out.println(" ");
-		}
-		
-		else if (item == null){
-			CharacterPrinter.printCharacter(chara);
-		}
-		
-		else {
-			ItemPrinter.printItem(item);
-		}
-	
-	}
 
-	@Override
-	public void display() {
-		// TODO Auto-generated method stub
-		
+		// empty tile
+		if (chara == null && item == null) {
+
+			System.out.print(" ");
+		}
+
+		// tile with a character
+		else if (item == null) {
+			CharacterPrinter.display(chara);
+		}
+
+		// tile with item
+		else {
+			ItemPrinter.display(item);
+		}
+
 	}
 }
-

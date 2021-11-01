@@ -1,24 +1,25 @@
 package main;
 
+import dungeon.*;
+import display.*;
+import character.*;
+
 public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("The game starts");
-		
-		System.out.println("*".repeat(50));
-		for (int i=0; i<=50;i++) {
-			System.out.print("*" +" ".repeat(49) + "*\n");
+
+		Room room = new Room(10, 10, "");
+
+		Hero hero = Hero.getDefaultHero();
+
+		RoomPrinter.display(room, hero);
+
+		for (character.Character chara : room.getCharacters()) {
+			GameManager.play(chara);
 		}
 		
-		int dungeon_dim = 100;
-		
-		Room room = Room.create();
-		
-		RoomDisplayer rDisp = RoomDisplayer.get(dungeon_dim);
-		
-		rDisp.display(dungeon);
-			
-		display(room);
+		GameManager.play(hero);
 
 	}
 

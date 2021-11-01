@@ -1,13 +1,19 @@
 package dungeon;
 
+
 public class Tile {
 	
-	int XPosition;
-	int YPosition;
-	Character character;
+	int xPosition;
+	int yPosition;
+	character.Character character;
 	inventory.Item item; 
 	
-	public void addCharacter(Character newCharacter) {
+	public Tile(int XPosition, int YPosition) {
+		this.xPosition = XPosition;
+		this.yPosition = YPosition;
+	}
+	
+	public void addCharacter(character.Character newCharacter) {
 		
 		this.character = newCharacter;
 	}
@@ -17,22 +23,22 @@ public class Tile {
 	}
 	
 	public int getXPosition() {
-		return XPosition;
+		return xPosition;
 	}
 
 	public void setXPosition(int xPosition) {
-		XPosition = xPosition;
+		xPosition = xPosition;
 	}
 
 	public int getYPosition() {
-		return YPosition;
+		return yPosition;
 	}
 
 	public void setYPosition(int yPosition) {
-		YPosition = yPosition;
+		yPosition = yPosition;
 	}
 
-	public Character getCharacter() {
+	public character.Character getCharacter() {
 		return character;
 	}
 

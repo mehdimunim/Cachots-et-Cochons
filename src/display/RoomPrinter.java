@@ -1,60 +1,38 @@
 package display;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import dungeon.Room;
+import dungeon.Tile;
+import character.Hero;
 
-public class RoomPrinter implements Displayer{
+public class RoomPrinter {
 
-	private dungeon.Room room;
-	private character.Hero hero;
-	private List<character.Character> listCharacter;
+	public static void display(Room room, Hero hero) {
 
-	public RoomPrinter(dungeon.Room room, character.Hero hero) {
-		this.room = room;
-		this.hero = hero;
-	};
+		int x = room.getX();
+		int y = room.getY();
+		
+		//+2 to include borders
+		System.out.println("*".repeat(x+2));
+		// display tiles
+		for (Tile tile : room.getTiles()) {
+			int yPos = tile.getYPosition();
 
-	private void printHeader() {
+			if (yPos == 1) {
+				System.out.print("*");
+			}
 
-		System.out.println("Room" + room.getDescription());
+			TilePrinter.display(tile);
 
-	}
-
-	private void printHeroDescription() {
-
-		String heroDescription = "";
-
-		heroDescription += hero.getXP() + " ";
-		heroDescription += hero.getHP() + " ";
-		heroDescription += hero.getAttack() + " ";
-		heroDescription += hero.getDefense() + " ";
-
-		System.out.println(heroDescription);
-	}
-
-	private void printTiles() {
-
-		String firstLine = "*".repeat(room.getX());
-
-		System.out.println(firstLine);
-
-		Iterator<dungeon.Tile> it = room.getTiles().iterator();
-
-		while (it.hasNext()) {
-
-			TilePrinter.printTile(it.next());
+			if (yPos == y) {
+				System.out.print("*\n");
+			}
+			;
 
 		}
+		System.out.println("*".repeat(x+2));
 
-	}
-	
-	@Override
-	public void display() {
-		printHeader();
-		printTiles();
-		printHeroDescription();
-		
+		// display info
+		InfoPrinter.display(hero, room);
 	}
 
 }
