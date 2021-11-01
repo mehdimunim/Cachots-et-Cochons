@@ -14,12 +14,14 @@ public class Main {
 		Hero hero = Hero.getDefaultHero();
 
 		RoomPrinter.display(room, hero);
-
+		
+		RoomManager rm = new RoomManager();
+		
 		for (character.Character chara : room.getCharacters()) {
-			GameManager.play(chara);
+			rm.play(chara);
 		}
 		
-		GameManager.play(hero);
+		rm.play(hero);
 
 	}
 
