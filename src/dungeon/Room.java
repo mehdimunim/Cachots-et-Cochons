@@ -46,6 +46,28 @@ public class Room {
 		return this.tiles.get(index);
 	}
 	
+	public Tile getTile(int x, int y) {
+		
+		/*1 2 3 4
+		 1* * * * 
+		 2* * * * 
+		 */
+		// return this.getTile(xDim*(x-1) + y);
+		return null;
+	}
+	
+	public void addCharacter(character.Character character, int index) {
+		this.tiles.get(index).addCharacter(character);
+		
+	}
+	
+	public void addHero(character.Hero hero) {
+		/**
+		 * Add a hero on the first tile
+		 */
+		this.tiles.get(0).addCharacter(hero);
+	}
+	
 	public List<character.Character> getCharacters() {
 		
 		return this.tiles.stream().map(x -> x.getCharacter()).filter(s -> s!=null).collect(Collectors.toList());

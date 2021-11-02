@@ -12,13 +12,13 @@ public class RoomPrinter {
 		int y = room.getY();
 		
 		//+2 to include borders
-		System.out.println("*".repeat(x+2));
+		System.out.println("* ".repeat(x+2));
 		// display tiles
 		for (Tile tile : room.getTiles()) {
 			int yPos = tile.getYPosition();
 
 			if (yPos == 1) {
-				System.out.print("*");
+				System.out.print("* ");
 			}
 
 			TilePrinter.display(tile);
@@ -29,7 +29,7 @@ public class RoomPrinter {
 			;
 
 		}
-		System.out.println("*".repeat(x+2));
+		System.out.println("* ".repeat(x+2));
 
 		// display info
 		InfoPrinter.display(hero, room);

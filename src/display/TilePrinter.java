@@ -15,17 +15,19 @@ public class TilePrinter {
 		// empty tile
 		if (chara == null && item == null) {
 
-			System.out.print(" ");
+			System.out.print("  ");
 		}
 
 		// tile with a character
 		else if (item == null) {
 			CharacterPrinter.display(chara);
+			System.out.print(" ");
 		}
 
 		// tile with item
 		else {
 			ItemPrinter.display(item);
+			System.out.print(" ");
 		}
 
 	}
