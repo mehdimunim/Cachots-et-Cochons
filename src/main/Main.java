@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("The game starts");
 
-		Room room = new Room(10, 10, "");
+		Room room = new Room(10, 10, "", 0);
 
 		Hero hero = Hero.getDefaultHero();
 

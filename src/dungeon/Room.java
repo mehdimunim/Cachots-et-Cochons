@@ -8,13 +8,15 @@ public class Room {
 
 	List<Tile> tiles = new ArrayList<Tile>();
 	private String description = "";
-	int x;
-	int y;
+	int xDim;
+	int yDim;
+	int level;
 
-	public Room(int x, int y, String desc) {
+	public Room(int x, int y, String desc, int level) {
 		this.description = desc;
-		this.x = x;
-		this.y = y;
+		this.xDim = x;
+		this.yDim = y;
+		this.level = level;
 
 		for (int i = 1; i <= x; i++) {
 			for (int j = 1; j <= y; j++) {
@@ -25,11 +27,11 @@ public class Room {
 	}
 
 	public int getX() {
-		return this.x;
+		return this.xDim;
 	}
 
 	public int getY() {
-		return this.y;
+		return this.yDim;
 	}
 
 	public String getDescription() {

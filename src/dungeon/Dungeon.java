@@ -1,13 +1,17 @@
 package dungeon;
 
-public class Dungeon {
-	
-	int difficuly;
-	Room[] rooms;
-	
-	public static Dungeon initDungeon() {
-		
-		
-		return new Dungeon();
+import java.util.List;
+
+public abstract class Dungeon implements Cloneable {
+	/*
+	 * Dungeon Prototype
+	 * 
+	 */
+	int difficulty;
+	List<Room> rooms;
+
+	@Override
+	public Dungeon clone() {
+		return null;
 	}
 }

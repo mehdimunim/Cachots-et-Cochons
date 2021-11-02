@@ -1,6 +1,8 @@
 package character;
 
-public class Sow extends Monster {
+import java.util.List;
+
+public class Sow extends AdultPig {
 
 	public Sow(int XP, int HP, int attack, int defense, int move) {
 		super(XP, HP, attack, defense, move);
@@ -10,6 +12,10 @@ public class Sow extends Monster {
 	@Override
 	public String toString() {
 		return "S";
+	}
+	
+	public List<Shoat> farrow(Boar boar) {
+		return null;
 	}
 
 }
