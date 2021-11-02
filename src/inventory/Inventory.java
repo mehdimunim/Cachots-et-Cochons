@@ -7,6 +7,10 @@ public class Inventory {
 	List<Item> items;
 
 	int capacity;
+	
+	public Inventory(int capacity) {
+		this.capacity = capacity;
+	}
 
 	public void addItem(Item item) {
 
