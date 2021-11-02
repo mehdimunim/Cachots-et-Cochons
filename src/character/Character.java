@@ -17,7 +17,10 @@ public abstract class Character {
 		this.move = move;
 	};
 	
-	public void move() {
+	public void move(dungeon.Tile tile) {
+		/**
+		 * Contradiction because move supposes to know the current tile 
+		 */
 		
 	};
 	

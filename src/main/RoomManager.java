@@ -13,6 +13,7 @@ public class RoomManager {
 	character.Character currentPlayer;
 	
 	public void play(character.Character character) {
+		character.move();
 		
 	}
 	

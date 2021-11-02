@@ -19,9 +19,19 @@ public class Tile {
 		}
 		// else conflict between newCharacter and character
 	}
+	
+	public void removeCharacter() {
+		this.character = null;
+	}
+	
+	
 
 	public void addItem(inventory.Item item) {
 		this.item = item;
+	}
+	
+	public void removeItem() {
+		this.item = null;
 	}
 
 	public int getXPosition() {

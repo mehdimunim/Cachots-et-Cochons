@@ -14,4 +14,6 @@ public abstract class Dungeon implements Cloneable {
 	public Dungeon clone() {
 		return null;
 	}
+
+	public abstract Room getRoom(int level);
 }

@@ -1,13 +1,18 @@
 package main;
 
+import dungeon.*;
+
 public class GameManager {
 	/*
 	 * Manages the game
 	 */
 
-	private dungeon.Dungeon dungeon;
+	Room currentRoom;
+	Dungeon dungeon;
 	
-	public dungeon.Room nextRoom() {
-		return null;
+	public Room nextRoom() {
+		int level = currentRoom.getLevel();
+		this.currentRoom = dungeon.getRoom(level+1);
+		return this.currentRoom;
 	}
 }

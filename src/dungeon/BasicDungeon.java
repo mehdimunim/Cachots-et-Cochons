@@ -42,4 +42,9 @@ public class BasicDungeon extends Dungeon {
 	public Dungeon clone() {
 		return new BasicDungeon();
 	}
+
+	@Override
+	public Room getRoom(int level) {
+		return this.rooms.get(level);
+	}
 }
