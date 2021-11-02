@@ -1,11 +1,16 @@
 package inventory;
 
-import java.util.ArrayList;
+import java.util.List;
 public class Bow extends Item{
 	
 	int range;
-	ArrayList<Arrow> quiver = new ArrayList<>();
+	List<Arrow> quiver;
 	
+	public Bow(int range, List<Arrow> quiver) {
+		this.range = range;
+		this.quiver = quiver;
+		
+	}
 	public void shoot(Arrow arrow) {
 		quiver.remove(arrow);
 	}
