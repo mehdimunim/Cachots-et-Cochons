@@ -3,6 +3,9 @@ package main;
 import java.util.List;
 
 public class RoomManager {
+	/*
+	 * Manages the room
+	 */
 	
 	List<character.Character> AIPlayers;
 	dungeon.Room currentRoom;

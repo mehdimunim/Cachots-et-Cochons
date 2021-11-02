@@ -1,6 +1,9 @@
 package main;
 
 public class GameManager {
+	/*
+	 * Manages the game
+	 */
 
 	private dungeon.Dungeon dungeon;
 	

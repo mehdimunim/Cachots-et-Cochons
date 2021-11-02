@@ -1,6 +1,9 @@
 package character;
 
 public class Shoat extends Monster {
+	/*
+	 * Young, newly-weaned pig
+	 */
 
 	public Shoat(int XP, int HP, int attack, int defense, int move) {
 		super(XP, HP, attack, defense, move);

@@ -42,6 +42,10 @@ public class Room {
 		return this.tiles;
 	}
 	
+	public Tile getTile(int index) {
+		return this.tiles.get(index);
+	}
+	
 	public List<character.Character> getCharacters() {
 		
 		return this.tiles.stream().map(x -> x.getCharacter()).filter(s -> s!=null).collect(Collectors.toList());
