@@ -16,16 +16,15 @@ public class RoomManager {
 		player.play();
 	}
 	
-	public void removeFromGame(character.Character character) {
-		
+	public void removeFromGame(Player player) {
+		AIPlayers.remove(player);
 	};
 	
-	public void addToGame(character.Character character) {}
-	
-	public boolean isMovePossible() {
-		return true;
+	public void addToGame(AIPlayer player) {
+		AIPlayers.add(player);
 	}
-	public boolean hasLost(character.Hero hero) {
+	
+	public boolean hasLost() {
 		return false;
 	}
 	public boolean hasWon(character.Hero hero) {

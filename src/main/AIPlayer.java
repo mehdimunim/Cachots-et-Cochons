@@ -9,5 +9,11 @@ public class AIPlayer extends Player {
 		super(chara, currentTile);
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	@Override
+	public void play() {
+		
+	};
 
 }

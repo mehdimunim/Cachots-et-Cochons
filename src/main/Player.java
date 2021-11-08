@@ -9,7 +9,7 @@ public abstract class Player {
 		this.currentTile = currentTile;
 	}
 
-	private boolean isReacheable(dungeon.Tile tile) {
+	private boolean canReach(dungeon.Tile tile) {
 		int distance = this.currentTile.manhattanDistanceTo(tile);
 
 		if (distance < this.chara.getMove()) {
@@ -19,10 +19,10 @@ public abstract class Player {
 
 	}
 	
-	private boolean isMovePossible(dungeon.Tile tile) {
+	private boolean canGoTo(dungeon.Tile tile) {
 		
 		boolean isOccupied = tile.hasCharacter();
-		return isReacheable(tile) && isOccupied;
+		return canReach(tile) && isOccupied;
 }
 
 	public boolean isEnnemyWith(Player player) {
@@ -31,7 +31,7 @@ public abstract class Player {
 	
 	public void move(dungeon.Tile tile) {
 
-		if (isMovePossible(tile)) {
+		if (canGoTo(tile)) {
 			currentTile.removeCharacter();
 			tile.addCharacter(chara);
 		}
@@ -49,7 +49,7 @@ public abstract class Player {
 		
 	}
 	public boolean isWithinAttackRange(dungeon.Tile tile) {
-		return isReacheable(tile) || isWithinBowRange(tile);
+		return canReach(tile) || isWithinBowRange(tile);
 	}
 	
 	public boolean canAttack(Player player) {
