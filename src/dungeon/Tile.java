@@ -58,4 +58,18 @@ public class Tile {
 		return this.item;
 	}
 
+	public int manhattanDistanceTo(Tile tile) {
+		// Manhattan distance
+		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.xPosition - xPosition);
+	}
+	
+	public double euclidianDistanceTo(Tile tile) {
+		// Manhattan distance
+		return Math.sqrt(Math.pow(tile.xPosition - xPosition,2) + Math.pow(tile.xPosition - xPosition, 2));
+	}
+	
+	public boolean hasCharacter() {
+		return (this.character == null) ? false : true;
+	}
+
 }

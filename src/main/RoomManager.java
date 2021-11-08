@@ -12,9 +12,8 @@ public class RoomManager {
 	character.Hero hero;
 	character.Character currentPlayer;
 	
-	public void play(character.Character character) {
-		character.move();
-		
+	public void play(Player player) {
+		player.play();
 	}
 	
 	public void removeFromGame(character.Character character) {

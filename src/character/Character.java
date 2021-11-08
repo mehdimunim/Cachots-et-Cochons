@@ -7,6 +7,7 @@ public abstract class Character {
 	int attack;
 	int defense;
 	int move;
+	int bowRange;
 	
 	public Character(int XP, int HP, int attack, int defense, int move) {
 		
@@ -86,6 +87,10 @@ public abstract class Character {
 
 	public void setMove(int move) {
 		this.move = move;
+	}
+
+	public int getBowRange() {
+		return this.bowRange;
 	};
 
 }
