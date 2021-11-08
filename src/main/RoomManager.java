@@ -7,12 +7,12 @@ public class RoomManager {
 	 * Manages the room
 	 */
 	
-	List<character.Character> AIPlayers;
+	List<AIPlayer> AIPlayers;
 	dungeon.Room currentRoom;
-	character.Hero hero;
-	character.Character currentPlayer;
+	HumanPlayer hero;
+	Player currentPlayer;
 	
-	public void play(Player player) {
+	public void giveTurnTo(Player player) {
 		player.play();
 	}
 	
@@ -30,5 +30,13 @@ public class RoomManager {
 	}
 	public boolean hasWon(character.Hero hero) {
 		return false;
+	}
+
+	public List<AIPlayer> getAIPlayers() {
+		return this.AIPlayers;
+	}
+	
+	public HumanPlayer getHumanPlayer() {
+		return this.hero;
 	}
 }

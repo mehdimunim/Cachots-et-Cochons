@@ -29,11 +29,11 @@ public class Main {
 
 		RoomManager rm = new RoomManager();
 
-		for (character.Character chara : room.getCharacters()) {
-			rm.play(chara);
+		for (AIPlayer player : rm.getAIPlayers()) {
+			player.play();
 		}
 
-		rm.play(hero);
+		rm.getHumanPlayer().play();
 
 	}
 
