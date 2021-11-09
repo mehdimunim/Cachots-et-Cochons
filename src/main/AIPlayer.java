@@ -3,7 +3,7 @@ package main;
 import character.Character;
 import dungeon.Tile;
 
-import java.util.
+
 public class AIPlayer extends Player<character.Character> {
 
 	public AIPlayer(Character chara, Tile currentTile) {

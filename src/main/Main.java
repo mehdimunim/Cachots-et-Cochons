@@ -27,13 +27,13 @@ public class Main {
 		// display the room with monsters and the hero 
 		RoomPrinter.display(room, hero);
 
-		RoomManager rm = new RoomManager();
+		//RoomManager rm = new RoomManager();
 
-		for (AIPlayer player : rm.getAIPlayers()) {
-			player.play();
-		}
+		//for (AIPlayer player : rm.getAIPlayers()) {
+		//	player.play();
+		//}
 
-		rm.getHumanPlayer().play();
+		//rm.getHumanPlayer().play();
 
 	}
 

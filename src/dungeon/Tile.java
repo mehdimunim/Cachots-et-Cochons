@@ -51,6 +51,10 @@ public class Tile {
 	}
 
 	public character.Character getCharacter() {
+		// attention si character null (cf. optionnels)
+		// java.util.Optional
+		// e.g:
+		// tile.getCharacter().ifIsPresent(s -> s.addItem())
 		return character;
 	}
 

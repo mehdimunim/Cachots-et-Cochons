@@ -15,6 +15,9 @@ public class HumanPlayer extends Player<character.Hero> {
 		
 		}
 	
+	public void useItem(inventory.Item item) {
+		
+	}
 	@Override
 	public void play() {
 		
