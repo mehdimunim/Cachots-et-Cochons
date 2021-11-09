@@ -2,7 +2,7 @@ package main;
 
 import dungeon.Tile;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer extends Player<character.Hero> {
 
 	public HumanPlayer(character.Hero hero, Tile currentTile) {
 		super(hero, currentTile);
@@ -10,6 +10,8 @@ public class HumanPlayer extends Player {
 	}
 	
 	public void grabItem(dungeon.Tile tile) {
+		
+		this.chara.addItem(tile.getItem());
 		
 		}
 	

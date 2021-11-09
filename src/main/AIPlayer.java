@@ -3,7 +3,7 @@ package main;
 import character.Character;
 import dungeon.Tile;
 
-public class AIPlayer extends Player {
+public class AIPlayer extends Player<character.Character> {
 
 	public AIPlayer(Character chara, Tile currentTile) {
 		super(chara, currentTile);
@@ -14,6 +14,8 @@ public class AIPlayer extends Player {
 	@Override
 	public void play() {
 		
-	};
-
+		double randInt = Math.floor(10*Math.random());
+		
+		
+}
 }

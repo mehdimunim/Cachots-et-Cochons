@@ -3,6 +3,9 @@ package inventory;
 import java.util.List;
 
 public class Inventory {
+	/*
+	 * Coder le comportement des objets
+	 */
 
 	List<Item> items;
 
@@ -29,4 +32,7 @@ public class Inventory {
 		items.remove(item);
 
 	};
+	
+	
+	//TODO: méthode pour vérifier la présence d'un type d'objet
 }

@@ -1,10 +1,14 @@
 package main;
 
-public abstract class Player {
-	character.Character chara;
+public abstract class Player<T extends character.Character>{
+	/**
+	 * Generic player
+	 * Instance of Character (either Monster or Human)
+	 */
+	T chara;
 	dungeon.Tile currentTile;
 
-	public Player(character.Character chara, dungeon.Tile currentTile) {
+	public Player(T chara, dungeon.Tile currentTile) {
 		this.chara = chara;
 		this.currentTile = currentTile;
 	}
@@ -25,7 +29,7 @@ public abstract class Player {
 		return canReach(tile) && isOccupied;
 }
 
-	public boolean isEnnemyWith(Player player) {
+	public boolean isEnnemyWith(Player<T> player) {
 		return false;
 	}
 	
@@ -52,11 +56,11 @@ public abstract class Player {
 		return canReach(tile) || isWithinBowRange(tile);
 	}
 	
-	public boolean canAttack(Player player) {
+	public boolean canAttack(Player<T> player) {
 		return isEnnemyWith(player) && isWithinAttackRange(player.currentTile);
 	}
 
-	public void attack(Player player) {
+	public void attack(Player<T> player) {
 		player.chara.loseHP(chara.getAttack());
 
 	}
