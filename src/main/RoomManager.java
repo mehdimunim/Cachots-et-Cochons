@@ -7,10 +7,10 @@ public class RoomManager {
 	 * Manages the room
 	 */
 	
-	List<AIPlayer> AIPlayers;
-	dungeon.Room currentRoom;
-	HumanPlayer hero;
-	Player currentPlayer;
+	private List<AIPlayer> AIPlayers;
+	private dungeon.Room currentRoom;
+	private HumanPlayer hero;
+	private Player<character.Character> currentPlayer;
 	
 	public void giveTurnTo(Player player) {
 		player.play();

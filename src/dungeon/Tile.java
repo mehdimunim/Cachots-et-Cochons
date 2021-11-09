@@ -2,10 +2,10 @@ package dungeon;
 
 public class Tile {
 
-	int xPosition;
-	int yPosition;
-	character.Character character;
-	inventory.Item item;
+	private int xPosition;
+	private int yPosition;
+	private character.Character character;
+	private inventory.Item item;
 
 	public Tile(int XPosition, int YPosition) {
 		this.xPosition = XPosition;

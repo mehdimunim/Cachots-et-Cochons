@@ -7,8 +7,8 @@ public class GameManager {
 	 * Manages the game
 	 */
 
-	Room currentRoom;
-	Dungeon dungeon;
+	private Room currentRoom;
+	private Dungeon dungeon;
 	
 	public Room nextRoom() {
 		int level = currentRoom.getLevel();

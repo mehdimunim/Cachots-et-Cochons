@@ -5,8 +5,8 @@ public abstract class Player<T extends character.Character>{
 	 * Generic player
 	 * Instance of Character (either Monster or Human)
 	 */
-	T chara;
-	dungeon.Tile currentTile;
+	private T chara;
+	private dungeon.Tile currentTile;
 
 	public Player(T chara, dungeon.Tile currentTile) {
 		this.chara = chara;

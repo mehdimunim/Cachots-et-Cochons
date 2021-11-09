@@ -10,11 +10,11 @@ public class Room implements Iterable<Tile>{
 	// mettre sous forme de matrice
 	// potentiel Linked List
 	// mettre un itérateur
-	LinkedList<Tile> tiles = new LinkedList<Tile>();
+	private LinkedList<Tile> tiles = new LinkedList<Tile>();
 	private String description = "";
-	int xDim;
-	int yDim;
-	int level;
+	private int xDim;
+	private int yDim;
+	private int level;
 
 	public Room(int x, int y, String desc, int level) {
 		this.description = desc;

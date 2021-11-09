@@ -2,12 +2,12 @@ package character;
 
 public abstract class Character {
 	
-	int XP;
-	int HP;
-	int attack;
-	int defense;
-	int move;
-	int bowRange;
+	private int XP;
+	private int HP;
+	private int attack;
+	private int defense;
+	private int move;
+	private int bowRange;
 	
 	public Character(int XP, int HP, int attack, int defense, int move) {
 		

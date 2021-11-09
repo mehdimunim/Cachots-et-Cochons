@@ -7,9 +7,9 @@ public class Inventory {
 	 * Coder le comportement des objets
 	 */
 
-	List<Item> items;
+	private List<Item> items;
 
-	int capacity;
+	private int capacity;
 	
 	public Inventory(int capacity) {
 		this.capacity = capacity;
