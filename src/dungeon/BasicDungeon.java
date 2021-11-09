@@ -47,4 +47,6 @@ public class BasicDungeon extends Dungeon {
 	public Room getRoom(int level) {
 		return this.rooms.get(level);
 	}
+
+	
 }

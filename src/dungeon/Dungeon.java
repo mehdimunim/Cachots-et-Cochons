@@ -1,8 +1,9 @@
 package dungeon;
 
+import java.util.Iterator;
 import java.util.List;
 
-public abstract class Dungeon implements Cloneable {
+public abstract class Dungeon implements Cloneable, Iterable<Room>{
 	/*
 	 * Dungeon Prototype
 	 * 
@@ -16,4 +17,11 @@ public abstract class Dungeon implements Cloneable {
 	}
 
 	public abstract Room getRoom(int level);
+	
+	@Override
+	public Iterator<Room> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

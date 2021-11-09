@@ -1,12 +1,16 @@
 package dungeon;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Iterator;
+import java.util.LinkedList;
 
-public class Room {
+public class Room implements Iterable<Tile>{
 
-	List<Tile> tiles = new ArrayList<Tile>();
+	// mettre sous forme de matrice
+	// potentiel Linked List
+	// mettre un itérateur
+	LinkedList<Tile> tiles = new LinkedList<Tile>();
 	private String description = "";
 	int xDim;
 	int yDim;
@@ -74,6 +78,12 @@ public class Room {
 	public List<character.Character> getCharacters() {
 
 		return this.tiles.stream().map(x -> x.getCharacter()).filter(s -> s != null).collect(Collectors.toList());
+	}
+
+	@Override
+	public Iterator<Tile> iterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
