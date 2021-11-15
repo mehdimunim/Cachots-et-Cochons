@@ -14,7 +14,7 @@ public class RoomPrinter {
 		//+2 to include borders
 		System.out.println("* ".repeat(x+2));
 		// display tiles
-		for (Tile tile : room.getTiles()) {
+		for (Tile tile : room) {
 			int yPos = tile.getYPosition();
 
 			if (yPos == 1) {

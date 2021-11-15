@@ -5,7 +5,7 @@ import character.MonsterFactory;
 public class BasicDungeon extends Dungeon {
 
 	private BasicDungeon() {
-		this.difficulty = 0;
+		this.setDifficulty(0);
 
 		int roomDim = 20;
 		
@@ -14,9 +14,9 @@ public class BasicDungeon extends Dungeon {
 		Room room2 = new Room(roomDim, roomDim, "Second Room", 2);
 		Room room3 = new Room(roomDim, roomDim, "Third Room", 3);
 		
-		this.rooms.add(room1);
-		this.rooms.add(room2);
-		this.rooms.add(room3);
+		this.getRooms().add(room1);
+		this.getRooms().add(room2);
+		this.getRooms().add(room3);
 
 
 		// spawn monsters on the tiles
@@ -45,7 +45,7 @@ public class BasicDungeon extends Dungeon {
 
 	@Override
 	public Room getRoom(int level) {
-		return this.rooms.get(level);
+		return this.getRooms().get(level);
 	}
 
 	

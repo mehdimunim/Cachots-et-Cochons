@@ -91,6 +91,8 @@ public abstract class Character {
 
 	public int getBowRange() {
 		return this.bowRange;
-	};
+	}
+
+	public abstract boolean isEnnemyWith(Character chara);
 
 }

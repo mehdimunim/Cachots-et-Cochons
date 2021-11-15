@@ -1,5 +1,9 @@
 package dungeon;
 
+import java.util.Optional;
+
+import inventory.Item;
+
 public class Tile {
 
 	private int xPosition;
@@ -50,16 +54,16 @@ public class Tile {
 		this.yPosition = yPosition;
 	}
 
-	public character.Character getCharacter() {
+	public Optional<character.Character> getCharacter() {
 		// attention si character null (cf. optionnels)
 		// java.util.Optional
 		// e.g:
 		// tile.getCharacter().ifIsPresent(s -> s.addItem())
-		return character;
+		return Optional.of(character);
 	}
 
-	public inventory.Item getItem() {
-		return this.item;
+	public Optional<Item> getItem() {
+		return Optional.of(this.item);
 	}
 
 	public int manhattanDistanceTo(Tile tile) {
@@ -68,7 +72,7 @@ public class Tile {
 	}
 	
 	public double euclidianDistanceTo(Tile tile) {
-		// Manhattan distance
+		// Euclidian distance
 		return Math.sqrt(Math.pow(tile.xPosition - xPosition,2) + Math.pow(tile.xPosition - xPosition, 2));
 	}
 	

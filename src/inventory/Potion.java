@@ -1,7 +1,7 @@
 package inventory;
 
 public class Potion extends Item{
-	int HP; // health points
+	private int HP; // health points
 	
 	public Potion(int HP) {
 		this.HP = HP;

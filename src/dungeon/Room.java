@@ -1,16 +1,15 @@
 package dungeon;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
-public class Room implements Iterable<Tile>{
+public class Room implements Iterable<Tile> {
 
 	// mettre sous forme de matrice
 	// potentiel Linked List
 	// mettre un itérateur
-	private LinkedList<Tile> tiles = new LinkedList<Tile>();
+	private Tile[][] tiles;
 	private String description = "";
 	private int xDim;
 	private int yDim;
@@ -21,13 +20,7 @@ public class Room implements Iterable<Tile>{
 		this.xDim = x;
 		this.yDim = y;
 		this.level = level;
-
-		for (int i = 1; i <= x; i++) {
-			for (int j = 1; j <= y; j++) {
-				Tile tile = new Tile(i, j);
-				tiles.add(tile);
-			}
-		}
+		this.tiles = new Tile[x][y];
 	}
 
 	public int getX() {
@@ -42,21 +35,20 @@ public class Room implements Iterable<Tile>{
 		return this.description;
 	};
 
-	public List<Tile> getTiles() {
+	public Object getTiles() {
 		return this.tiles;
 	}
 
 	public Tile getTile(int index) {
-		return this.tiles.get(index);
+		// index = y*xDim + x
+		int x = index % xDim;
+		int y = (index - x) / xDim;
+		return this.getTile(x, y);
 	}
 
 	public Tile getTile(int x, int y) {
 
-		/*
-		 * 1 2 3 4 1* * * * 2* * * *
-		 */
-		// return this.getTile(xDim*(x-1) + y);
-		return null;
+		return this.tiles[x][y];
 	}
 
 	public int getLevel() {
@@ -64,7 +56,7 @@ public class Room implements Iterable<Tile>{
 	}
 
 	public void addCharacter(character.Character character, int index) {
-		this.tiles.get(index).addCharacter(character);
+		this.getTile(index).addCharacter(character);
 
 	}
 
@@ -72,18 +64,63 @@ public class Room implements Iterable<Tile>{
 		/**
 		 * Add a hero on the first tile
 		 */
-		this.tiles.get(0).addCharacter(hero);
+		this.getFirstTile().addCharacter(hero);
+	}
+
+	private Tile getFirstTile() {
+		return this.tiles[0][0];
 	}
 
 	public List<character.Character> getCharacters() {
-
-		return this.tiles.stream().map(x -> x.getCharacter()).filter(s -> s != null).collect(Collectors.toList());
+		var charas = new ArrayList<character.Character>();
+		for (Tile tile : this)
+			tile.getCharacter().ifPresent(ch -> charas.add(ch));
+		return charas;
+	}
+	
+	public List<Tile> getReachableTilesFrom(Tile refTile, int move) {		
+		var res = new ArrayList<Tile>();
+		
+		// add tiles within range
+		for (Tile tile:this) {
+			if (refTile.manhattanDistanceTo(tile) <= move) {
+				res.add(tile);
+			}
+		//remove reference tile
+		res.remove(refTile);
+			
+		}
+		
+		
+		
+		return res;
+		
 	}
 
 	@Override
 	public Iterator<Tile> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Iterator<Tile>() {
+			private int currentIndex = 0;
+
+			@Override
+			public boolean hasNext() {
+				return currentIndex < xDim * yDim;
+			}
+
+			@Override
+			public Tile next() {
+				currentIndex++;
+				int x = currentIndex % xDim;
+				int y = (currentIndex - currentIndex) / yDim;
+				return tiles[x][y];
+			}
+		}
+
+		;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }

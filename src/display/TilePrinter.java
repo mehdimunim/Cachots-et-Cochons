@@ -1,6 +1,10 @@
 package display;
 
 import inventory.Item;
+
+import java.util.Optional;
+
+import character.Character;
 import dungeon.Tile;
 
 public class TilePrinter {
@@ -9,24 +13,25 @@ public class TilePrinter {
 
 		// set priority for displaying characters against items
 
-		character.Character chara = tile.getCharacter();
-		Item item = tile.getItem();
+		Optional<Character> chara = tile.getCharacter();
+		Optional<Item> item = tile.getItem();
 
 		// empty tile
-		if (chara == null && item == null) {
+		
+		if (chara.isEmpty() && item.isEmpty()) {
 
 			System.out.print("  ");
 		}
 
 		// tile with a character
-		else if (item == null) {
-			CharacterPrinter.display(chara);
+		else if (item.isEmpty()) {
+			chara.ifPresent(ch -> CharacterPrinter.display(ch));
 			System.out.print(" ");
 		}
 
 		// tile with item
 		else {
-			ItemPrinter.display(item);
+			item.ifPresent(it -> ItemPrinter.display(it));
 			System.out.print(" ");
 		}
 

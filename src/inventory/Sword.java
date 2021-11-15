@@ -2,7 +2,7 @@ package inventory;
 
 public class Sword extends Item{
 	
-	int damage;
+	private int damage;
 	
 	public Sword(int damage) {
 		this.damage = damage;

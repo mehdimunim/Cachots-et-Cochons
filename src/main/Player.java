@@ -1,5 +1,9 @@
 package main;
 
+import java.util.List;
+
+import dungeon.Tile;
+
 public abstract class Player<T extends character.Character>{
 	/**
 	 * Generic player
@@ -9,14 +13,14 @@ public abstract class Player<T extends character.Character>{
 	private dungeon.Tile currentTile;
 
 	public Player(T chara, dungeon.Tile currentTile) {
-		this.chara = chara;
+		this.setChara(chara);
 		this.currentTile = currentTile;
 	}
 
 	private boolean canReach(dungeon.Tile tile) {
 		int distance = this.currentTile.manhattanDistanceTo(tile);
 
-		if (distance < this.chara.getMove()) {
+		if (distance < this.getChara().getMove()) {
 			return true;
 		}
 		return false;
@@ -29,15 +33,12 @@ public abstract class Player<T extends character.Character>{
 		return canReach(tile) && isOccupied;
 }
 
-	public boolean isEnnemyWith(Player<T> player) {
-		return false;
-	}
 	
 	public void move(dungeon.Tile tile) {
 
 		if (canGoTo(tile)) {
 			currentTile.removeCharacter();
-			tile.addCharacter(chara);
+			tile.addCharacter(getChara());
 		}
 
 	}
@@ -46,7 +47,7 @@ public abstract class Player<T extends character.Character>{
 		
 		double distance = this.currentTile.euclidianDistanceTo(tile);
 
-		if (distance < this.chara.getBowRange()) {
+		if (distance < this.getChara().getBowRange()) {
 			return true;
 		}
 		return false;
@@ -57,16 +58,37 @@ public abstract class Player<T extends character.Character>{
 	}
 	
 	public boolean canAttack(Player<T> player) {
-		return isEnnemyWith(player) && isWithinAttackRange(player.currentTile);
+		return chara.isEnnemyWith(player.getChara()) && isWithinAttackRange(player.currentTile);
 	}
 
 	public void attack(Player<T> player) {
-		player.chara.loseHP(chara.getAttack());
+		player.getChara().loseHP(getChara().getAttack());
 
 	}
 	
 	public void play() {
 		
+	}
+
+	public T getChara() {
+		return chara;
+	}
+
+	public void setChara(T chara) {
+		this.chara = chara;
+	}
+
+	public void play(List<Tile> reachableTiles) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public dungeon.Tile getCurrentTile() {
+		return currentTile;
+	}
+
+	public void setCurrentTile(dungeon.Tile currentTile) {
+		this.currentTile = currentTile;
 	}
 
 }

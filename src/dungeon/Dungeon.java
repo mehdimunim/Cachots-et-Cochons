@@ -8,8 +8,8 @@ public abstract class Dungeon implements Cloneable, Iterable<Room>{
 	 * Dungeon Prototype
 	 * 
 	 */
-	int difficulty;
-	List<Room> rooms;
+	private int difficulty;
+	private List<Room> rooms;
 
 	@Override
 	public Dungeon clone() {
@@ -22,6 +22,22 @@ public abstract class Dungeon implements Cloneable, Iterable<Room>{
 	public Iterator<Room> iterator() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
 	}
 	
 }

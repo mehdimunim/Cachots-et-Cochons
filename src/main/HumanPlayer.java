@@ -10,14 +10,13 @@ public class HumanPlayer extends Player<character.Hero> {
 	}
 	
 	public void grabItem(dungeon.Tile tile) {
-		
-		this.chara.addItem(tile.getItem());
-		
+		this.getChara().searchTile(tile);
 		}
 	
 	public void useItem(inventory.Item item) {
-		
+		this.getChara().useItem(item);	
 	}
+	
 	@Override
 	public void play() {
 		

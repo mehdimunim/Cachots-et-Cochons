@@ -3,8 +3,8 @@ package inventory;
 import java.util.List;
 public class Bow extends Item{
 	
-	int range;
-	List<Arrow> quiver;
+	private int range;
+	private List<Arrow> quiver;
 	
 	public Bow(int range, List<Arrow> quiver) {
 		this.range = range;
