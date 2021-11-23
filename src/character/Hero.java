@@ -18,7 +18,7 @@ public class Hero extends Character {
 		this.invent = new inventory.Inventory(3);
 	};
 
-	public static Hero getDefaultHero() {
+	public static Hero createDefaultHero() {
 
 		if (defaultHero == null) {
 			defaultHero = new Hero(120, 80, 100, 100, 100, "PigSlaughter");
@@ -27,7 +27,7 @@ public class Hero extends Character {
 		return defaultHero;
 	}
 
-	public static Hero getHero(String name) {
+	public static Hero createHero(String name) {
 		/**
 		 * Personalized hero
 		 */

@@ -1,10 +1,13 @@
 package dungeon;
 
+import java.util.List;
+
+import character.Hero;
 import character.MonsterFactory;
 
 public class BasicDungeon extends Dungeon {
 
-	public BasicDungeon() {
+	public BasicDungeon(Hero hero) {
 		this.setDifficulty(0);
 
 		int roomDim = 20;
@@ -14,15 +17,13 @@ public class BasicDungeon extends Dungeon {
 		Room room2 = new Room(roomDim, roomDim, "Second Room", 2);
 		Room room3 = new Room(roomDim, roomDim, "Third Room", 3);
 		
-		this.getRooms().add(room1);
-		this.getRooms().add(room2);
-		this.getRooms().add(room3);
-
-
+		// Add hero
+		room1.addCharacter(hero, 0);
+		
 		// spawn monsters on the tiles
 		
 		// Room 1
-		MonsterFactory.spawnBoar(room1.getTile(0));
+		MonsterFactory.spawnBoar(room1.getTile(4));
 		MonsterFactory.spawnSow(room1.getTile(1));
 		MonsterFactory.spawnShoat(room1.getTile(2));
 		
@@ -36,11 +37,15 @@ public class BasicDungeon extends Dungeon {
 		MonsterFactory.spawnSow(room3.getTile(4));
 		MonsterFactory.spawnShoat(room3.getTile(5));
 		
+		// Add rooms to dungeon
+		
+		this.setRooms(List.of(room1, room2, room3));
+		
 	}
 
 	@Override
 	public Dungeon clone() {
-		return new BasicDungeon();
+		return null;
 	}
 
 	@Override
