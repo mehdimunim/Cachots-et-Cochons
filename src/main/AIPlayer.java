@@ -27,7 +27,7 @@ public class AIPlayer extends Player<character.Character> {
 	    
 	    // if no character, move to the tile
 	    if (chara.isEmpty()) {
-	    	this.move(randomTile);
+	    	this.goTo(randomTile);
 	    }
 	    
 	    // else if there is an enemy, attack

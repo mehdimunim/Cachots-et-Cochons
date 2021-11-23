@@ -10,6 +10,12 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("The game starts");
 
+		BasicDungeon bd = new BasicDungeon();
+		
+		Room room0 = bd.getRoom(0);
+		
+		
+		
 		// empty room of dimension 10 * 10
 		Room room = new Room(10, 10, "", 0);
 		

@@ -2,6 +2,8 @@ package main;
 
 import java.util.List;
 
+import dungeon.Tile;
+
 public class RoomManager {
 	/*
 	 * Manages the room
@@ -13,7 +15,9 @@ public class RoomManager {
 	private Player<character.Character> currentPlayer;
 	
 	public void giveTurnTo(Player player) {
-		player.play();
+		
+		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
+		player.play(reachableTiles);
 	}
 	
 	public void removeFromGame(Player player) {

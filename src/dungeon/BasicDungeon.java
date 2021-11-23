@@ -4,7 +4,7 @@ import character.MonsterFactory;
 
 public class BasicDungeon extends Dungeon {
 
-	private BasicDungeon() {
+	public BasicDungeon() {
 		this.setDifficulty(0);
 
 		int roomDim = 20;

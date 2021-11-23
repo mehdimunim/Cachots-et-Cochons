@@ -2,12 +2,12 @@ package main;
 
 import java.util.List;
 
+import dungeon.Room;
 import dungeon.Tile;
 
-public abstract class Player<T extends character.Character>{
+public abstract class Player<T extends character.Character> {
 	/**
-	 * Generic player
-	 * Instance of Character (either Monster or Human)
+	 * Generic player Instance of Character (either Monster or Human)
 	 */
 	private T chara;
 	private dungeon.Tile currentTile;
@@ -26,15 +26,14 @@ public abstract class Player<T extends character.Character>{
 		return false;
 
 	}
-	
-	private boolean canGoTo(dungeon.Tile tile) {
-		
-		boolean isOccupied = tile.hasCharacter();
-		return canReach(tile) && isOccupied;
-}
 
-	
-	public void move(dungeon.Tile tile) {
+	protected boolean canGoTo(dungeon.Tile tile) {
+
+		boolean isOccupied = tile.hasCharacter();
+		return canReach(tile) && !isOccupied;
+	}
+
+	public void goTo(dungeon.Tile tile) {
 
 		if (canGoTo(tile)) {
 			currentTile.removeCharacter();
@@ -42,32 +41,45 @@ public abstract class Player<T extends character.Character>{
 		}
 
 	}
-	
+
 	public boolean isWithinBowRange(dungeon.Tile tile) {
-		
+
 		double distance = this.currentTile.euclidianDistanceTo(tile);
 
 		if (distance < this.getChara().getBowRange()) {
 			return true;
 		}
 		return false;
-		
+
 	}
+
 	public boolean isWithinAttackRange(dungeon.Tile tile) {
 		return canReach(tile) || isWithinBowRange(tile);
 	}
-	
-	public boolean canAttack(Player<T> player) {
+
+	private boolean canAttack(Player<T> player) {
 		return chara.isEnnemyWith(player.getChara()) && isWithinAttackRange(player.currentTile);
+	}
+
+	public boolean canAttack(dungeon.Tile tile) {
+		if (tile.hasCharacter()) {
+			character.Character otherChara = tile.getCharacter().get();
+			// Check if tile is within attack range (move or per bow) and the characters are
+			// ennemy
+			return isWithinAttackRange(tile) && chara.isEnnemyWith(otherChara);
+		} else {
+			// Player cannot attack if the tile is empty
+			return false;
+		}
 	}
 
 	public void attack(Player<T> player) {
 		player.getChara().loseHP(getChara().getAttack());
 
 	}
-	
-	public void play() {
-		
+
+	public void attack(Tile tile) {
+		tile.getCharacter().ifPresent(ch -> ch.loseHP(chara.getAttack()));
 	}
 
 	public T getChara() {
@@ -80,7 +92,7 @@ public abstract class Player<T extends character.Character>{
 
 	public void play(List<Tile> reachableTiles) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public dungeon.Tile getCurrentTile() {
@@ -89,6 +101,11 @@ public abstract class Player<T extends character.Character>{
 
 	public void setCurrentTile(dungeon.Tile currentTile) {
 		this.currentTile = currentTile;
+	}
+
+	public List<dungeon.Tile> getReachableTiles(Room currentRoom) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
