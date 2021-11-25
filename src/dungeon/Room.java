@@ -51,10 +51,6 @@ public class Room implements Iterable<Tile> {
 		return this.tiles[x][y];
 	}
 
-	public int getLevel() {
-		return this.getLevel();
-	}
-
 	public void addCharacter(character.Character character, int index) {
 		this.getTile(index).addCharacter(character);
 
@@ -118,7 +114,11 @@ public class Room implements Iterable<Tile> {
 
 		;
 	}
-
+	
+	public int getLevel() {
+		return this.level;
+	}
+	
 	public void setLevel(int level) {
 		this.level = level;
 	}

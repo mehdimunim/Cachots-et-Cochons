@@ -2,12 +2,22 @@ package dungeon;
 
 import java.util.List;
 
-import character.Hero;
 import character.MonsterFactory;
+import character.Hero;
 
-public class BasicDungeon extends Dungeon {
-
-	public BasicDungeon(Hero hero) {
+public class BasicDungeonBuilder extends DungeonBuilder {
+	int roomDim = 20;
+	
+	
+	
+	public void setDifficulty() {
+		this.setDifficulty(20);
+	}
+	@Override
+	public void build(Hero hero) {
+		/*
+		 * Build a dungeon with three rooms and monsters, along with a hero in the first one.
+		 */
 		this.setDifficulty(0);
 
 		int roomDim = 20;
@@ -38,20 +48,11 @@ public class BasicDungeon extends Dungeon {
 		MonsterFactory.spawnShoat(room3.getTile(5));
 		
 		// Add rooms to dungeon
+		this.addRooms(List.of(room1, room2, room3));
 		
-		this.setRooms(List.of(room1, room2, room3));
-		
 	}
-
-	@Override
-	public Dungeon clone() {
-		return null;
-	}
-
-	@Override
-	public Room getRoom(int level) {
-		return this.getRooms().get(level);
-	}
-
 	
+	
+		
+
 }

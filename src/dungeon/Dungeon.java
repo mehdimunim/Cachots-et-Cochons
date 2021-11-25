@@ -3,9 +3,9 @@ package dungeon;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class Dungeon implements Cloneable, Iterable<Room>{
+public class Dungeon implements Iterable<Room>{
 	/*
-	 * Dungeon Prototype
+	 * Dungeon 
 	 * 
 	 */
 	private int difficulty;
@@ -16,12 +16,18 @@ public abstract class Dungeon implements Cloneable, Iterable<Room>{
 		return null;
 	}
 
-	public abstract Room getRoom(int level);
+	public Room getRoom(int level) {
+		return rooms.get(level);
+	};
+	
+	public void setRoom(int level, Room room) {
+		rooms.set(level, room);
+	};
+	
 	
 	@Override
 	public Iterator<Room> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return rooms.iterator();
 	}
 
 	public int getDifficulty() {

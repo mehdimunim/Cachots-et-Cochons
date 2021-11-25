@@ -17,5 +17,10 @@ public class GameManager {
 	}
 	
 	
+	public void buildBasicDungeon() {
+		var bdb = new BasicDungeonBuilder();
+		dungeon = bdb.getDungeon();
+	}
+	
 	
 }
