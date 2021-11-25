@@ -17,6 +17,7 @@ public abstract class DungeonBuilder {
 		return dungeon;
 	}
 	
+	public abstract void createRoom(int roomDim, int level);
 	
 	public void setDifficulty(int difficulty) {
 		dungeon.setDifficulty(difficulty);
@@ -30,10 +31,18 @@ public abstract class DungeonBuilder {
 		dungeon.getRooms().addAll(rooms);
 	}
 	
-	public void addCharacter(Character chara, int roomLevel, int indexToPut) {
-		dungeon.getRoom(roomLevel).addCharacter(chara, indexToPut);
+	
+	public void addHero(Hero hero) {
+		// The hero is necessary at tile 0
+		dungeon.getRoom(0).addHero(hero);
 	}
 	
 	// create a dungeon
 	public abstract void build(Hero hero);
+
+
+	public void setDifficulty() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -9,6 +9,7 @@ public class GameManager {
 
 	private Room currentRoom;
 	private Dungeon dungeon;
+	private HumanPlayer humanPlayer;
 	
 	public Room nextRoom() {
 		int level = currentRoom.getLevel();
@@ -19,7 +20,26 @@ public class GameManager {
 	
 	public void buildBasicDungeon() {
 		var bdb = new BasicDungeonBuilder();
+		bdb.build(humanPlayer.getChara());
 		dungeon = bdb.getDungeon();
+	}
+
+
+	public void createHuman() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void start() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void chooseDungeon() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
