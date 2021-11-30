@@ -59,14 +59,16 @@ public class Tile {
 	}
 
 	public Optional<character.Character> getCharacter() {
-		// attention si character null (cf. optionnels)
-		// java.util.Optional
-		// e.g:
-		// tile.getCharacter().ifIsPresent(s -> s.addItem())
+		if (this.character == null) {
+			return Optional.empty();
+		}
 		return Optional.of(character);
 	}
 
 	public Optional<Item> getItem() {
+		if (this.item == null) {
+			return Optional.empty();
+		}
 		return Optional.of(this.item);
 	}
 
