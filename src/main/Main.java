@@ -6,11 +6,12 @@ public class Main {
 		// Initialize game manager
 		var gm = new GameManager();
 		
-		// create a hero from user input
-		gm.createHuman();
-		
 		// choose dungeon
-		gm.chooseDungeon();
+		gm.createBasicDungeon();
+				
+		// create a hero from user input
+		gm.createDefaultHuman();
+		
 		
 		// launch the game
 		gm.start();

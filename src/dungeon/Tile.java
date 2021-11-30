@@ -16,6 +16,10 @@ public class Tile {
 		this.yPosition = YPosition;
 	}
 
+	public Tile() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void addCharacter(character.Character newCharacter) {
 
 		if (this.character == null) {

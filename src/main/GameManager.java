@@ -1,6 +1,8 @@
 package main;
 
+import character.Hero;
 import dungeon.*;
+import display.*;
 
 public class GameManager {
 	/*
@@ -17,29 +19,25 @@ public class GameManager {
 		return this.currentRoom;
 	}
 	
-	
-	public void buildBasicDungeon() {
-		var bdb = new BasicDungeonBuilder();
-		bdb.build(humanPlayer.getChara());
-		dungeon = bdb.getDungeon();
-	}
 
-
-	public void createHuman() {
-		// TODO Auto-generated method stub
-		
+	public void createDefaultHuman() {
+		Hero hero = Hero.createDefaultHero();
+		Tile firstTile = dungeon.getRoom(0).getTile(0);
+		humanPlayer = new HumanPlayer(hero, firstTile); 
 	}
 
 
 	public void start() {
-		// TODO Auto-generated method stub
 		
+		currentRoom = dungeon.getRoom(0);
+		RoomPrinter.display(currentRoom, humanPlayer.getChara());
 	}
 
 
-	public void chooseDungeon() {
-		// TODO Auto-generated method stub
-		
+	public void createBasicDungeon() {
+		var bd = new BasicDungeonBuilder();
+		bd.build();
+		dungeon = bd.getDungeon();
 	}
 	
 	

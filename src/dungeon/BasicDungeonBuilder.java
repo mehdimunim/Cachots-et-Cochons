@@ -25,12 +25,11 @@ public class BasicDungeonBuilder extends DungeonBuilder {
 	}
 
 	@Override
-	public void build(Hero hero) {
+	public void build() {
 		this.setDifficulty();
 		for (int i=0; i<3; i++) {
 			createRoom(10, i);
 		}
-		this.addHero(hero);
 	}
 			
 		

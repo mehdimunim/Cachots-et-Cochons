@@ -5,15 +5,9 @@ import character.Character;
 import character.Hero;
 
 public abstract class DungeonBuilder {
-	private Dungeon dungeon;
+	private Dungeon dungeon = new Dungeon();
 	
 	public Dungeon getDungeon() {
-		/*
-		 * Only one instance of dungeon
-		 */
-		if (dungeon == null) {
-			dungeon = new Dungeon();
-		}
 		return dungeon;
 	}
 	
@@ -24,7 +18,7 @@ public abstract class DungeonBuilder {
 	}
 	
 	public void addRoom(Room room) {
-		dungeon.getRooms().add(room);
+		dungeon.addRoom(room);
 	}
 	
 	public void addRooms(List<Room> rooms) {
@@ -38,7 +32,7 @@ public abstract class DungeonBuilder {
 	}
 	
 	// create a dungeon
-	public abstract void build(Hero hero);
+	public abstract void build();
 
 
 	public void setDifficulty() {

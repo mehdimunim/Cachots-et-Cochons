@@ -6,10 +6,7 @@ import java.util.Iterator;
 
 public class Room implements Iterable<Tile> {
 
-	// mettre sous forme de matrice
-	// potentiel Linked List
-	// mettre un itérateur
-	private Tile[][] tiles;
+	private List<List<Tile>> tiles;
 	private String description = "";
 	private int xDim;
 	private int yDim;
@@ -20,7 +17,16 @@ public class Room implements Iterable<Tile> {
 		this.xDim = x;
 		this.yDim = y;
 		this.level = level;
-		this.tiles = new Tile[x][y];
+		this.tiles = new ArrayList<List<Tile>>();
+		for (int i = 0; i<xDim;i++) {
+			List<Tile> row = new ArrayList<>();
+			for (int j = 0; j<yDim;j++) {
+				row.add(new Tile(i, j));
+			}
+			tiles.add(row);
+		}
+		
+		
 	}
 
 	public int getX() {
@@ -48,7 +54,7 @@ public class Room implements Iterable<Tile> {
 
 	public Tile getTile(int x, int y) {
 
-		return this.tiles[x][y];
+		return this.tiles.get(x).get(y);
 	}
 
 	public void addCharacter(character.Character character, int index) {
@@ -63,8 +69,8 @@ public class Room implements Iterable<Tile> {
 		this.getFirstTile().addCharacter(hero);
 	}
 
-	private Tile getFirstTile() {
-		return this.tiles[0][0];
+	public Tile getFirstTile() {
+		return this.tiles.get(0).get(0);
 	}
 
 	public List<character.Character> getCharacters() {
@@ -108,7 +114,7 @@ public class Room implements Iterable<Tile> {
 				currentIndex++;
 				int x = currentIndex % xDim;
 				int y = (currentIndex - currentIndex) / yDim;
-				return tiles[x][y];
+				return getTile(x, y);
 			}
 		}
 

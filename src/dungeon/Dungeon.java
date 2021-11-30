@@ -1,5 +1,6 @@
 package dungeon;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +15,14 @@ public class Dungeon implements Iterable<Room>{
 	@Override
 	public Dungeon clone() {
 		return null;
+	}
+	
+	public void addRoom(Room room) {
+		if (rooms == null) {
+			rooms = new ArrayList<Room>();
+		}
+		rooms.add(room);
+		
 	}
 
 	public Room getRoom(int level) {
