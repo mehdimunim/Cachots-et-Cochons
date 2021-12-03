@@ -1,5 +1,8 @@
 package display;
 
+import dungeon.Room;
+import main.HumanPlayer;
+
 public class InfoPrinter {
 
 	
@@ -21,5 +24,10 @@ public class InfoPrinter {
 		sb.append("Description: " + room.getDescription() + "\n");
 		
 		System.out.print(sb.toString());
+	}
+
+	public static void update(Room currentRoom, HumanPlayer humanPlayer) {
+		display(humanPlayer.getChara(), currentRoom);
+		
 	}
 }

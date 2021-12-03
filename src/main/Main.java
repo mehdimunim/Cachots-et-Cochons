@@ -13,6 +13,10 @@ public class Main {
 		gm.createDefaultHuman();
 
 		// launch the game
-		gm.start();
+		try {
+			gm.start();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

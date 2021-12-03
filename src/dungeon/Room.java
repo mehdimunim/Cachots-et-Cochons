@@ -116,4 +116,9 @@ public class Room implements Iterable<Tile> {
 		this.level = level;
 	}
 
+	public boolean isLast() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

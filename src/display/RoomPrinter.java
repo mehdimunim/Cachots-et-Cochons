@@ -2,6 +2,7 @@ package display;
 
 import dungeon.Room;
 import dungeon.Tile;
+import main.HumanPlayer;
 import character.Hero;
 
 public class RoomPrinter {
@@ -30,9 +31,12 @@ public class RoomPrinter {
 
 		}
 		System.out.println("* ".repeat(x + 2));
-
-		// display info
-		InfoPrinter.display(hero, room);
 	}
+
+	public static void update(Room currentRoom, HumanPlayer humanPlayer) {
+		display(currentRoom, humanPlayer.getChara());
+	}
+
+	
 
 }
