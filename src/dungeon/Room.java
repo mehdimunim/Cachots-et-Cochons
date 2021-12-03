@@ -101,24 +101,11 @@ public class Room implements Iterable<Tile> {
 
 	@Override
 	public Iterator<Tile> iterator() {
-		return new Iterator<Tile>() {
-			private int currentIndex = 0;
-
-			@Override
-			public boolean hasNext() {
-				return currentIndex < xDim * yDim;
-			}
-
-			@Override
-			public Tile next() {
-				currentIndex++;
-				int x = currentIndex % xDim;
-				int y = (currentIndex - currentIndex) / yDim;
-				return getTile(x, y);
-			}
+		var flattenRoom = new ArrayList<Tile>();
+		for (List<Tile> row : tiles) {
+			flattenRoom.addAll(row);
 		}
-
-		;
+		return flattenRoom.iterator();
 	}
 	
 	public int getLevel() {

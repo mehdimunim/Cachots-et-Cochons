@@ -18,5 +18,13 @@ public class Bow extends Item{
 	public void loadArrow(Arrow arrow) {
 		quiver.add(arrow);
 	}
+	
+	public int getRange() {
+		return this.range;
+	}
+	
+	public void setRange(int range) {
+		this.range = range;
+	}
 
 }

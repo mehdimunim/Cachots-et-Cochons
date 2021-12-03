@@ -19,13 +19,18 @@ public class Tile {
 	public Tile() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	public void addCharacter(character.Character newCharacter) {
-
+		/**
+		 * Add a character 
+		 */
 		if (this.character == null) {
 			this.character = newCharacter;
 		}
+		
 		// else conflict between newCharacter and character
+		// else do nothing
 	}
 	
 	public void removeCharacter() {

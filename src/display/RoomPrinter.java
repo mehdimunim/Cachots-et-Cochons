@@ -10,26 +10,26 @@ public class RoomPrinter {
 
 		int x = room.getX();
 		int y = room.getY();
-		
-		//+2 to include borders
-		System.out.println("* ".repeat(x+2));
+
+		// +2 to include borders
+		System.out.println("* ".repeat(x + 2));
 		// display tiles
 		for (Tile tile : room) {
 			int yPos = tile.getYPosition();
 
-			if (yPos == 1) {
+			if (yPos == 0) {
 				System.out.print("* ");
 			}
 
 			TilePrinter.display(tile);
 
-			if (yPos == y) {
+			if (yPos == y - 1) {
 				System.out.print("*\n");
 			}
 			;
 
 		}
-		System.out.println("* ".repeat(x+2));
+		System.out.println("* ".repeat(x + 2));
 
 		// display info
 		InfoPrinter.display(hero, room);
