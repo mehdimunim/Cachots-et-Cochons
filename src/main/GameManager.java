@@ -45,7 +45,8 @@ public class GameManager {
 	}
 	
 	public void initAIPlayers() {
-		AIPlayers = currentRoom.getCharacters().stream().map(chara -> new AIPlayer(chara,new Tile())).collect(Collectors.toList());
+		//TODO
+		AIPlayers = currentRoom.getCharacters().stream().map(chara -> new AIPlayer(chara,currentRoom.getTile(chara))).collect(Collectors.toList());
 	}
 
 	public void start() throws InterruptedException {

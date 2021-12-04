@@ -49,15 +49,15 @@ public class HumanPlayer extends Player<character.Hero> {
 		Tile tile = chooseTile(scanner, tiles);
 		
 		// Check if move is possible
-		if (this.canGoTo(tile)) {
-			this.goTo(tile);
+		if (canGoTo(tile)) {
+			goTo(tile);
 		}
 
 		// else if can attack
-		else if (this.canAttack(tile)) {
+		else if (canAttack(tile)) {
 			// confirm attack
 			if (confirmAttack(scanner)) {
-				this.attack(tile);
+				attack(tile);
 			} else {
 				System.out.println("Attack aborted");
 				play(reachableTiles);
