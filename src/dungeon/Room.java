@@ -41,7 +41,7 @@ public class Room implements Iterable<Tile> {
 		return this.description;
 	};
 
-	public Object getTiles() {
+	public List<List<Tile>> getTiles() {
 		return this.tiles;
 	}
 

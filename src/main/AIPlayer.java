@@ -15,31 +15,27 @@ public class AIPlayer extends Player<character.Character> {
 
 	@Override
 	public void play(List<Tile> reachableTiles) {
-		//generate all reachable tiles for AI player
-		
-		//choose one randomly
+
+		// choose one tile randomly
 		Random rand = new Random();
-	    Tile randomTile = reachableTiles.get(rand.nextInt(reachableTiles.size()));
-		
-	    Optional<Character> chara = randomTile.getCharacter();
-	    
-	    
-	    
-	    // if no character, move to the tile
-	    if (chara.isEmpty()) {
-	    	this.goTo(randomTile);
-	    }
-	    
-	    // else if there is an enemy, attack
-	    else if (chara.get().isEnnemyWith(this.getChara())) {
-	    	this.getChara().attack(chara.get());
-	    }
-	    
-	    //else if there is ally, redo
-	    else {
-	    	this.play(reachableTiles);
-	    }
-	    
+		Tile randomTile = reachableTiles.get(rand.nextInt(reachableTiles.size()));
+
+		Optional<Character> chara = randomTile.getCharacter();
+
+		// if no character, move to the tile
+		if (chara.isEmpty()) {
+			this.goTo(randomTile);
+		}
+
+		// else if there is an enemy, attack
+		else if (chara.get().isEnnemyWith(this.getChara())) {
+			this.getChara().attack(chara.get());
+		}
+
+		// else if there is ally, redo
+		else {
+			this.play(reachableTiles);
+		}
 
 	}
 

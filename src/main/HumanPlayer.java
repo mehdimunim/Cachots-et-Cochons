@@ -1,6 +1,7 @@
 package main;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,17 +20,25 @@ public class HumanPlayer extends Player<character.Hero> {
 	public void useItem(inventory.Item item) {
 		this.getChara().useItem(item);
 	}
+	
+	public Map<String, Tile> listReachableTiles(List<Tile> reachableTiles) {
+		var tiles = reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
+		System.out.println("List of all reachable Cases");
+		tiles.forEach((key, value) -> System.out.println(key));
+		return tiles;
+		
+	}
 
 	@Override
 	public void play(List<Tile> reachableTiles) {
 		System.out.println("Choose case");
+		
 		// List all tiles to human
-		var tiles = reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
-		System.out.println("List of all reachable Cases");
-		tiles.forEach((key, value) -> System.out.println(key));
+		var tiles = listReachableTiles(reachableTiles);
 		
 		// Read input
 		Scanner scanner = new Scanner(System.in);
+		// choose a tile with input
 		Tile tile = tiles.get(scanner.nextLine());
 
 		// Check if move is possible

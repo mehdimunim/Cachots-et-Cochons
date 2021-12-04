@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dungeon.Room;
@@ -103,9 +104,15 @@ public abstract class Player<T extends character.Character> {
 		this.currentTile = currentTile;
 	}
 
-	public List<dungeon.Tile> getReachableTiles(Room currentRoom) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Tile> getReachableTiles(Room currentRoom) {
+		var reachableTiles = new ArrayList<Tile>();
+		for (Tile tile : currentRoom) {
+			if (canReach(tile)) {
+				reachableTiles.add(tile);
+			}
+		}
+		return reachableTiles;
+
 	}
 
 }

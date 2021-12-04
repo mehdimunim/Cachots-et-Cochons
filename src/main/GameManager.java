@@ -17,7 +17,6 @@ public class GameManager {
 	private Dungeon dungeon;
 	private HumanPlayer humanPlayer;
 	private List<AIPlayer> AIPlayers;
-	//private Player<character.Character> currentPlayer;
 
 	public Optional<Room> nextRoom() {
 
@@ -66,7 +65,8 @@ public class GameManager {
 					giveTurnTo(player);
 					notifyPrinters();
 					// wait between AI turns
-					wait(1000);
+					// TODO: solve IllegalMonitorException
+					//wait(1000);
 				}
 				// give turn to human
 				giveTurnTo(humanPlayer);

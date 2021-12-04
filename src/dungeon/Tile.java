@@ -90,5 +90,9 @@ public class Tile {
 	public boolean hasCharacter() {
 		return (this.character == null) ? false : true;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
+	}
 }
