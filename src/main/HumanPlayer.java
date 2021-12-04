@@ -12,7 +12,7 @@ public class HumanPlayer extends Player<character.Hero> {
 	public HumanPlayer(character.Hero hero, Tile currentTile) {
 		super(hero, currentTile);
 	}
-	
+
 	public void grabItem(dungeon.Tile tile) {
 		this.getChara().searchTile(tile);
 	}
@@ -20,32 +20,39 @@ public class HumanPlayer extends Player<character.Hero> {
 	public void useItem(inventory.Item item) {
 		this.getChara().useItem(item);
 	}
-	
+
 	public Map<String, Tile> listReachableTiles(List<Tile> reachableTiles) {
 		var tiles = reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
-		System.out.println("List of all reachable Cases");
+		System.out.println("List of all reachable cases");
 		tiles.forEach((key, value) -> System.out.println(key));
 		return tiles;
-		
+
+	}
+
+	public Tile chooseTile(Scanner scanner, Map<String, Tile> tiles) {
+		// choose a tile with input
+		Tile tile = null;
+		while (tile == null) {
+			System.out.print("Choose case: \n");
+			tile = tiles.get(scanner.nextLine());
+		}
+		return tile;
 	}
 
 	@Override
 	public void play(List<Tile> reachableTiles) {
-		System.out.println("Choose case");
-		
 		// List all tiles to human
 		var tiles = listReachableTiles(reachableTiles);
 		
-		// Read input
+		// Let human choose a tile
 		Scanner scanner = new Scanner(System.in);
-		// choose a tile with input
-		Tile tile = tiles.get(scanner.nextLine());
-
+		Tile tile = chooseTile(scanner, tiles);
+		
 		// Check if move is possible
 		if (this.canGoTo(tile)) {
 			this.goTo(tile);
 		}
-		
+
 		// else if can attack
 		else if (this.canAttack(tile)) {
 			// confirm attack
@@ -56,7 +63,7 @@ public class HumanPlayer extends Player<character.Hero> {
 				play(reachableTiles);
 			}
 
-		//else choose another tile
+			// else choose another tile
 		} else {
 			System.out.println("Tile blocked");
 			play(reachableTiles);
@@ -67,7 +74,7 @@ public class HumanPlayer extends Player<character.Hero> {
 	private boolean confirmAttack(Scanner scanner) {
 		System.out.println("Do you want to attack? [y/n]");
 		String confirm = scanner.nextLine();
-		if (confirm.toLowerCase().equals('y')) {
+		if (confirm.toLowerCase().equals("y")) {
 			return true;
 		}
 		return false;
