@@ -6,5 +6,9 @@ public abstract class Monster extends Character{
 		super(XP, HP, attack, defense, move);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	public boolean isEnnemyWith(Character chara) {
+		return chara instanceof Hero;
+	}
 }

@@ -1,7 +1,7 @@
 package inventory;
 
 public class Shield extends Item{
-	int defense;
+	private int defense;
 	
 	public Shield(int defense) {
 		this.defense = defense;

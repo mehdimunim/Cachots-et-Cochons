@@ -1,7 +1,7 @@
 package inventory;
 
 public class Arrow extends Item {
-	int damage;
+	private int damage;
 	
 	public Arrow(int damage) {
 		this.damage = damage;

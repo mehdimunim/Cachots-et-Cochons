@@ -2,11 +2,12 @@ package character;
 
 public abstract class Character {
 	
-	int XP;
-	int HP;
-	int attack;
-	int defense;
-	int move;
+	private int XP;
+	private int HP;
+	private int attack;
+	private int defense;
+	private int move;
+	private int bowRange;
 	
 	public Character(int XP, int HP, int attack, int defense, int move) {
 		
@@ -17,7 +18,10 @@ public abstract class Character {
 		this.move = move;
 	};
 	
-	public void move() {
+	public void move(dungeon.Tile tile) {
+		/**
+		 * Contradiction because move supposes to know the current tile 
+		 */
 		
 	};
 	
@@ -83,6 +87,12 @@ public abstract class Character {
 
 	public void setMove(int move) {
 		this.move = move;
-	};
+	}
+
+	public int getBowRange() {
+		return this.bowRange;
+	}
+
+	public abstract boolean isEnnemyWith(Character chara);
 
 }

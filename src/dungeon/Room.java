@@ -1,29 +1,32 @@
 package dungeon;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Room {
+public class Room implements Iterable<Tile> {
 
-	List<Tile> tiles = new ArrayList<Tile>();
+	private List<List<Tile>> tiles;
 	private String description = "";
-	int xDim;
-	int yDim;
-	int level;
+	private int xDim;
+	private int yDim;
+	private int level;
 
 	public Room(int x, int y, String desc, int level) {
 		this.description = desc;
 		this.xDim = x;
 		this.yDim = y;
 		this.level = level;
-
-		for (int i = 1; i <= x; i++) {
-			for (int j = 1; j <= y; j++) {
-				Tile tile = new Tile(i, j);
-				tiles.add(tile);
+		this.tiles = new ArrayList<List<Tile>>();
+		for (int i = 0; i<xDim;i++) {
+			List<Tile> row = new ArrayList<>();
+			for (int j = 0; j<yDim;j++) {
+				row.add(new Tile(i, j));
 			}
+			tiles.add(row);
 		}
+		
+		
 	}
 
 	public int getX() {
@@ -38,39 +41,84 @@ public class Room {
 		return this.description;
 	};
 
-	public List<Tile> getTiles() {
+	public List<List<Tile>> getTiles() {
 		return this.tiles;
 	}
-	
+
 	public Tile getTile(int index) {
-		return this.tiles.get(index);
+		// index = y*xDim + x
+		int x = index % xDim;
+		int y = (index - x) / xDim;
+		return this.getTile(x, y);
 	}
-	
+
 	public Tile getTile(int x, int y) {
-		
-		/*1 2 3 4
-		 1* * * * 
-		 2* * * * 
-		 */
-		// return this.getTile(xDim*(x-1) + y);
-		return null;
+
+		return this.tiles.get(x).get(y);
 	}
-	
+
 	public void addCharacter(character.Character character, int index) {
-		this.tiles.get(index).addCharacter(character);
-		
+		this.getTile(index).addCharacter(character);
+
 	}
-	
+
 	public void addHero(character.Hero hero) {
 		/**
 		 * Add a hero on the first tile
 		 */
-		this.tiles.get(0).addCharacter(hero);
+		this.getFirstTile().addCharacter(hero);
+	}
+
+	public Tile getFirstTile() {
+		return this.tiles.get(0).get(0);
+	}
+
+	public List<character.Character> getCharacters() {
+		var charas = new ArrayList<character.Character>();
+		for (Tile tile : this)
+			tile.getCharacter().ifPresent(ch -> charas.add(ch));
+		return charas;
 	}
 	
-	public List<character.Character> getCharacters() {
+	public List<Tile> getReachableTilesFrom(Tile refTile, int move) {		
+		var res = new ArrayList<Tile>();
 		
-		return this.tiles.stream().map(x -> x.getCharacter()).filter(s -> s!=null).collect(Collectors.toList());
+		// add tiles within range
+		for (Tile tile:this) {
+			if (refTile.manhattanDistanceTo(tile) <= move) {
+				res.add(tile);
+			}
+		//remove reference tile
+		res.remove(refTile);
+			
+		}
+		
+		
+		
+		return res;
+		
+	}
+
+	@Override
+	public Iterator<Tile> iterator() {
+		var flattenRoom = new ArrayList<Tile>();
+		for (List<Tile> row : tiles) {
+			flattenRoom.addAll(row);
+		}
+		return flattenRoom.iterator();
+	}
+	
+	public int getLevel() {
+		return this.level;
+	}
+	
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public boolean isLast() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -1,5 +1,9 @@
 package character;
 
+import java.util.Optional;
+
+import inventory.Item;
+
 public class Hero extends Character {
 
 	private static Hero defaultHero;
@@ -14,7 +18,7 @@ public class Hero extends Character {
 		this.invent = new inventory.Inventory(3);
 	};
 
-	public static Hero getDefaultHero() {
+	public static Hero createDefaultHero() {
 
 		if (defaultHero == null) {
 			defaultHero = new Hero(120, 80, 100, 100, 100, "PigSlaughter");
@@ -23,7 +27,7 @@ public class Hero extends Character {
 		return defaultHero;
 	}
 
-	public static Hero getHero(String name) {
+	public static Hero createHero(String name) {
 		/**
 		 * Personalized hero
 		 */
@@ -38,12 +42,9 @@ public class Hero extends Character {
 		return hero;
 	}
 
-	public inventory.Item searchTile(dungeon.Tile tile) {
-		inventory.Item item = tile.getItem();
-
-		if (item != null) {
-			this.invent.addItem(item);
-		}
+	public Optional<Item> searchTile(dungeon.Tile tile) {
+		Optional<Item> item = tile.getItem();	
+		item.ifPresent(it -> this.invent.addItem(it));
 		return item;
 	}
 
@@ -62,6 +63,12 @@ public class Hero extends Character {
 
 	public String getName() {
 		return this.name;
+	}
+
+	@Override
+	public boolean isEnnemyWith(Character chara) {
+		// Hero is at war with all characters
+		return chara instanceof Monster;
 	}
 
 }

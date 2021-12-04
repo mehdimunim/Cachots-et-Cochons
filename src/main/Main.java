@@ -1,40 +1,22 @@
 package main;
 
-import dungeon.*;
-import character.MonsterFactory;
-import display.*;
-import character.*;
-
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("The game starts");
+		// Initialize game manager
+		var gm = new GameManager();
 
-		// empty room of dimension 10 * 10
-		Room room = new Room(10, 10, "", 0);
-		
-		// spawns two boars
-		
-		MonsterFactory.spawnBoar(room.getTile(1));
-		MonsterFactory.spawnSow(room.getTile(2));
-		MonsterFactory.spawnShoat(room.getTile(15));
-		MonsterFactory.spawnBoar(room.getTile(10));
-		
-		// create and add the hero
-		Hero hero = Hero.getDefaultHero();
-		room.addHero(hero);
+		// choose dungeon
+		gm.createBasicDungeon();
 
-		// display the room with monsters and the hero 
-		RoomPrinter.display(room, hero);
+		// create a hero from user input
+		gm.createDefaultHuman();
 
-		RoomManager rm = new RoomManager();
-
-		for (character.Character chara : room.getCharacters()) {
-			rm.play(chara);
+		// launch the game
+		try {
+			gm.start();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-
-		rm.play(hero);
-
 	}
-
 }
