@@ -19,22 +19,26 @@ public class AIPlayer extends Player<character.Character> {
 		// choose one tile randomly
 		Random rand = new Random();
 		Tile randomTile = reachableTiles.get(rand.nextInt(reachableTiles.size()));
-
+		
+		boolean possible = false;
+		while (!possible&& !reachableTiles.isEmpty()) {
 		Optional<Character> chara = randomTile.getCharacter();
 
 		// if no character, move to the tile
 		if (chara.isEmpty()) {
+			possible = true;
 			this.goTo(randomTile);
 		}
 
 		// else if there is an enemy, attack
 		else if (chara.get().isEnnemyWith(this.getChara())) {
+			possible = true;
 			this.getChara().attack(chara.get());
 		}
 
-		// else if there is ally, redo
-		else {
-			this.play(reachableTiles);
+		// else if there is ally, redo without the tile picked up
+		reachableTiles.remove(randomTile);
+		
 		}
 
 	}

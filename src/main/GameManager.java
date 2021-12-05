@@ -95,6 +95,7 @@ public class GameManager {
 
 		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
 		player.play(reachableTiles);
+		
 	}
 
 	public void removeFromGame(AIPlayer player) {
