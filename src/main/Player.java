@@ -44,10 +44,9 @@ public abstract class Player<T extends character.Character> {
 
 	public void goTo(dungeon.Tile tile) {
 
-		if (canGoTo(tile)) {
-			currentTile.removeCharacter();
-			tile.addCharacter(getChara());
-		}
+		currentTile.removeCharacter();
+		tile.addCharacter(getChara());
+		currentTile = tile;
 
 	}
 

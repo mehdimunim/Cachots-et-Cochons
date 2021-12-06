@@ -109,8 +109,6 @@ public class GameManager {
 
 	public <T extends character.Character> void giveTurnTo(Player<T> player) {
 
-		// Not correct because reachableTiles is only a copy of tiles from currentRoom
-		// the tiles will not be modified
 		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
 		player.play(reachableTiles);
 
