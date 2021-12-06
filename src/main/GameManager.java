@@ -79,7 +79,7 @@ public class GameManager {
 			while (!hasWonRoom()) {
 				// iterate over AI players
 				for (AIPlayer player : AIPlayers) {
-					// giveTurnTo(player);
+					giveTurnTo(player);
 					notifyPrinters();
 					// wait between AI turns
 					// TODO: solve IllegalMonitorException
