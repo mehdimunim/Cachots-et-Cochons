@@ -21,7 +21,11 @@ public abstract class Player<T extends character.Character> {
 	private boolean canReach(dungeon.Tile tile) {
 		int distance = this.currentTile.manhattanDistanceTo(tile);
 
-		if (distance < this.getChara().getMove()) {
+		if (distance == 0) {
+			return false;
+		}
+
+		else if (distance <= this.getChara().getMove()) {
 			return true;
 		}
 		return false;
@@ -30,8 +34,12 @@ public abstract class Player<T extends character.Character> {
 
 	protected boolean canGoTo(dungeon.Tile tile) {
 
-		boolean isOccupied = tile.hasCharacter();
-		return canReach(tile) && !isOccupied;
+		if (tile.equals(currentTile)) {
+			return false;
+		} else {
+			boolean isOccupied = tile.hasCharacter();
+			return canReach(tile) && !isOccupied;
+		}
 	}
 
 	public void goTo(dungeon.Tile tile) {
@@ -113,6 +121,10 @@ public abstract class Player<T extends character.Character> {
 		}
 		return reachableTiles;
 
+	}
+
+	public boolean isDead() {
+		return this.chara.isDead();
 	}
 
 }

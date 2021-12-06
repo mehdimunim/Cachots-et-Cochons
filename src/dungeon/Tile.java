@@ -79,16 +79,25 @@ public class Tile {
 
 	public int manhattanDistanceTo(Tile tile) {
 		// Manhattan distance
-		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.xPosition - xPosition);
+		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.yPosition - yPosition);
 	}
 	
 	public double euclidianDistanceTo(Tile tile) {
 		// Euclidian distance
-		return Math.sqrt(Math.pow(tile.xPosition - xPosition,2) + Math.pow(tile.xPosition - xPosition, 2));
+		return Math.sqrt(Math.pow(tile.xPosition - xPosition,2) + Math.pow(tile.yPosition - yPosition, 2));
 	}
 	
 	public boolean hasCharacter() {
 		return (this.character == null) ? false : true;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Tile) {
+			Tile otherTile = (Tile) o;
+			return (otherTile.getXPosition() == xPosition && otherTile.getYPosition() == yPosition);
+		}
+		return false;
 	}
 	
 	@Override

@@ -43,13 +43,18 @@ public class HumanPlayer extends Player<character.Hero> {
 	public void play(List<Tile> reachableTiles) {
 		// List all tiles to human
 		var tiles = listReachableTiles(reachableTiles);
-		
+
 		// Let human choose a tile
 		Scanner scanner = new Scanner(System.in);
 		Tile tile = chooseTile(scanner, tiles);
-		
+
+		// if no reachable tile, do nothing
+		if (reachableTiles.isEmpty()) {
+			System.out.println("No move possible");
+		}
+
 		// Check if move is possible
-		if (canGoTo(tile)) {
+		else if (canGoTo(tile)) {
 			goTo(tile);
 		}
 
@@ -63,9 +68,10 @@ public class HumanPlayer extends Player<character.Hero> {
 				play(reachableTiles);
 			}
 
-			// else choose another tile
+		// else choose another tile
 		} else {
 			System.out.println("Tile blocked");
+			reachableTiles.remove(tile);
 			play(reachableTiles);
 		}
 

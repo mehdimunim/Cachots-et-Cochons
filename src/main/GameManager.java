@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,31 +44,46 @@ public class GameManager {
 		dungeon.getRoom(0).addHero(humanPlayer.getChara());
 
 	}
-	
+
 	public void initAIPlayers() {
-		//TODO
-		AIPlayers = currentRoom.getCharacters().stream().map(chara -> new AIPlayer(chara,currentRoom.getTile(chara))).collect(Collectors.toList());
+
+		AIPlayers = new ArrayList<>();
+		// create a player where a character is present
+		for (Tile tile : currentRoom) {
+			// need to avoid initalizing hero as AI
+			if (!tile.equals(humanPlayer.getCurrentTile()))
+				tile.getCharacter().ifPresent(chara -> AIPlayers.add(new AIPlayer(chara, tile)));
+		}
+	}
+
+	public void updateAIPlayers() {
+
+		if (AIPlayers == null) {
+			initAIPlayers();
+		} else {
+			AIPlayers.stream().filter(ai -> ai.isDead()).forEach(ai -> removeFromGame(ai));
+		}
 	}
 
 	public void start() throws InterruptedException {
-		
+
 		// init room
 		currentRoom = dungeon.getRoom(0);
-		
+
 		// iterate over all rooms
 		while (!currentRoom.isLast()) {
-			initAIPlayers();
+			updateAIPlayers();
 			// refresh printer for the new turn
 			notifyPrinters();
 			// iterate over all players
 			while (!hasWonRoom()) {
 				// iterate over AI players
 				for (AIPlayer player : AIPlayers) {
-					giveTurnTo(player);
+					// giveTurnTo(player);
 					notifyPrinters();
 					// wait between AI turns
 					// TODO: solve IllegalMonitorException
-					//wait(1000);
+					// wait(1000);
 				}
 				// give turn to human
 				giveTurnTo(humanPlayer);
@@ -82,27 +98,31 @@ public class GameManager {
 		var bd = new BasicDungeonBuilder();
 		bd.build();
 		dungeon = bd.getDungeon();
-		
+
 	}
-	
+
 	public void notifyPrinters() {
 		RoomPrinter.update(currentRoom, humanPlayer);
 		InfoPrinter.update(currentRoom, humanPlayer);
-		
+
 	}
 
 	public <T extends character.Character> void giveTurnTo(Player<T> player) {
 
+		// Not correct because reachableTiles is only a copy of tiles from currentRoom
+		// the tiles will not be modified
 		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
 		player.play(reachableTiles);
-		
+
 	}
 
 	public void removeFromGame(AIPlayer player) {
+		player.getCurrentTile().removeCharacter();
 		AIPlayers.remove(player);
 	};
 
 	public void addToGame(AIPlayer player) {
+		player.getCurrentTile().addCharacter(player.getChara());
 		AIPlayers.add(player);
 	}
 
