@@ -21,7 +21,7 @@ public class Hero extends Character {
 	public static Hero createDefaultHero() {
 
 		if (defaultHero == null) {
-			defaultHero = new Hero(120, 80, 100, 100, 100, "PigSlaughter");
+			defaultHero = new Hero(120, 80, 100, 100, 2, "PigSlaughter");
 		}
 
 		return defaultHero;

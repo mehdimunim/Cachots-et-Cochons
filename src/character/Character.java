@@ -18,13 +18,6 @@ public abstract class Character {
 		this.move = move;
 	};
 	
-	public void move(dungeon.Tile tile) {
-		/**
-		 * Contradiction because move supposes to know the current tile 
-		 */
-		
-	};
-	
 	public void attack(Character character) {
 		
 	}
@@ -94,5 +87,9 @@ public abstract class Character {
 	}
 
 	public abstract boolean isEnnemyWith(Character chara);
+	
+	public boolean isDead() {
+		return this.HP <= 0;
+	}
 
 }

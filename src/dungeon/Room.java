@@ -1,6 +1,9 @@
 package dungeon;
 
 import java.util.List;
+
+import character.Character;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -119,6 +122,16 @@ public class Room implements Iterable<Tile> {
 	public boolean isLast() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public Tile getTile(Character newChara) {
+		// get the tile containing newChara
+		for (Tile tile : this) {
+			if (tile.getCharacter().isPresent() && tile.getCharacter().get() == newChara) {
+				return tile;
+			}
+		}
+		return null;
 	}
 
 }
