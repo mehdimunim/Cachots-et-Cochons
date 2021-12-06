@@ -21,9 +21,9 @@ public class Room implements Iterable<Tile> {
 		this.yDim = y;
 		this.level = level;
 		this.tiles = new ArrayList<List<Tile>>();
-		for (int i = 0; i<xDim;i++) {
+		for (int i = 1; i<=xDim;i++) {
 			List<Tile> row = new ArrayList<>();
-			for (int j = 0; j<yDim;j++) {
+			for (int j = 1; j<=yDim;j++) {
 				row.add(new Tile(i, j));
 			}
 			tiles.add(row);

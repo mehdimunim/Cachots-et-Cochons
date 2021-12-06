@@ -18,13 +18,13 @@ public class RoomPrinter {
 		for (Tile tile : room) {
 			int yPos = tile.getYPosition();
 
-			if (yPos == 0) {
+			if (yPos == 1) {
 				System.out.print("* ");
 			}
 
 			TilePrinter.display(tile);
 
-			if (yPos == y - 1) {
+			if (yPos == y) {
 				System.out.print("*\n");
 			}
 			;
