@@ -3,7 +3,6 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import character.Hero;
 import dungeon.*;
@@ -61,6 +60,7 @@ public class GameManager {
 		if (AIPlayers == null) {
 			initAIPlayers();
 		} else {
+			AIPlayers.stream().forEach(play -> play.setChara(play.getCurrentTile().getCharacter().get()));
 			AIPlayers.stream().filter(ai -> ai.isDead()).forEach(ai -> removeFromGame(ai));
 		}
 	}
@@ -78,8 +78,8 @@ public class GameManager {
 			// iterate over all players
 			while (!hasWonRoom()) {
 				// iterate over AI players
-				for (AIPlayer player : AIPlayers) {
-					giveTurnTo(player);
+				for (AIPlayer aiPlayer : AIPlayers) {
+					giveTurnTo(aiPlayer);
 					notifyPrinters();
 					// wait between AI turns
 					// TODO: solve IllegalMonitorException

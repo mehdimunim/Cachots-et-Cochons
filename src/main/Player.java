@@ -87,7 +87,7 @@ public abstract class Player<T extends character.Character> {
 	}
 
 	public void attack(Tile tile) {
-		tile.getCharacter().ifPresent(ch -> ch.loseHP(chara.getAttack()));
+		tile.getCharacter().ifPresent(ch -> ch.loseHP(getChara().getAttack()));
 	}
 
 	public T getChara() {

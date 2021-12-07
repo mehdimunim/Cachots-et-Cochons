@@ -47,7 +47,7 @@ public class HumanPlayer extends Player<character.Hero> {
 		// Let human choose a tile
 		Scanner scanner = new Scanner(System.in);
 		Tile tile = chooseTile(scanner, tiles);
-
+		
 		// if no reachable tile, do nothing
 		if (reachableTiles.isEmpty()) {
 			System.out.println("No move possible");
@@ -80,7 +80,7 @@ public class HumanPlayer extends Player<character.Hero> {
 	private boolean confirmAttack(Scanner scanner) {
 		System.out.println("Do you want to attack? [y/n]");
 		String confirm = scanner.nextLine();
-		if (confirm.toLowerCase().equals("y")) {
+		if (confirm.toLowerCase().charAt(0) == 'y') {
 			return true;
 		}
 		return false;
