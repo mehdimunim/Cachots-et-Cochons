@@ -100,6 +100,22 @@ public class Tile {
 		return false;
 	}
 	
+	public String getDepiction() {
+		/**
+		 * Get the way the Tile has to be depicted
+		 * Characters are displayed in priority
+		 */
+		if (this.item == null && this.character == null) {
+			return " ";
+		}
+		else if (this.character != null) {
+			return this.item.toString();
+		}
+		else {
+			return this.character.toString();
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
