@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import dungeon.Staircase;
 import dungeon.Tile;
 
 public class HumanPlayer extends Player<character.Hero> {
@@ -87,4 +88,12 @@ public class HumanPlayer extends Player<character.Hero> {
 
 	}
 
+	
+	public void goUp(Staircase tile) {
+		goTo(tile.getNext());
+	}
+	
+	public void goDown(Staircase tile) {
+		goTo(tile.getPrev());
+	}
 }
