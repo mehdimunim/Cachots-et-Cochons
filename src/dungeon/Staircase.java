@@ -44,4 +44,8 @@ public class Staircase extends Tile {
 		this.prevTile = prevTile;
 	}
 
+	@Override
+	public boolean isStaircase() {
+		return true;
+	}
 }

@@ -108,7 +108,7 @@ public class Tile {
 		if (this.item == null && this.character == null) {
 			return " ";
 		}
-		else if (this.character != null) {
+		else if (this.character == null) {
 			return this.item.toString();
 		}
 		else {
@@ -119,5 +119,9 @@ public class Tile {
 	@Override
 	public String toString() {
 		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
+	}
+
+	public boolean isStaircase() {
+		return false;
 	}
 }

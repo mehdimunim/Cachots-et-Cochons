@@ -65,7 +65,7 @@ public class GameManager {
 		}
 	}
 
-	public void start() throws InterruptedException {
+	public void start() {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
