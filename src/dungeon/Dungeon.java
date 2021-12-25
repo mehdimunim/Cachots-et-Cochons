@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Dungeon implements Iterable<Room>{
+public abstract class Dungeon implements Iterable<Room>, Cloneable {
 	/*
 	 * Dungeon 
 	 * 
@@ -13,8 +13,8 @@ public class Dungeon implements Iterable<Room>{
 	private List<Room> rooms;
 	
 	@Override
-	public Dungeon clone() {
-		return null;
+	public Dungeon clone() throws CloneNotSupportedException {
+		return (Dungeon) super.clone();
 	}
 	
 	public void addRoom(Room room) {
