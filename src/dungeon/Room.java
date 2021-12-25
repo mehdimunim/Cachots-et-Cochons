@@ -17,6 +17,13 @@ public class Room implements Iterable<Tile> {
 	private int level;
 
 	public Room(int x, int y, String desc, int level) {
+		/**
+		 * Room constructor
+		 * @param x: x dimension of the room
+		 * @param y: y dimension of the room
+		 * @param desc: description of the room
+		 * @param level: level of the room in the dungeon
+		 */
 		this.description = desc;
 		this.xDim = x;
 		this.yDim = y;

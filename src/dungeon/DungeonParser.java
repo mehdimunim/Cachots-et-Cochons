@@ -1,67 +1,36 @@
 package dungeon;
 
-import inventory.Item;
-
+import java.text.ParseException;
 import java.util.List;
 
-import character.Character;
+import org.w3c.dom.Element;
+
 import character.Hero;
-public class DungeonParser implements DungeonBuilder {
+import inventory.Item;
+
+import character.Character;
+
+public interface DungeonParser {
+	
+	public int parseDifficulty(Element mainElement)throws ParseException; 
+	
+	public Dungeon parseDungeon(Element mainElement)throws ParseException;
+	
+	public List<Room> parseRooms(Element mainElement)throws ParseException;
+
+	public Staircase parseStaircase(Element mainElement)throws ParseException;
+	
+	public Room parseRoom(Element element)throws ParseException;
+	
+	public Item parseItem(Element element) throws ParseException;
+	
+	public Character parseCharacter(Element element)throws ParseException;
+	
+	public Tile parseTile(Element element)throws ParseException;
+	
+	
 
 	
-	private void createTile(int i, int j, Character chara, Item item) {
-		
-		Tile tile = new Tile(i, j);
-		tile.addCharacter(chara);
-		
-	}
 	
-	@Override
-	public void createRoom(int roomDim, int level) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void build() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Dungeon getDungeon() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDifficulty(int difficulty) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addRoom(Room room) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addRooms(List<Room> rooms) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addHero(Hero hero) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setDifficulty() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
