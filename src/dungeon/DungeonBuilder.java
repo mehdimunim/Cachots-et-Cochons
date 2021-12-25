@@ -19,7 +19,7 @@ public interface DungeonBuilder {
 
 	public void addHero(Hero hero);
 
-	public abstract void build();
+	public void build();
 
 	public void setDifficulty();
 }
