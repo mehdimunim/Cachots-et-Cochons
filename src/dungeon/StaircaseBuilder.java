@@ -6,9 +6,9 @@ public class StaircaseBuilder {
 	
 	
 	public void createStaircase(List<Tile> tiles) {	
-		for (int i = 0; i<=tiles.size() - 1; i++) {
+		for (int i = 0; i<tiles.size() - 1; i++) {
 			Staircase downTile = new Staircase(tiles.get(i));
-			Staircase upTile = new Staircase(tiles.get(i +1 ));
+			Staircase upTile = new Staircase(tiles.get(i +1));
 			connect(downTile, upTile);
 		 }
 	}
