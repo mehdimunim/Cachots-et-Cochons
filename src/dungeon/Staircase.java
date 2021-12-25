@@ -14,6 +14,10 @@ public class Staircase extends Tile {
 		this(tile.getXPosition(), tile.getYPosition(), prevTile, nextTile);
 	}
 
+	public Staircase(Tile tile) {
+		this(tile, null, null);
+	}
+
 	public boolean isFirst() {
 		return prevTile == null;
 	}

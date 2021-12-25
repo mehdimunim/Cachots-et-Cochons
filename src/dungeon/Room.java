@@ -1,6 +1,7 @@
 package dungeon;
 
 import java.util.List;
+import java.util.Random;
 
 import character.Character;
 
@@ -75,6 +76,10 @@ public class Room implements Iterable<Tile> {
 	public Tile getFirstTile() {
 		return this.tiles.get(0).get(0);
 	}
+	
+	public Tile getLastTile() {
+		return this.tiles.get(xDim).get(yDim);
+	}
 
 	public List<character.Character> getCharacters() {
 		var charas = new ArrayList<character.Character>();
@@ -132,6 +137,11 @@ public class Room implements Iterable<Tile> {
 			}
 		}
 		return null;
+	}
+
+	public Tile getRandomTile() {
+		Random rand = new Random();
+        return getTile(rand.nextInt(tiles.size()));
 	}
 
 }

@@ -54,5 +54,9 @@ public class Dungeon implements Iterable<Room>{
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
+
+	public int size() {
+		return rooms.size();
+	}
 	
 }

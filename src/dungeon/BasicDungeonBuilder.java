@@ -24,12 +24,14 @@ public class BasicDungeonBuilder extends DungeonBuilder {
 		this.addRoom(room);
 	}
 
+	
 	@Override
 	public void build() {
 		this.setDifficulty();
 		for (int i=0; i<3; i++) {
 			createRoom(10, i);
 		}
+		createAllRandomStaircases();
 	}
 			
 		
