@@ -15,7 +15,20 @@ public class Room implements Iterable<Tile> {
 	private int xDim;
 	private int yDim;
 	private int level;
-
+	
+	
+	public Room(String desc, int level ) {
+		/**
+		 * Empty room constructor
+		 * @param desc: description of the room
+		 * @param level: level of the room in the dungeon
+		 */
+		this.description = desc;
+		this.level = level;
+		this.tiles = new ArrayList<List<Tile>>();
+		this.xDim = 0;
+		this.yDim = 0;
+	}
 	public Room(int x, int y, String desc, int level) {
 		/**
 		 * Room constructor

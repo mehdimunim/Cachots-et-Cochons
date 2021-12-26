@@ -65,9 +65,9 @@ public abstract class Player<T extends character.Character> {
 		return canReach(tile) || isWithinBowRange(tile);
 	}
 
-	private boolean canAttack(Player<T> player) {
-		return chara.isEnnemyWith(player.getChara()) && isWithinAttackRange(player.currentTile);
-	}
+	//private boolean canAttack(Player<T> player) {
+	//	return chara.isEnnemyWith(player.getChara()) && isWithinAttackRange(player.currentTile);
+	//}
 
 	public boolean canAttack(dungeon.Tile tile) {
 		if (tile.hasCharacter()) {

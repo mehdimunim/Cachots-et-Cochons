@@ -2,7 +2,6 @@ package dungeon;
 
 import java.util.List;
 
-import character.Character;
 import character.Hero;
 
 public interface DungeonBuilder {

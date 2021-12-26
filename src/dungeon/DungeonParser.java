@@ -5,28 +5,30 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import character.Hero;
-import inventory.Item;
-
 import character.Character;
+import inventory.Item;
 
 public interface DungeonParser {
 	
-	public int parseDifficulty(Element mainElement)throws ParseException; 
+	int parseDifficulty(Element mainElement)throws ParseException; 
 	
-	public Dungeon parseDungeon(Element mainElement)throws ParseException;
+	Dungeon parseDungeon(Element mainElement)throws ParseException;
 	
-	public List<Room> parseRooms(Element mainElement)throws ParseException;
+	List<Room> parseRooms(Element mainElement)throws ParseException;
 
-	public Staircase parseStaircase(Element mainElement)throws ParseException;
+	List<Staircase>  parseStaircases(Element mainElement)throws ParseException;
 	
-	public Room parseRoom(Element element)throws ParseException;
+	Room parseRoom(Element element)throws ParseException;
 	
-	public Item parseItem(Element element) throws ParseException;
+	Item parseItem(Element element) throws ParseException;
 	
-	public Character parseCharacter(Element element)throws ParseException;
+	Character parseCharacter(Element element)throws ParseException;
 	
-	public Tile parseTile(Element element)throws ParseException;
+	Tile parseTile(Element element)throws ParseException;
+
+	Dungeon getDungeon(String xmlFile) throws ParseException;
+	
+
 	
 	
 
