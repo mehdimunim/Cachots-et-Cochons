@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import character.Character;
@@ -62,6 +64,25 @@ class AttackTest {
 		System.out.println();
 	}
 	
+	
+	
+	@Test
+	void test() {
+		
+		System.out.println("Array test");
+		var arr = new ArrayList<String>();
+		arr.add("hello");
+		arr.add("Bonjour");
+		arr.add("Hello");
+		arr.add("Hallo");
+		arr.add("Chaire");
+		arr.add("Guten Tag");
+		arr.add("Salut!");
+		
+		arr.stream().filter(s -> s.toLowerCase().charAt(0) == 'h').forEach(System.out::println);
+		System.out.println(arr);
+		
+	}
 	@Test
 	void AIAttacksHumanTest() {
 		initDungeon();
