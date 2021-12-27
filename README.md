@@ -1,6 +1,6 @@
 # Cachots-et-Cochons
 
-Projet de Java avancé septembre-decembre 2021
+Projet de Java avancé septembre-janvier 2021
 
 ## Introduction
 Librement inspiré du jeu de rôle "Dungeons & Dragons".
