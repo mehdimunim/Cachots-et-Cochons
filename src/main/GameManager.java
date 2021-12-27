@@ -82,7 +82,9 @@ public class GameManager {
 				}
 				// give turn to human
 				giveTurnTo(humanPlayer);
+				// remove dead monsters
 				updateAIPlayers();
+				// update display
 				notifyPrinters();
 			}
 			nextRoom();
