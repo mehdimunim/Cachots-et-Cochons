@@ -50,36 +50,31 @@ public class GameManager {
 		AIPlayers = new ArrayList<>();
 		// create a player where a character is present
 		for (Tile tile : currentRoom) {
-			// need to avoid initalizing hero as AI
+			// need to avoid initializing hero as AI
 			if (!tile.equals(humanPlayer.getCurrentTile()))
 				tile.getCharacter().ifPresent(chara -> AIPlayers.add(new AIPlayer(chara, tile)));
 		}
 	}
 
 	public void updateAIPlayers() {
-
-		if (AIPlayers == null) {
-			initAIPlayers();
-		} else {
-			AIPlayers.stream().filter(ai -> ai.isDead()).forEach(ai -> removeFromGame(ai));
+		var deadAIs = AIPlayers.stream().filter(ai -> ai.isDead()).collect(Collectors.toList());
+		deadAIs.forEach(ai -> removeFromGame(ai));
 		}
-	}
 
-	public void start() throws InterruptedException {
+	public void start() {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
-
 		// iterate over all rooms
 		while (!currentRoom.isLast()) {
-			updateAIPlayers();
+			initAIPlayers();
 			// refresh printer for the new turn
 			notifyPrinters();
 			// iterate over all players
 			while (!hasWonRoom()) {
 				// iterate over AI players
-				for (AIPlayer player : AIPlayers) {
-					giveTurnTo(player);
+				for (AIPlayer aiPlayer : AIPlayers) {
+					giveTurnTo(aiPlayer);
 					notifyPrinters();
 					// wait between AI turns
 					// TODO: solve IllegalMonitorException
@@ -87,6 +82,9 @@ public class GameManager {
 				}
 				// give turn to human
 				giveTurnTo(humanPlayer);
+				// remove dead monsters
+				updateAIPlayers();
+				// update display
 				notifyPrinters();
 			}
 			nextRoom();

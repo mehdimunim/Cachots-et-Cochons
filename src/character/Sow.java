@@ -1,7 +1,7 @@
 package character;
 
 import java.util.List;
-
+import java.lang.Math;
 public class Sow extends AdultPig {
 	
 	/*
@@ -19,7 +19,14 @@ public class Sow extends AdultPig {
 	}
 	
 	public List<Shoat> farrow(Boar boar) {
-		return null;
+		int hp = Math.floorDiv(getHP(), 2);
+		int attack = Math.floorDiv(getAttack(), 2);
+		int defense = Math.floorDiv(getDefense(), 2);
+		int move = getMove()*2;
+		
+		Shoat s = new Shoat(0, hp, attack, defense, move);
+		Shoat s2 = new Shoat(0, hp, attack, defense, move);
+		return List.of(s, s2);
 	}
 
 }

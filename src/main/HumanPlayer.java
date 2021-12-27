@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import dungeon.Staircase;
 import dungeon.Tile;
 
 public class HumanPlayer extends Player<character.Hero> {
@@ -53,6 +54,10 @@ public class HumanPlayer extends Player<character.Hero> {
 			System.out.println("No move possible");
 		}
 
+		else if (tile.isStaircase()) {
+			chooseToCrossStaircase(scanner);
+		}
+
 		// Check if move is possible
 		else if (canGoTo(tile)) {
 			goTo(tile);
@@ -68,7 +73,7 @@ public class HumanPlayer extends Player<character.Hero> {
 				play(reachableTiles);
 			}
 
-		// else choose another tile
+			// else choose another tile
 		} else {
 			System.out.println("Tile blocked");
 			reachableTiles.remove(tile);
@@ -77,14 +82,38 @@ public class HumanPlayer extends Player<character.Hero> {
 
 	}
 
+	private void chooseToCrossStaircase(Scanner scanner) {
+		System.out.println("Staircase");
+		System.out.println("Do you want to go? [y/n]");
+		String confirm = scanner.nextLine();
+		if (confirm.toLowerCase().charAt(0) == 'y') {
+			System.out.println("[up/down]");
+			String choice = scanner.nextLine();
+			if (choice.toLowerCase().charAt(0) == 'u') {
+				goUp();
+			} else {
+				goDown();
+			}
+		}
+	};
+
 	private boolean confirmAttack(Scanner scanner) {
 		System.out.println("Do you want to attack? [y/n]");
 		String confirm = scanner.nextLine();
-		if (confirm.toLowerCase().equals("y")) {
+		if (confirm.toLowerCase().charAt(0) == 'y') {
 			return true;
 		}
 		return false;
 
 	}
 
+	public void goUp() {
+		var tile = (Staircase) getCurrentTile();
+		goTo(tile.getNext());
+	}
+
+	public void goDown() {
+		var tile = (Staircase) getCurrentTile();
+		goTo(tile.getNext());
+	}
 }

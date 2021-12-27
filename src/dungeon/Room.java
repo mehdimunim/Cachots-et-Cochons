@@ -1,6 +1,7 @@
 package dungeon;
 
 import java.util.List;
+import java.util.Random;
 
 import character.Character;
 
@@ -14,16 +15,36 @@ public class Room implements Iterable<Tile> {
 	private int xDim;
 	private int yDim;
 	private int level;
-
+	
+	
+	public Room(String desc, int level ) {
+		/**
+		 * Empty room constructor
+		 * @param desc: description of the room
+		 * @param level: level of the room in the dungeon
+		 */
+		this.description = desc;
+		this.level = level;
+		this.tiles = new ArrayList<List<Tile>>();
+		this.xDim = 0;
+		this.yDim = 0;
+	}
 	public Room(int x, int y, String desc, int level) {
+		/**
+		 * Room constructor
+		 * @param x: x dimension of the room
+		 * @param y: y dimension of the room
+		 * @param desc: description of the room
+		 * @param level: level of the room in the dungeon
+		 */
 		this.description = desc;
 		this.xDim = x;
 		this.yDim = y;
 		this.level = level;
 		this.tiles = new ArrayList<List<Tile>>();
-		for (int i = 0; i<xDim;i++) {
+		for (int i = 1; i<=xDim;i++) {
 			List<Tile> row = new ArrayList<>();
-			for (int j = 0; j<yDim;j++) {
+			for (int j = 1; j<=yDim;j++) {
 				row.add(new Tile(i, j));
 			}
 			tiles.add(row);
@@ -74,6 +95,10 @@ public class Room implements Iterable<Tile> {
 
 	public Tile getFirstTile() {
 		return this.tiles.get(0).get(0);
+	}
+	
+	public Tile getLastTile() {
+		return this.tiles.get(xDim).get(yDim);
 	}
 
 	public List<character.Character> getCharacters() {
@@ -132,6 +157,11 @@ public class Room implements Iterable<Tile> {
 			}
 		}
 		return null;
+	}
+
+	public Tile getRandomTile() {
+		Random rand = new Random();
+        return getTile(rand.nextInt(tiles.size()));
 	}
 
 }
