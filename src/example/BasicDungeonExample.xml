@@ -130,8 +130,7 @@
 				<xPosition>3</xPosition>
 				<yPosition>6</yPosition>
 				<character></character>
-				<item></item>
-				<isStaircase>yes</isStaircase>
+				<item>Staircase</item>
 			</tile>
 		</tiles>
 	</room>
@@ -259,8 +258,7 @@
 				<xPosition>3</xPosition>
 				<yPosition>4</yPosition>
 				<character></character>
-				<isStaircase>yes</isStaircase>
-				<item></item>
+				<item>Staircase</item>
 			</tile>
 
 			<tile>

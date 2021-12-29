@@ -4,7 +4,6 @@ import java.io.IOException; // builder.parse()
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -72,35 +71,7 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		}
 		return listRooms;
 	}
-
-	public Optional<Staircase> parseStaircase(Element element) throws ParseException {
-		String isStaircase = element.getElementsByTagName("isStaircase").item(0).getTextContent();
-		
-		if (isStaircase == null) {
-			return Optional.empty();
-		}
-		Tile tile = parseTile(element);
-		return Optional.of(buildStaircase(tile));
-		
-	}
 	
-	private Staircase buildStaircase(Tile tile) {
-		return new Staircase(tile);
-	}
-
-	public List<Staircase> parseStaircases(Element mainElement) throws ParseException {
-		var listStaircases = new ArrayList<Staircase>();
-		var nodeList = mainElement.getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node node = nodeList.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				Element elem = (Element) node;
-				parseStaircase(elem).ifPresent(sc -> listStaircases.add(sc));
-			}
-		}
-		return listStaircases;
-	}
-
 	@Override
 	public Tile parseTile(Element element) throws ParseException {
 

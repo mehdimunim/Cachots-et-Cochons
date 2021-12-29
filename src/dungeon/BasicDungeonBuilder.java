@@ -17,22 +17,6 @@ private Dungeon dungeon = new BasicDungeon();
 		dungeon.setDifficulty(difficulty);
 	}
 	
-	public void createAllRandomStaircases() {
-		/**
-		 * Create random staircases connecting each room to the next level if it exists.
-		 */
-		var sb = new StaircaseBuilder();
-		
-		for (int i = 0; i< dungeon.size() - 1; i++) {
-			
-			Room downRoom = dungeon.getRoom(i);
-			Room upRoom = dungeon.getRoom(i+1);
-			
-			sb.createStaircase(downRoom.getRandomTile(), upRoom.getRandomTile());
-			
-		}
-	}
-	
 	public void addRoom(Room room) {
 		dungeon.addRoom(room);
 	}
@@ -73,7 +57,6 @@ private Dungeon dungeon = new BasicDungeon();
 		for (int i=0; i<3; i++) {
 			createRoom(10, i);
 		}
-		createAllRandomStaircases();
 	}
 			
 		
