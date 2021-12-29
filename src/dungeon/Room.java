@@ -102,14 +102,14 @@ public class Room implements Iterable<Tile> {
 	}
 
 	public List<character.Character> getCharacters() {
-		var charas = new ArrayList<character.Character>();
+		List<character.Character> charas = new ArrayList<character.Character>();
 		for (Tile tile : this)
 			tile.getCharacter().ifPresent(ch -> charas.add(ch));
 		return charas;
 	}
 	
 	public List<Tile> getReachableTilesFrom(Tile refTile, int move) {		
-		var res = new ArrayList<Tile>();
+		List<Tile> res = new ArrayList<Tile>();
 		
 		// add tiles within range
 		for (Tile tile:this) {
@@ -129,7 +129,7 @@ public class Room implements Iterable<Tile> {
 
 	@Override
 	public Iterator<Tile> iterator() {
-		var flattenRoom = new ArrayList<Tile>();
+		List<Tile> flattenRoom = new ArrayList<Tile>();
 		for (List<Tile> row : tiles) {
 			flattenRoom.addAll(row);
 		}

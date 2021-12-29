@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException; // builder.parse()
 
 import character.Character;
@@ -60,8 +61,8 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 
 	@Override
 	public List<Room> parseRooms(Element mainElement) throws ParseException {
-		var listRooms = new ArrayList<Room>();
-		var nodeList = mainElement.getChildNodes();
+		List<Room> listRooms = new ArrayList<Room>();
+		NodeList nodeList = mainElement.getChildNodes();
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -94,9 +95,9 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 
 		String name = element.getElementsByTagName("name").item(0).getTextContent();
 		int level = Integer.parseInt(element.getElementsByTagName("level").item(0).getTextContent());
-		var nodeList = element.getElementsByTagName("tiles").item(0).getChildNodes();
+		NodeList nodeList = element.getElementsByTagName("tiles").item(0).getChildNodes();
 
-		var listTiles = new ArrayList<Tile>();
+		List<Tile> listTiles = new ArrayList<Tile>();
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -147,7 +148,7 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 	@Override
 	public Item parseItem(Element element) throws ParseException {
 		String item = element.getElementsByTagName("item").item(0).getTextContent();
-		var fac = new DefaultItemFactory();
+		DefaultItemFactory fac = new DefaultItemFactory();
 		switch (item) {
 
 		case "Bow":
@@ -169,7 +170,7 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 	public Character parseCharacter(Element element) throws ParseException {
 		String character = element.getElementsByTagName("item").item(0).getTextContent();
 
-		var fac = new MonsterFactory();
+		MonsterFactory fac = new MonsterFactory();
 		switch (character) {
 
 		case "Hero":

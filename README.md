@@ -8,10 +8,16 @@ Dungeon est un faux-ami ; en Français, il désigne plutôt les "cachots" ou "ou
 
 ## Requis
 
-Java SE-15 ou plus
+Java SE-8 ou plus
 
 ## Utilisation
-Compiler le fichier Main.java et lancer.
 
+Le jeu se lance en ligne de commande :
+
+cd Cachots-et-Cochons;
+javac -source 1.8 -target 1.8 -d target/ src/*/*.java
+java -cp target main.Main
+
+Il faut ensuite sp�cifier la case vers laquelle on souhaite aller sous le format (ligne, colonne).
 ## Contact
 mehdi.munim@gmail.com

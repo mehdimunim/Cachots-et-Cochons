@@ -112,7 +112,7 @@ public abstract class Player<T extends character.Character> {
 	}
 
 	public List<Tile> getReachableTiles(Room currentRoom) {
-		var reachableTiles = new ArrayList<Tile>();
+		List<Tile> reachableTiles = new ArrayList<Tile>();
 		for (Tile tile : currentRoom) {
 			if (canReach(tile)) {
 				reachableTiles.add(tile);

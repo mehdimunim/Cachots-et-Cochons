@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import dungeon.Room;
 import dungeon.Tile;
 
 public class HumanPlayer extends Player<character.Hero> {
@@ -22,7 +23,7 @@ public class HumanPlayer extends Player<character.Hero> {
 	}
 
 	public Map<String, Tile> listReachableTiles(List<Tile> reachableTiles) {
-		var tiles = reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
+		Map<String, Tile> tiles = reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
 		System.out.println("List of all reachable cases");
 		tiles.forEach((key, value) -> System.out.println(key));
 		return tiles;
@@ -42,7 +43,7 @@ public class HumanPlayer extends Player<character.Hero> {
 	@Override
 	public void play(List<Tile> reachableTiles) {
 		// List all tiles to human
-		var tiles = listReachableTiles(reachableTiles);
+		Map<String, Tile> tiles = listReachableTiles(reachableTiles);
 
 		// Let human choose a tile
 		Scanner scanner = new Scanner(System.in);
@@ -105,12 +106,23 @@ public class HumanPlayer extends Player<character.Hero> {
 		return false;
 
 	}
-
+	
 	public void goUp() {
 		
 	}
-
+	
 	public void goDown() {
 		
 	}
+	
+	public boolean canGoStaircase(){
+		return this.getChara().getInventory().has("Staircase");
+	}
+	
+	public void goStaircase(Room adjRoom) {
+		Tile tile = getCurrentTile();
+		goTo(adjRoom.getTile(tile.getXPosition(), tile.getYPosition()));
+		
+	}
+
 }
