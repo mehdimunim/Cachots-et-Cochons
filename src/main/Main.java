@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Initialize game manager
-		var gm = new GameManager();
+		GameManager gm = new GameManager();
 
 		// choose dungeon
 		gm.createBasicDungeon();

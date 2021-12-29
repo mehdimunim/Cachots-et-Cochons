@@ -1,12 +1,13 @@
 package inventory;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-public class Inventory {
+public class Inventory implements Iterable<Item>{
 	/*
 	 * Coder le comportement des objets
 	 */
-
 	private List<Item> items;
 
 	private int capacity;
@@ -20,10 +21,6 @@ public class Inventory {
 		if (items.size() < capacity) {
 			items.add(item);
 		}
-		
-		else {
-			
-		}
 
 	};
 
@@ -31,8 +28,16 @@ public class Inventory {
 
 		items.remove(item);
 
+	}
+
+	@Override
+	public Iterator<Item> iterator() {
+		return items.iterator();
+	}
+
+	public boolean has(String string) {
+		// TODO Auto-generated method stub
+		return false;
 	};
 	
-	
-	//TODO: méthode pour vérifier la présence d'un type d'objet
 }

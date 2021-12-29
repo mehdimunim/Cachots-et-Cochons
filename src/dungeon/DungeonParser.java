@@ -16,8 +16,6 @@ public interface DungeonParser {
 	
 	List<Room> parseRooms(Element mainElement)throws ParseException;
 
-	List<Staircase>  parseStaircases(Element mainElement)throws ParseException;
-	
 	Room parseRoom(Element element)throws ParseException;
 	
 	Item parseItem(Element element) throws ParseException;

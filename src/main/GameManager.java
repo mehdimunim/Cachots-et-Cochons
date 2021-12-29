@@ -36,6 +36,22 @@ public class GameManager {
 
 	}
 
+	public Optional<Room> prevRoom() {
+
+		int level = currentRoom.getLevel();
+
+		if (level == 0) {
+
+			return Optional.empty();
+		}
+
+		else {
+			currentRoom = dungeon.getRoom(level - 1);
+			return Optional.of(currentRoom);
+		}
+
+	}
+
 	public void createDefaultHuman() {
 
 		Hero hero = Hero.createDefaultHero();
@@ -57,9 +73,9 @@ public class GameManager {
 	}
 
 	public void updateAIPlayers() {
-		var deadAIs = AIPlayers.stream().filter(ai -> ai.isDead()).collect(Collectors.toList());
+		List<AIPlayer> deadAIs = AIPlayers.stream().filter(ai -> ai.isDead()).collect(Collectors.toList());
 		deadAIs.forEach(ai -> removeFromGame(ai));
-		}
+	}
 
 	public void start() {
 
@@ -93,7 +109,7 @@ public class GameManager {
 	}
 
 	public void createBasicDungeon() {
-		var bd = new BasicDungeonBuilder();
+		BasicDungeonBuilder bd = new BasicDungeonBuilder();
 		bd.build();
 		dungeon = bd.getDungeon();
 
@@ -116,6 +132,18 @@ public class GameManager {
 		player.getCurrentTile().removeCharacter();
 		AIPlayers.remove(player);
 	};
+
+	public void goUp() {
+		Optional<Room> nextRoom = nextRoom();
+		if (nextRoom.isPresent()) {
+			currentRoom = nextRoom.get();
+			humanPlayer.goStaircase(currentRoom);
+		}
+	}
+
+	public void goDown(HumanPlayer human) {
+		prevRoom();
+	}
 
 	public void addToGame(AIPlayer player) {
 		player.getCurrentTile().addCharacter(player.getChara());
