@@ -38,7 +38,7 @@ private Dungeon dungeon = new BasicDungeon();
 	
 	public void addStaircase(Room downRoom, Room upRoom, int i, int j) {
 		downRoom.getTile(i, j).addItem(DefaultItemFactory.createDownStaircase());
-		upRoom.getTile(i, j).addItem(DefaultItemFactory.createDownStaircase());
+		upRoom.getTile(i, j).addItem(DefaultItemFactory.createUpStaircase());
 	}
 	@Override
 	public void createRoom(int roomDim, int level) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import dungeon.Room;
 import dungeon.Tile;
+import inventory.Staircase;
 
 public abstract class Player<T extends character.Character> {
 	/**
@@ -65,9 +66,10 @@ public abstract class Player<T extends character.Character> {
 		return canReach(tile) || isWithinBowRange(tile);
 	}
 
-	//private boolean canAttack(Player<T> player) {
-	//	return chara.isEnnemyWith(player.getChara()) && isWithinAttackRange(player.currentTile);
-	//}
+	// private boolean canAttack(Player<T> player) {
+	// return chara.isEnnemyWith(player.getChara()) &&
+	// isWithinAttackRange(player.currentTile);
+	// }
 
 	public boolean canAttack(dungeon.Tile tile) {
 		if (tile.hasCharacter()) {
@@ -79,11 +81,6 @@ public abstract class Player<T extends character.Character> {
 			// Player cannot attack if the tile is empty
 			return false;
 		}
-	}
-
-	public void attack(Player<T> player) {
-		player.getChara().loseHP(getChara().getAttack());
-
 	}
 
 	public void attack(Tile tile) {
@@ -124,6 +121,28 @@ public abstract class Player<T extends character.Character> {
 
 	public boolean isDead() {
 		return this.chara.isDead();
+	}
+
+	public boolean isOnStaircase() {
+		if (currentTile.hasItem()) {
+			return currentTile.getItem().get() instanceof Staircase;
+		}
+		return false;
+	}
+	
+	public boolean isOnUp() {
+		if (isOnStaircase()) {
+			Staircase staircase = (Staircase) (currentTile.getItem().get());
+			return staircase.isUp();
+		}
+		return false;
+	}
+
+	protected abstract boolean choosesToGoStaircase();
+
+	public void goStaircase(Room adjRoom) {
+		goTo(adjRoom.getTile(currentTile.getXPosition(), currentTile.getYPosition()));
+		
 	}
 
 }
