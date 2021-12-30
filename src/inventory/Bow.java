@@ -26,5 +26,10 @@ public class Bow extends Item{
 	public void setRange(int range) {
 		this.range = range;
 	}
+	
+	@Override
+	public String toString() {
+		return ")";
+	}
 
 }

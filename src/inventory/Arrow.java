@@ -10,5 +10,9 @@ public class Arrow extends Item {
 		character.loseHP(damage);
 	}
 	
+	@Override
+	public String toString() {
+		return "-";
+	}
 	
 }

@@ -11,4 +11,9 @@ public class Shield extends Item{
 		
 		character.gainDefense(defense);
 	}
+	
+	@Override
+	public String toString() {
+		return "#";
+	}
 }

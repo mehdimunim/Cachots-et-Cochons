@@ -13,5 +13,10 @@ public class Sword extends Item{
 		character.gainAttack(damage);
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "/";
+	}
 
 }

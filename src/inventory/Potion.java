@@ -9,5 +9,9 @@ public class Potion extends Item{
 	public void heal(character.Character character ) {
 		character.gainHP(HP);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "+";
+	}
 }
