@@ -102,6 +102,5 @@ public class HumanPlayer extends Player<character.Hero> {
 
 	}
 	
-	
 
 }

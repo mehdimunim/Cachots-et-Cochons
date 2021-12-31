@@ -37,6 +37,10 @@ public class GameManager {
 	public void changeRoom(Room adjRoom) {
 		currentRoom = adjRoom;
 	}
+	
+	public void initHuman() {
+		humanPlayer.goTo(currentRoom.getFirstTile());
+	}
 
 	public Room prevRoom() {
 		int level = currentRoom.getLevel();
@@ -95,6 +99,7 @@ public class GameManager {
 				notifyPrinters();
 			}
 			changeRoom(nextRoom());
+			initHuman();
 		}
 
 	}
