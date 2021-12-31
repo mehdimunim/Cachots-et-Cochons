@@ -1,23 +1,27 @@
-# Cachots-et-Cochons
+# Cachots et Cochons
 
 Projet de Java avancé septembre-janvier 2021
 
 ## Introduction
-Librement inspiré du jeu de rôle "Dungeons & Dragons".
-Dungeon est un faux-ami ; en Français, il désigne plutôt les "cachots" ou "oubliettes".
+Implémentations des patrons de conception dans un jeu.
 
-## Requis
+Jeu de mots sur le double sens de *dungeon* (donjon / cachot, oubliettes).
 
-Java SE-8 ou plus
+## Configurations minimales
+Java SE-8
 
-## Utilisation
+## Installation
+Cloner le répertoire. Puis lancer en ligne de commandes : 
 
-Le jeu se lance en ligne de commande :
+`cd Cachots-et-Cochons`
 
-cd Cachots-et-Cochons;
-javac -source 1.8 -target 1.8 -d target/ src/*/*.java
-java -cp target main.Main
+`javac -source 1.8 -target 1.8 -d target/ src/*/*.java`
 
-Il faut ensuite sp�cifier la case vers laquelle on souhaite aller sous le format (ligne, colonne).
+`java -cp target main.Main`
+
+## Lancement du jeu
+
+Le jeu se lance en ligne de commande. On joue après l'IA. Il faut sélectionner la position de la case pour le déplacement/attaque. 
+
 ## Contact
 mehdi.munim@gmail.com
