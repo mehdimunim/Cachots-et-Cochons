@@ -5,22 +5,22 @@ import java.util.List;
 
 public class DefaultItemFactory {
 	
-	public Item createWoodArrow() {
+	public static Item createWoodArrow() {
 		Arrow arrow = new Arrow(1);
 		return arrow;
 	}
 	
-	public Item createIronArrow() {
+	public static Item createIronArrow() {
 		Arrow arrow = new Arrow(10);
 		return arrow;
 	}
 	
-	public Item createMagicalArrow() {
+	public static Item createMagicalArrow() {
 		Arrow arrow = new Arrow(20);
 		return arrow;
 	}
 	
-	public Item createBow() {
+	public static Item createBow() {
 		
 		List<Arrow> quiver = new ArrayList<>();
 		
@@ -37,19 +37,27 @@ public class DefaultItemFactory {
 		return bow;
 	}
 	
-	public Item createSword() {
+	public static Item createSword() {
 		Sword sword = new Sword(10);
 		return sword;
 	}
 	
-	public Item createShield() {
+	public static Item createShield() {
 		Shield shield = new Shield(10);
 		return shield;	
 	}
 	
-	public Item createPotion() {
+	public  static Item createPotion() {
 		Potion potion = new Potion(10);
 		return potion;
+	}
+	
+	public static Item createUpStaircase() {
+		return new Staircase("up");	
+	}
+	
+	public static Item createDownStaircase() {
+		return new Staircase("down");
 	}
 
 }

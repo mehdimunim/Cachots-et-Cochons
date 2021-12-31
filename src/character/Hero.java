@@ -48,7 +48,10 @@ public class Hero extends Character {
 
 	public Optional<Item> searchTile(dungeon.Tile tile) {
 		Optional<Item> item = tile.getItem();	
-		item.ifPresent(it -> this.invent.addItem(it));
+		if (item.isPresent()) {
+			invent.addItem(item.get());
+			tile.removeItem();
+		}
 		return item;
 	}
 

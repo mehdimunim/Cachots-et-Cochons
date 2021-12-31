@@ -45,6 +45,12 @@ public class AIPlayer extends Player<character.Character> {
 		
 		}
 
+	@Override
+	protected boolean choosesToGoStaircase() {
+		// an AI Player never crosses a staircase
+		return false;
+	}
+
 
 	}
 

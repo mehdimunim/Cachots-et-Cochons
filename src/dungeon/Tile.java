@@ -3,8 +3,9 @@ package dungeon;
 import java.util.Optional;
 
 import inventory.Item;
+import inventory.Staircase;
 
-public class Tile {
+public class Tile implements Comparable<Tile> {
 
 	private int xPosition;
 	private int yPosition;
@@ -19,32 +20,31 @@ public class Tile {
 	public Tile() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	public void addCharacter(character.Character newCharacter) {
 		/**
-		 * Add a character 
+		 * Add a character
 		 */
 		if (this.character == null) {
 			this.character = newCharacter;
 		}
-		
+
 		// else conflict between newCharacter and character
 		// else do nothing
 	}
-	
+
 	public void removeCharacter() {
 		this.character = null;
 	}
-	
-	
 
 	public void addItem(inventory.Item item) {
 		this.item = item;
 	}
-	
+
 	public void removeItem() {
-		this.item = null;
+		if (!isStaircase()) {
+			this.item = null;
+		}
 	}
 
 	public int getXPosition() {
@@ -81,16 +81,16 @@ public class Tile {
 		// Manhattan distance
 		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.yPosition - yPosition);
 	}
-	
+
 	public double euclidianDistanceTo(Tile tile) {
 		// Euclidian distance
-		return Math.sqrt(Math.pow(tile.xPosition - xPosition,2) + Math.pow(tile.yPosition - yPosition, 2));
+		return Math.sqrt(Math.pow(tile.xPosition - xPosition, 2) + Math.pow(tile.yPosition - yPosition, 2));
 	}
-	
+
 	public boolean hasCharacter() {
 		return (this.character == null) ? false : true;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Tile) {
@@ -99,29 +99,40 @@ public class Tile {
 		}
 		return false;
 	}
-	
+
 	public String getDepiction() {
 		/**
-		 * Get the way the Tile has to be depicted
-		 * Characters are displayed in priority
+		 * Get the way the Tile has to be depicted Characters are displayed in priority
 		 */
 		if (this.item == null && this.character == null) {
 			return " ";
-		}
-		else if (this.character == null) {
+		} else if (this.character == null) {
 			return this.item.toString();
-		}
-		else {
+		} else {
 			return this.character.toString();
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
 	}
 
 	public boolean isStaircase() {
-		return false;
+		return item instanceof Staircase;
+	}
+
+	public boolean hasItem() {
+		return (this.item == null) ? false : true;
+	}
+
+	@Override
+	public int compareTo(Tile otherTile) {
+		if (xPosition == otherTile.getXPosition()) {
+			return yPosition - otherTile.getYPosition();
+		} else {
+			return xPosition - otherTile.getXPosition();
+		}
+
 	}
 }

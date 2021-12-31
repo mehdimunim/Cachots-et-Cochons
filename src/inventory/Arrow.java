@@ -10,5 +10,14 @@ public class Arrow extends Item {
 		character.loseHP(damage);
 	}
 	
+	@Override
+	public String toString() {
+		return "-";
+	}
+	
+	@Override
+	public String getFullDescription() {
+		return "Arrow, damage: " + String.valueOf(damage);
+	}
 	
 }

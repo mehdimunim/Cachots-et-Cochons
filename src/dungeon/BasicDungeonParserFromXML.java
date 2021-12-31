@@ -72,7 +72,7 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		}
 		return listRooms;
 	}
-	
+
 	@Override
 	public Tile parseTile(Element element) throws ParseException {
 
@@ -148,17 +148,16 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 	@Override
 	public Item parseItem(Element element) throws ParseException {
 		String item = element.getElementsByTagName("item").item(0).getTextContent();
-		DefaultItemFactory fac = new DefaultItemFactory();
 		switch (item) {
 
 		case "Bow":
-			return fac.createBow();
+			return DefaultItemFactory.createBow();
 		case "Sword":
-			return fac.createSword();
+			return DefaultItemFactory.createSword();
 		case "Shield":
-			return fac.createShield();
+			return DefaultItemFactory.createShield();
 		case "Potion":
-			return fac.createPotion();
+			return DefaultItemFactory.createPotion();
 		default:
 			throw new ParseException(item, 0);
 

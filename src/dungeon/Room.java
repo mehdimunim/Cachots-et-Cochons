@@ -144,11 +144,6 @@ public class Room implements Iterable<Tile> {
 		this.level = level;
 	}
 
-	public boolean isLast() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public Tile getTile(Character newChara) {
 		// get the tile containing newChara
 		for (Tile tile : this) {
@@ -163,5 +158,6 @@ public class Room implements Iterable<Tile> {
 		Random rand = new Random();
         return getTile(rand.nextInt(tiles.size()));
 	}
+	
 
 }

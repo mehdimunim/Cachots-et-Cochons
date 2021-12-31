@@ -2,12 +2,16 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import character.Hero;
-import dungeon.*;
-import display.*;
+import display.InfoPrinter;
+import display.InventoryPrinter;
+import display.RoomPrinter;
+import dungeon.BasicDungeonBuilder;
+import dungeon.Dungeon;
+import dungeon.Room;
+import dungeon.Tile;
 
 public class GameManager {
 	/*
@@ -18,38 +22,30 @@ public class GameManager {
 	private Dungeon dungeon;
 	private HumanPlayer humanPlayer;
 	private List<AIPlayer> AIPlayers;
-
-	public Optional<Room> nextRoom() {
-
+	
+	
+	public boolean isLastRoom() {
+		return currentRoom.getLevel() == dungeon.size()-1;
+	}
+	public boolean isFirstRoom() {
+		return currentRoom.getLevel() == 0;
+	}
+	public Room nextRoom() {
 		int level = currentRoom.getLevel();
-
-		if (currentRoom.isLast()) {
-
-			return Optional.empty();
-
-		}
-
-		else {
-			currentRoom = dungeon.getRoom(level + 1);
-			return Optional.of(currentRoom);
-		}
-
+		return dungeon.getRoom(level + 1);
 	}
 
-	public Optional<Room> prevRoom() {
+	public void changeRoom(Room adjRoom) {
+		currentRoom = adjRoom;
+	}
+	
+	public void initHuman() {
+		humanPlayer.goTo(currentRoom.getFirstTile());
+	}
 
+	public Room prevRoom() {
 		int level = currentRoom.getLevel();
-
-		if (level == 0) {
-
-			return Optional.empty();
-		}
-
-		else {
-			currentRoom = dungeon.getRoom(level - 1);
-			return Optional.of(currentRoom);
-		}
-
+		return dungeon.getRoom(level - 1);
 	}
 
 	public void createDefaultHuman() {
@@ -82,7 +78,7 @@ public class GameManager {
 		// init room
 		currentRoom = dungeon.getRoom(0);
 		// iterate over all rooms
-		while (!currentRoom.isLast()) {
+		while (!isLastRoom()) {
 			initAIPlayers();
 			// refresh printer for the new turn
 			notifyPrinters();
@@ -91,11 +87,11 @@ public class GameManager {
 				// iterate over AI players
 				for (AIPlayer aiPlayer : AIPlayers) {
 					giveTurnTo(aiPlayer);
-					notifyPrinters();
 					// wait between AI turns
 					// TODO: solve IllegalMonitorException
 					// wait(1000);
 				}
+				notifyPrinters();
 				// give turn to human
 				giveTurnTo(humanPlayer);
 				// remove dead monsters
@@ -103,7 +99,8 @@ public class GameManager {
 				// update display
 				notifyPrinters();
 			}
-			nextRoom();
+			changeRoom(nextRoom());
+			initHuman();
 		}
 
 	}
@@ -118,6 +115,7 @@ public class GameManager {
 	public void notifyPrinters() {
 		RoomPrinter.update(currentRoom, humanPlayer);
 		InfoPrinter.update(currentRoom, humanPlayer);
+		InventoryPrinter.update(humanPlayer);
 
 	}
 
@@ -125,26 +123,23 @@ public class GameManager {
 
 		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
 		player.play(reachableTiles);
+		if (player.isOnStaircase()) {
+			if (player.choosesToGoStaircase()) {
+				// go up if the staircase is down 
+				Room adjRoom = player.isOnUp() ? prevRoom() : nextRoom();
+				player.goStaircase(adjRoom);
+				changeRoom(adjRoom);
+			}
+		}
 
 	}
+
 
 	public void removeFromGame(AIPlayer player) {
 		player.getCurrentTile().removeCharacter();
 		AIPlayers.remove(player);
 	};
-
-	public void goUp() {
-		Optional<Room> nextRoom = nextRoom();
-		if (nextRoom.isPresent()) {
-			currentRoom = nextRoom.get();
-			humanPlayer.goStaircase(currentRoom);
-		}
-	}
-
-	public void goDown(HumanPlayer human) {
-		prevRoom();
-	}
-
+	
 	public void addToGame(AIPlayer player) {
 		player.getCurrentTile().addCharacter(player.getChara());
 		AIPlayers.add(player);

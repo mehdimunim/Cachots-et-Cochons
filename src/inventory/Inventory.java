@@ -1,8 +1,8 @@
 package inventory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class Inventory implements Iterable<Item>{
 	/*
@@ -13,11 +13,12 @@ public class Inventory implements Iterable<Item>{
 	private int capacity;
 	
 	public Inventory(int capacity) {
+		items = new ArrayList<>();
 		this.capacity = capacity;
 	}
 
 	public void addItem(Item item) {
-
+		
 		if (items.size() < capacity) {
 			items.add(item);
 		}
@@ -28,6 +29,10 @@ public class Inventory implements Iterable<Item>{
 
 		items.remove(item);
 
+	}
+	
+	public List<Item> getItems() {
+		return this.items;
 	}
 
 	@Override
