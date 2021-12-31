@@ -42,7 +42,9 @@ public class Tile implements Comparable<Tile> {
 	}
 
 	public void removeItem() {
-		this.item = null;
+		if (!isStaircase()) {
+			this.item = null;
+		}
 	}
 
 	public int getXPosition() {

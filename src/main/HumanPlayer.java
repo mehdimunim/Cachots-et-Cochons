@@ -9,17 +9,18 @@ import java.util.stream.Collectors;
 
 import dungeon.Room;
 import dungeon.Tile;
+import inventory.Item;
 
 public class HumanPlayer extends Player<character.Hero> {
 	public HumanPlayer(character.Hero hero, Tile currentTile) {
 		super(hero, currentTile);
 	}
 
-	public void grabItem(dungeon.Tile tile) {
+	public void grabItem(Tile tile) {
 		this.getChara().searchTile(tile);
 	}
 
-	public void useItem(inventory.Item item) {
+	public void useItem(Item item) {
 		this.getChara().useItem(item);
 	}
 
@@ -30,13 +31,39 @@ public class HumanPlayer extends Player<character.Hero> {
 		return reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
 
 	}
+	
+	public String formatInputString(String input) {
+		/**
+		 * Format user input and return the correct formatting for tiles, aka: (line, column)
+		 * Accepted input for Tile:
+		 * (Line, Column)
+		 * linecolumn if line and column are one digit
+		 * line column
+		 * line,column
+		 * 
+		 */
+		String fInput = input.strip();
+		int length = input.length();
+		
+		if (length == 2) {
+			fInput = fInput.charAt(0) + "," + fInput.charAt(1);
+		}
+		if (fInput.charAt(0) != '(') {
+			fInput = '(' + fInput;
+		}
+		if (fInput.charAt(length -1) != ')') {
+			fInput = fInput + ')';
+		}
+		return fInput;
+	}
 
 	public Tile chooseTile(Scanner scanner, Map<String, Tile> tiles) {
 		// choose a tile with input
 		Tile tile = null;
 		while (tile == null) {
 			System.out.print("Choose case: \n");
-			tile = tiles.get(scanner.nextLine());
+			String formatInput = formatInputString(scanner.nextLine());
+			tile = tiles.get(formatInput);
 		}
 		return tile;
 	}
@@ -58,6 +85,9 @@ public class HumanPlayer extends Player<character.Hero> {
 		// Check if move is possible
 		else if (canGoTo(tile)) {
 			goTo(tile);
+			if (tile.hasItem()) {
+				grabItem(tile);
+			}
 		}
 
 		// else if can attack

@@ -18,5 +18,10 @@ public class Sword extends Item{
 	public String toString() {
 		return "/";
 	}
+	
+	@Override
+	public String getFullDescription() {
+		return "Sword, damage: " + String.valueOf(damage);
+	}
 
 }

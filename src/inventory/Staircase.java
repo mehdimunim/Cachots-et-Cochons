@@ -28,5 +28,11 @@ public class Staircase extends Item {
 		return "X";
 	}
 	
+	@Override
+	public String getFullDescription() {
+		String dir = up? "Up": "Down";
+		return "Staircase, direction: " + dir;
+	}
+	
 
 }

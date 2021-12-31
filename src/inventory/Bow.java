@@ -31,5 +31,10 @@ public class Bow extends Item{
 	public String toString() {
 		return ")";
 	}
+	
+	@Override
+	public String getFullDescription() {
+		return "Bow, range: " + String.valueOf(range);
+	}
 
 }

@@ -16,4 +16,9 @@ public class Shield extends Item{
 	public String toString() {
 		return "#";
 	}
+	
+	@Override
+	public String getFullDescription() {
+		return "Shield, defense: " + String.valueOf(defense);
+	}
 }

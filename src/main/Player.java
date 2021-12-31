@@ -84,7 +84,13 @@ public abstract class Player<T extends character.Character> {
 	}
 
 	public void attack(Tile tile) {
-		tile.getCharacter().ifPresent(ch -> ch.loseHP(getChara().getAttack()));
+		if (tile.getCharacter().isPresent()) {
+			character.Character ennemy = tile.getCharacter().get();
+			ennemy.loseHP(chara.getAttack());
+			//if (ennemy.isDead()) {
+			//	goTo(tile);
+			//}
+		}
 	}
 
 	public T getChara() {

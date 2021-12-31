@@ -14,4 +14,9 @@ public class Potion extends Item{
 	public String toString() {
 		return "+";
 	}
+	
+	@Override
+	public String getFullDescription() {
+		return "Potion, HP: " + String.valueOf(HP);
+	}
 }

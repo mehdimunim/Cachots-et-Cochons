@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import character.Hero;
 import display.InfoPrinter;
+import display.InventoryPrinter;
 import display.RoomPrinter;
 import dungeon.BasicDungeonBuilder;
 import dungeon.Dungeon;
@@ -86,11 +87,11 @@ public class GameManager {
 				// iterate over AI players
 				for (AIPlayer aiPlayer : AIPlayers) {
 					giveTurnTo(aiPlayer);
-					notifyPrinters();
 					// wait between AI turns
 					// TODO: solve IllegalMonitorException
 					// wait(1000);
 				}
+				notifyPrinters();
 				// give turn to human
 				giveTurnTo(humanPlayer);
 				// remove dead monsters
@@ -114,6 +115,7 @@ public class GameManager {
 	public void notifyPrinters() {
 		RoomPrinter.update(currentRoom, humanPlayer);
 		InfoPrinter.update(currentRoom, humanPlayer);
+		InventoryPrinter.update(humanPlayer);
 
 	}
 

@@ -15,4 +15,9 @@ public class Arrow extends Item {
 		return "-";
 	}
 	
+	@Override
+	public String getFullDescription() {
+		return "Arrow, damage: " + String.valueOf(damage);
+	}
+	
 }
