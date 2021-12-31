@@ -8,7 +8,7 @@
 *.log
 
 # Test file 
-test/*
+/test/
 
 # BlueJ files
 *.ctxt
