@@ -7,6 +7,9 @@
 # Log file
 *.log
 
+# Test file 
+src/test/*
+
 # BlueJ files
 *.ctxt
 

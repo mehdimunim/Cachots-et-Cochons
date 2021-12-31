@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.text.ParseException;
 
 import org.junit.jupiter.api.Test;
-import dungeon.BasicDungeonParserFromXML;
+import dungeon.DungeonXMLParser;
 class ParserTest {
 
 	@Test
@@ -16,7 +16,7 @@ class ParserTest {
 	@Test
 	void DungeonParsingTest() {
 		String xml = "C:\\Users\\Mehdi\\GitHub\\Cachots et Cochons\\src\\example\\BasicDungeonExample.xml";
-		var bdpxml = new BasicDungeonParserFromXML(); 
+		var bdpxml = new DungeonXMLParser(); 
 		try {
 			bdpxml.getDungeon(xml);
 			assert(true);

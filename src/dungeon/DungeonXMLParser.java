@@ -22,7 +22,7 @@ import character.MonsterFactory;
 import inventory.DefaultItemFactory;
 import inventory.Item;
 
-public class BasicDungeonParserFromXML implements DungeonParser {
+public class DungeonXMLParser implements DungeonParser {
 
 	@Override
 	public Dungeon getDungeon(String xmlFile) throws ParseException {
@@ -43,7 +43,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		return null;
 	}
 
-	@Override
 	public Dungeon parseDungeon(Element mainElement) throws ParseException {
 		int difficulty = parseDifficulty(mainElement);
 		List<Room> rooms = parseRooms(mainElement);
@@ -59,7 +58,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		return dungeon;
 	}
 
-	@Override
 	public List<Room> parseRooms(Element mainElement) throws ParseException {
 		List<Room> listRooms = new ArrayList<Room>();
 		NodeList nodeList = mainElement.getChildNodes();
@@ -73,7 +71,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		return listRooms;
 	}
 
-	@Override
 	public Tile parseTile(Element element) throws ParseException {
 
 		// get all attributes
@@ -90,7 +87,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		return tile;
 	}
 
-	@Override
 	public Room parseRoom(Element element) throws ParseException {
 
 		String name = element.getElementsByTagName("name").item(0).getTextContent();
@@ -145,7 +141,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 		return listTiles.stream().mapToInt(Tile::getYPosition).max().getAsInt();
 	}
 
-	@Override
 	public Item parseItem(Element element) throws ParseException {
 		String item = element.getElementsByTagName("item").item(0).getTextContent();
 		switch (item) {
@@ -165,7 +160,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 
 	}
 
-	@Override
 	public Character parseCharacter(Element element) throws ParseException {
 		String character = element.getElementsByTagName("item").item(0).getTextContent();
 
@@ -190,7 +184,6 @@ public class BasicDungeonParserFromXML implements DungeonParser {
 
 	}
 
-	@Override
 	public int parseDifficulty(Element mainElement) {
 		return Integer.parseInt(mainElement.getElementsByTagName("difficulty").item(0).getTextContent());
 	};
