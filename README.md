@@ -5,6 +5,8 @@ Projet de Java avancé septembre-janvier 2021
 ## Introduction
 Implémentations des patrons de conception dans un jeu.
 
+Jeu de mots sur le double sens de *dungeon* (donjon / cachot, oubliettes).
+
 ## Configurations minimales
 Java SE-8
 
