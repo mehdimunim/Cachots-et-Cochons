@@ -6,19 +6,19 @@ import character.Hero;
 
 public interface DungeonBuilder {
 
-	public Dungeon getDungeon();
-
-	public void createRoom(int roomDim, int level);
-
-	public void setDifficulty(int difficulty);
+	public void addHero(Hero hero);
 
 	public void addRoom(Room room);
 
 	public void addRooms(List<Room> rooms);
 
-	public void addHero(Hero hero);
-
 	public void build();
 
+	public void createRoom(int roomDim, int level);
+
+	public Dungeon getDungeon();
+
 	public void setDifficulty();
+
+	public void setDifficulty(int difficulty);
 }

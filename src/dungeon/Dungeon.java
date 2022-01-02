@@ -6,49 +6,48 @@ import java.util.List;
 
 public abstract class Dungeon implements Iterable<Room>, Cloneable {
 	/*
-	 * Dungeon 
-	 * 
+	 * Dungeon
+	 *
 	 */
 	private int difficulty;
 	private List<Room> rooms;
-	
-	@Override
-	public Dungeon clone() throws CloneNotSupportedException {
-		return (Dungeon) super.clone();
-	}
-	
+
 	public void addRoom(Room room) {
 		if (rooms == null) {
 			rooms = new ArrayList<Room>();
 		}
 		rooms.add(room);
-		
+
 	}
 
-	public Room getRoom(int level) {
-		return rooms.get(level);
-	};
-	
-	public void setRoom(int level, Room room) {
-		rooms.set(level, room);
-	};
-	
-	
 	@Override
-	public Iterator<Room> iterator() {
-		return rooms.iterator();
+	public Dungeon clone() throws CloneNotSupportedException {
+		return (Dungeon) super.clone();
 	}
 
 	public int getDifficulty() {
 		return difficulty;
 	}
 
-	public void setDifficulty(int difficulty) {
-		this.difficulty = difficulty;
+	public Room getRoom(int level) {
+		return rooms.get(level);
 	}
 
 	public List<Room> getRooms() {
 		return rooms;
+	}
+
+	@Override
+	public Iterator<Room> iterator() {
+		return rooms.iterator();
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public void setRoom(int level, Room room) {
+		rooms.set(level, room);
 	}
 
 	public void setRooms(List<Room> rooms) {
@@ -58,5 +57,5 @@ public abstract class Dungeon implements Iterable<Room>, Cloneable {
 	public int size() {
 		return rooms.size();
 	}
-	
+
 }

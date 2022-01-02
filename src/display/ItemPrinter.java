@@ -8,7 +8,7 @@ public class ItemPrinter {
 	public static void display(Item item) {
 
 		System.out.print(item.toString());
-		
+
 	}
 
 }

@@ -19,57 +19,12 @@ public abstract class Player<T extends character.Character> {
 		this.currentTile = currentTile;
 	}
 
-	private boolean canReach(dungeon.Tile tile) {
-		int distance = this.currentTile.manhattanDistanceTo(tile);
-
-		if (distance == 0) {
-			return false;
-		}
-
-		else if (distance <= this.getChara().getMove()) {
-			return true;
-		}
-		return false;
-
-	}
-
-	protected boolean canGoTo(dungeon.Tile tile) {
-
-		if (tile.equals(currentTile)) {
-			return false;
-		} else {
-			boolean isOccupied = tile.hasCharacter();
-			return canReach(tile) && !isOccupied;
+	public void attack(Tile tile) {
+		if (tile.getCharacter().isPresent()) {
+			character.Character ennemy = tile.getCharacter().get();
+			ennemy.loseHP(chara.getAttack());
 		}
 	}
-
-	public void goTo(dungeon.Tile tile) {
-
-		currentTile.removeCharacter();
-		tile.addCharacter(getChara());
-		currentTile = tile;
-
-	}
-
-	public boolean isWithinBowRange(dungeon.Tile tile) {
-
-		double distance = this.currentTile.euclidianDistanceTo(tile);
-
-		if (distance < this.getChara().getBowRange()) {
-			return true;
-		}
-		return false;
-
-	}
-
-	public boolean isWithinAttackRange(dungeon.Tile tile) {
-		return canReach(tile) || isWithinBowRange(tile);
-	}
-
-	// private boolean canAttack(Player<T> player) {
-	// return chara.isEnnemyWith(player.getChara()) &&
-	// isWithinAttackRange(player.currentTile);
-	// }
 
 	public boolean canAttack(dungeon.Tile tile) {
 		if (tile.hasCharacter()) {
@@ -83,35 +38,42 @@ public abstract class Player<T extends character.Character> {
 		}
 	}
 
-	public void attack(Tile tile) {
-		if (tile.getCharacter().isPresent()) {
-			character.Character ennemy = tile.getCharacter().get();
-			ennemy.loseHP(chara.getAttack());
-			//if (ennemy.isDead()) {
-			//	goTo(tile);
-			//}
+	protected boolean canGoTo(dungeon.Tile tile) {
+
+		if (tile.equals(currentTile)) {
+			return false;
+		} else {
+			boolean isOccupied = tile.hasCharacter();
+			return canReach(tile) && !isOccupied;
 		}
 	}
+
+	private boolean canReach(dungeon.Tile tile) {
+		int distance = this.currentTile.manhattanDistanceTo(tile);
+
+		if (distance == 0) {
+		}
+
+		else if (distance <= this.getChara().getMove()) {
+			return true;
+		}
+		return false;
+
+	}
+
+	protected abstract boolean choosesToGoStaircase();
+
+	// private boolean canAttack(Player<T> player) {
+	// return chara.isEnnemyWith(player.getChara()) &&
+	// isWithinAttackRange(player.currentTile);
+	// }
 
 	public T getChara() {
 		return chara;
 	}
 
-	public void setChara(T chara) {
-		this.chara = chara;
-	}
-
-	public void play(List<Tile> reachableTiles) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public dungeon.Tile getCurrentTile() {
 		return currentTile;
-	}
-
-	public void setCurrentTile(dungeon.Tile currentTile) {
-		this.currentTile = currentTile;
 	}
 
 	public List<Tile> getReachableTiles(Room currentRoom) {
@@ -125,6 +87,19 @@ public abstract class Player<T extends character.Character> {
 
 	}
 
+	public void goStaircase(Room adjRoom) {
+		goTo(adjRoom.getTile(currentTile.getXPosition(), currentTile.getYPosition() + 1));
+
+	}
+
+	public void goTo(dungeon.Tile tile) {
+
+		currentTile.removeCharacter();
+		tile.addCharacter(getChara());
+		currentTile = tile;
+
+	}
+
 	public boolean isDead() {
 		return this.chara.isDead();
 	}
@@ -135,7 +110,7 @@ public abstract class Player<T extends character.Character> {
 		}
 		return false;
 	}
-	
+
 	public boolean isOnUp() {
 		if (isOnStaircase()) {
 			Staircase staircase = (Staircase) (currentTile.getItem().get());
@@ -144,11 +119,32 @@ public abstract class Player<T extends character.Character> {
 		return false;
 	}
 
-	protected abstract boolean choosesToGoStaircase();
+	public boolean isWithinAttackRange(dungeon.Tile tile) {
+		return canReach(tile) || isWithinBowRange(tile);
+	}
 
-	public void goStaircase(Room adjRoom) {
-		goTo(adjRoom.getTile(currentTile.getXPosition(), currentTile.getYPosition()+1));
-		
+	public boolean isWithinBowRange(dungeon.Tile tile) {
+
+		double distance = this.currentTile.euclidianDistanceTo(tile);
+
+		if (distance < this.getChara().getBowRange()) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public void play(List<Tile> reachableTiles) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void setChara(T chara) {
+		this.chara = chara;
+	}
+
+	public void setCurrentTile(dungeon.Tile currentTile) {
+		this.currentTile = currentTile;
 	}
 
 }
