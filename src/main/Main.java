@@ -2,24 +2,31 @@ package main;
 
 import java.text.ParseException;
 
+import main.GameManager.DeadPlayerException;
+
 public class Main {
 
 	public static void main(String[] args) {
 		// Initialize game manager
 		GameManager gm = new GameManager();
-
+		
+		gm.greetings();
+		
 		// choose dungeon
 		try {
-			gm.readBasicDungeon("data//example//BasicDungeonExample.xml");
-		} catch (ParseException e) {
-			e.printStackTrace();
+			gm.chooseDungeon();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
-		//gm.createBasicDungeon()
-
+		
 		// create a hero from user input
 		gm.createDefaultHuman();
 
 		// launch the game
-		gm.start();
+		try {
+			gm.start();
+		} catch (DeadPlayerException e) {
+			e.printMessage();
+		}
 	}
 }

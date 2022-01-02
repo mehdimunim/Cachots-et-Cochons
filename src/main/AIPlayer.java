@@ -35,8 +35,8 @@ public class AIPlayer extends Player<character.Character> {
 			}
 
 			// else if there is an enemy, attack
-			else if (chara.get().isEnnemyWith(this.getChara())) {
-				this.getChara().attack(chara.get());
+			else if (canAttack(randomTile)) {
+				attack(randomTile);
 			}
 
 			// else if there is ally, redo without the tile picked up

@@ -3,6 +3,7 @@ package main;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import character.Hero;
@@ -85,7 +86,7 @@ public class GameManager {
 		deadAIs.forEach(ai -> removeFromGame(ai));
 	}
 
-	public void start() {
+	public void start() throws DeadPlayerException {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
@@ -100,9 +101,6 @@ public class GameManager {
 				// iterate over AI players
 				for (AIPlayer aiPlayer : AIPlayers) {
 					giveTurnTo(aiPlayer);
-					// wait between AI turns
-					// TODO: solve IllegalMonitorException
-					// wait(1000);
 				}
 				notifyPrinters();
 				// give turn to human
@@ -120,7 +118,7 @@ public class GameManager {
 	}
 	
 	public void endMessage() {
-		System.out.println("\nDUNGEON FINISHED");
+		System.out.println("\nYOU WON");
 	}
 
 	public void createBasicDungeon() {
@@ -141,9 +139,16 @@ public class GameManager {
 		InventoryPrinter.update(humanPlayer);
 
 	}
-
-	public <T extends character.Character> void giveTurnTo(Player<T> player) {
-
+	public class DeadPlayerException extends Exception{
+		private static final long serialVersionUID = 1L;
+		
+		public void printMessage() {
+			System.err.println("\nYOU ARE DEAD");
+		}
+		
+	}
+	
+	public <T extends character.Character> void giveTurnTo(Player<T> player) throws DeadPlayerException {
 		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
 		player.play(reachableTiles);
 		if (player.isOnStaircase()) {
@@ -154,6 +159,10 @@ public class GameManager {
 				changeRoom(adjRoom);
 			}
 		}
+		if (humanPlayer.isDead()) {
+			throw new DeadPlayerException();
+		}
+		
 
 	}
 
@@ -182,5 +191,32 @@ public class GameManager {
 
 	public HumanPlayer getHumanPlayer() {
 		return humanPlayer;
+	}
+	
+	public void greetings() {
+		System.out.println("Hello!");
+	}
+	public void chooseDungeon() throws ParseException {
+		System.out.println("Choose dungeon");
+		System.out.println("\tCreate Default Dungeon      [1]");
+		System.out.println("\tRead Basic Dungeon Example  [2]");
+		System.out.println("\tRead Dungeon Example (1)    [3]");
+		System.out.println("\tRead Dungeon Example (2)    [4]");
+		@SuppressWarnings("resource")
+		int choice = new Scanner(System.in).nextInt();
+		switch(choice) {
+		case 2: 
+			readBasicDungeon("data//example//BasicDungeonExample.xml");
+			break;
+		case 3: 
+			readBasicDungeon("data//example//DungeonExample1.xml");
+			break;
+		case 4:
+			readBasicDungeon("data//example//DungeonExample2.xml");
+			break;
+		default:
+			createBasicDungeon();
+			break;
+		}
 	}
 }

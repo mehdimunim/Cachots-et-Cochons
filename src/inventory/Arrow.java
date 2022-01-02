@@ -20,4 +20,5 @@ public class Arrow extends Item {
 		return "Arrow, damage: " + String.valueOf(damage);
 	}
 	
+	
 }

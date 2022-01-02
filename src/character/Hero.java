@@ -50,6 +50,7 @@ public class Hero extends Character {
 		Optional<Item> item = tile.getItem();	
 		if (item.isPresent()) {
 			invent.addItem(item.get());
+			item.get().applyEffect(this);
 			tile.removeItem();
 		}
 		return item;
@@ -60,6 +61,7 @@ public class Hero extends Character {
 	}
 
 	public void useItem(Item item) {
+		item.removeEffect(this);
 		this.invent.removeItem(item);
 	};
 
