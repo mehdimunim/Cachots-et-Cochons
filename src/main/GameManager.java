@@ -80,7 +80,7 @@ public class GameManager {
 		// init room
 		currentRoom = dungeon.getRoom(0);
 		// iterate over all rooms
-		while (!isLastRoom()) {
+		while (!hasWonDungeon()) {
 			initAIPlayers();
 			// refresh printer for the new turn
 			notifyPrinters();
@@ -154,6 +154,10 @@ public class GameManager {
 
 	public boolean hasWonRoom() {
 		return AIPlayers.isEmpty();
+	}
+	
+	public boolean hasWonDungeon() {
+		return false;
 	}
 
 	public List<AIPlayer> getAIPlayers() {

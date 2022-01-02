@@ -16,34 +16,38 @@ public class AIPlayer extends Player<character.Character> {
 	@Override
 	public void play(List<Tile> reachableTiles) {
 
-		// choose one tile randomly
-		Random rand = new Random();
-		Tile randomTile = reachableTiles.get(rand.nextInt(reachableTiles.size()));
-		
-		Optional<Character> chara = randomTile.getCharacter();
-		
-		// if no tile is reachable do nothing 
-		
+		// if no tile is reachable do nothing
+
 		if (reachableTiles.isEmpty()) {
-			
-		}
-		// if no character, move to the tile
-		else if (chara.isEmpty()) {
-			this.goTo(randomTile);
+
 		}
 
-		// else if there is an enemy, attack
-		else if (chara.get().isEnnemyWith(this.getChara())) {
-			this.getChara().attack(chara.get());
+		else {
+			// choose one tile randomly
+			Random rand = new Random();
+			Tile randomTile = reachableTiles.get(rand.nextInt(reachableTiles.size()));
+
+			Optional<Character> chara = randomTile.getCharacter();
+
+			// if no character, move to the tile
+			if (chara.isEmpty()) {
+				this.goTo(randomTile);
+			}
+
+			// else if there is an enemy, attack
+			else if (chara.get().isEnnemyWith(this.getChara())) {
+				this.getChara().attack(chara.get());
+			}
+
+			// else if there is ally, redo without the tile picked up
+			else {
+				reachableTiles.remove(randomTile);
+				play(reachableTiles);
+			}
+
 		}
 
-		// else if there is ally, redo without the tile picked up
-		else { 
-		reachableTiles.remove(randomTile);
-		play(reachableTiles);
-		}
-		
-		}
+	}
 
 	@Override
 	protected boolean choosesToGoStaircase() {
@@ -51,7 +55,4 @@ public class AIPlayer extends Player<character.Character> {
 		return false;
 	}
 
-
-	}
-
-
+}

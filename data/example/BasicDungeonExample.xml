@@ -242,13 +242,6 @@
 
 				<tile>
 					<xPosition>3</xPosition>
-					<yPosition>3</yPosition>
-					<character></character>
-					<item></item>
-				</tile>
-
-				<tile>
-					<xPosition>3</xPosition>
 					<yPosition>4</yPosition>
 					<character></character>
 					<item>Staircase up</item>
