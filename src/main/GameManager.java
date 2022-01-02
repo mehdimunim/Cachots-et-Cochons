@@ -1,5 +1,6 @@
 package main;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import display.InventoryPrinter;
 import display.RoomPrinter;
 import dungeon.BasicDungeonBuilder;
 import dungeon.Dungeon;
+import dungeon.DungeonXMLParser;
 import dungeon.Room;
 import dungeon.Tile;
 
@@ -22,6 +24,7 @@ public class GameManager {
 	private Dungeon dungeon;
 	private HumanPlayer humanPlayer;
 	private List<AIPlayer> AIPlayers;
+	private boolean hasWon =false;
 	
 	
 	public boolean isLastRoom() {
@@ -32,11 +35,20 @@ public class GameManager {
 	}
 	public Room nextRoom() {
 		int level = currentRoom.getLevel();
-		return dungeon.getRoom(level + 1);
-	}
+		Room room;
+		try {
+		room = dungeon.getRoom(level + 1);
+		}
+		catch (IndexOutOfBoundsException e) {
+			hasWon = true;
+			room = currentRoom;
+		}
+		return room;
+		}
 
 	public void changeRoom(Room adjRoom) {
 		currentRoom = adjRoom;
+		initAIPlayers();
 	}
 	
 	public void initHuman() {
@@ -77,9 +89,10 @@ public class GameManager {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
+		//init AIPlayers
+		initAIPlayers();
 		// iterate over all rooms
-		while (!isLastRoom()) {
-			initAIPlayers();
+		while (!hasWonDungeon()) {
 			// refresh printer for the new turn
 			notifyPrinters();
 			// iterate over all players
@@ -102,7 +115,12 @@ public class GameManager {
 			changeRoom(nextRoom());
 			initHuman();
 		}
+		endMessage();
 
+	}
+	
+	public void endMessage() {
+		System.out.println("\nDUNGEON FINISHED");
 	}
 
 	public void createBasicDungeon() {
@@ -110,6 +128,11 @@ public class GameManager {
 		bd.build();
 		dungeon = bd.getDungeon();
 
+	}
+	
+	public void readBasicDungeon(String xml) throws ParseException {
+		DungeonXMLParser parser = new DungeonXMLParser();
+		dungeon = parser.getDungeon(xml);
 	}
 
 	public void notifyPrinters() {
@@ -147,6 +170,10 @@ public class GameManager {
 
 	public boolean hasWonRoom() {
 		return AIPlayers.isEmpty();
+	}
+	
+	public boolean hasWonDungeon() {
+		return hasWon;
 	}
 
 	public List<AIPlayer> getAIPlayers() {

@@ -17,10 +17,6 @@ public class Tile implements Comparable<Tile> {
 		this.yPosition = YPosition;
 	}
 
-	public Tile() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public void addCharacter(character.Character newCharacter) {
 		/**
 		 * Add a character

@@ -13,7 +13,7 @@ public class RoomPrinter {
 		int y = room.getY();
 
 		// +2 to include borders
-		System.out.println("* ".repeat(x + 2));
+		System.out.println("* ".repeat(y + 2));
 		// display tiles
 		for (Tile tile : room) {
 			int yPos = tile.getYPosition();
@@ -30,7 +30,7 @@ public class RoomPrinter {
 			;
 
 		}
-		System.out.println("* ".repeat(x + 2));
+		System.out.println("* ".repeat(y + 2));
 	}
 
 	public static void update(Room currentRoom, HumanPlayer humanPlayer) {
