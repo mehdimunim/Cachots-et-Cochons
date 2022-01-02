@@ -10,10 +10,10 @@ public class Shoat extends Monster {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public AdultPig grow() {
 		return null;
 	}
+
 	@Override
 	public String toString() {
 		// Uppercase for Sow

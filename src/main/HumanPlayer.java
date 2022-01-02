@@ -14,43 +14,18 @@ public class HumanPlayer extends Player<character.Hero> {
 		super(hero, currentTile);
 	}
 
-	public void grabItem(Tile tile) {
-		this.getChara().searchTile(tile);
-	}
-
-	public void useItem(Item item) {
-		this.getChara().useItem(item);
-	}
-
-	public Map<String, Tile> listReachableTiles(List<Tile> reachableTiles) {
-		System.out.println("List of all reachable cases: ");
-		reachableTiles.stream().sorted().forEachOrdered(tile -> System.out.println(tile.toString()));
-		return reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
-
-	}
-	
-	public String formatInputString(String input) {
-		/**
-		 * Format user input and return the correct formatting for tiles, aka: (line, column)
-		 * Accepted input for Tile:
-		 * (line, column)
-		 * linecolumn if line and column are one digit
-		 * line,column
-		 * 
-		 */
-		String fInput = input.strip();
-		int length = input.length();
-		
-		if (length == 2) {
-			fInput = fInput.charAt(0) + "," + fInput.charAt(1);
-		}
-		if (fInput.charAt(0) != '(') {
-			fInput = '(' + fInput;
-		}
-		if (fInput.charAt(length -1) != ')') {
-			fInput = fInput + ')';
-		}
-		return fInput;
+	// public boolean choosesToGoStaircase() {
+//		try (Scanner scanner = new Scanner(System.in)) {
+//			System.out.println("Staircase");
+//			System.out.println("Do you want to go? [y/n]");
+//			String confirm = scanner.nextLine();
+//			return confirm.toLowerCase().charAt(0) == 'y';
+//		}
+//
+//	};
+	@Override
+	public boolean choosesToGoStaircase() {
+		return true;
 	}
 
 	public Tile chooseTile(Scanner scanner, Map<String, Tile> tiles) {
@@ -62,6 +37,49 @@ public class HumanPlayer extends Player<character.Hero> {
 			tile = tiles.get(formatInput);
 		}
 		return tile;
+	}
+
+	private boolean confirmAttack(Scanner scanner) {
+		System.out.print("Do you want to attack? [y/n] ");
+		String confirm = scanner.nextLine();
+		if (confirm.toLowerCase().charAt(0) == 'y') {
+			return true;
+		}
+		return false;
+
+	}
+
+	public String formatInputString(String input) {
+		/**
+		 * Format user input and return the correct formatting for tiles, aka: (line,
+		 * column) Accepted input for Tile: (line, column) linecolumn if line and column
+		 * are one digit line,column
+		 *
+		 */
+		String fInput = input.strip();
+		int length = input.length();
+
+		if (length == 2) {
+			fInput = fInput.charAt(0) + "," + fInput.charAt(1);
+		}
+		if (fInput.charAt(0) != '(') {
+			fInput = '(' + fInput;
+		}
+		if (fInput.charAt(length - 1) != ')') {
+			fInput = fInput + ')';
+		}
+		return fInput;
+	}
+
+	public void grabItem(Tile tile) {
+		getChara().searchTile(tile);
+	}
+
+	public Map<String, Tile> listReachableTiles(List<Tile> reachableTiles) {
+		System.out.println("List of all reachable cases: ");
+		reachableTiles.stream().sorted().forEachOrdered(tile -> System.out.println(tile.toString()));
+		return reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
+
 	}
 
 	@Override
@@ -105,28 +123,8 @@ public class HumanPlayer extends Player<character.Hero> {
 
 	}
 
-//	public boolean choosesToGoStaircase() {
-//		try (Scanner scanner = new Scanner(System.in)) {
-//			System.out.println("Staircase");
-//			System.out.println("Do you want to go? [y/n]");
-//			String confirm = scanner.nextLine();
-//			return confirm.toLowerCase().charAt(0) == 'y';
-//		}
-//		
-//	};
-	public boolean choosesToGoStaircase() {
-		return true;
+	public void useItem(Item item) {
+		getChara().useItem(item);
 	}
-	
-	private boolean confirmAttack(Scanner scanner) {
-		System.out.print("Do you want to attack? [y/n] ");
-		String confirm = scanner.nextLine();
-		if (confirm.toLowerCase().charAt(0) == 'y') {
-			return true;
-		}
-		return false;
-
-	}
-	
 
 }

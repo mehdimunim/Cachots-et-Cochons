@@ -4,35 +4,34 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Inventory implements Iterable<Item>{
+public class Inventory implements Iterable<Item> {
 	/*
 	 * Coder le comportement des objets
 	 */
 	private List<Item> items;
 
 	private int capacity;
-	
+
 	public Inventory(int capacity) {
 		items = new ArrayList<>();
 		this.capacity = capacity;
 	}
 
 	public void addItem(Item item) {
-		
+
 		if (items.size() < capacity) {
 			items.add(item);
 		}
 
-	};
-
-	public void removeItem(Item item) {
-
-		items.remove(item);
-
 	}
-	
+
 	public List<Item> getItems() {
-		return this.items;
+		return items;
+	}
+
+	public boolean has(String string) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -40,9 +39,10 @@ public class Inventory implements Iterable<Item>{
 		return items.iterator();
 	}
 
-	public boolean has(String string) {
-		// TODO Auto-generated method stub
-		return false;
-	};
-	
+	public void removeItem(Item item) {
+
+		items.remove(item);
+
+	}
+
 }

@@ -26,7 +26,6 @@ public class RoomPrinter {
 			if (yPos == y) {
 				System.out.print("*\n");
 			}
-			;
 
 		}
 		System.out.println("* ".repeat(y + 2));

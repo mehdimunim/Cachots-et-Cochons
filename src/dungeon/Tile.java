@@ -13,78 +13,34 @@ public class Tile implements Comparable<Tile> {
 	private inventory.Item item;
 
 	public Tile(int XPosition, int YPosition) {
-		this.xPosition = XPosition;
-		this.yPosition = YPosition;
+		xPosition = XPosition;
+		yPosition = YPosition;
 	}
 
 	public void addCharacter(character.Character newCharacter) {
 		/**
 		 * Add a character
 		 */
-		if (this.character == null) {
-			this.character = newCharacter;
+		if (character == null) {
+			character = newCharacter;
 		}
 
 		// else conflict between newCharacter and character
 		// else do nothing
 	}
 
-	public void removeCharacter() {
-		this.character = null;
-	}
-
 	public void addItem(inventory.Item item) {
 		this.item = item;
 	}
 
-	public void removeItem() {
-		if (!isStaircase()) {
-			this.item = null;
+	@Override
+	public int compareTo(Tile otherTile) {
+		if (xPosition == otherTile.getXPosition()) {
+			return yPosition - otherTile.getYPosition();
+		} else {
+			return xPosition - otherTile.getXPosition();
 		}
-	}
 
-	public int getXPosition() {
-		return xPosition;
-	}
-
-	public void setXPosition(int xPosition) {
-		this.xPosition = xPosition;
-	}
-
-	public int getYPosition() {
-		return yPosition;
-	}
-
-	public void setYPosition(int yPosition) {
-		this.yPosition = yPosition;
-	}
-
-	public Optional<character.Character> getCharacter() {
-		if (this.character == null) {
-			return Optional.empty();
-		}
-		return Optional.of(character);
-	}
-
-	public Optional<Item> getItem() {
-		if (this.item == null) {
-			return Optional.empty();
-		}
-		return Optional.of(this.item);
-	}
-
-	public int manhattanDistanceTo(Tile tile) {
-		// Manhattan distance
-		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.yPosition - yPosition);
-	}
-
-	public double euclidianDistanceTo(Tile tile) {
-		// Euclidian distance
-		return Math.sqrt(Math.pow(tile.xPosition - xPosition, 2) + Math.pow(tile.yPosition - yPosition, 2));
-	}
-
-	public boolean hasCharacter() {
-		return (this.character == null) ? false : true;
 	}
 
 	@Override
@@ -96,39 +52,83 @@ public class Tile implements Comparable<Tile> {
 		return false;
 	}
 
+	public double euclidianDistanceTo(Tile tile) {
+		// Euclidian distance
+		return Math.sqrt(Math.pow(tile.xPosition - xPosition, 2) + Math.pow(tile.yPosition - yPosition, 2));
+	}
+
+	public Optional<character.Character> getCharacter() {
+		if (character == null) {
+			return Optional.empty();
+		}
+		return Optional.of(character);
+	}
+
 	public String getDepiction() {
 		/**
 		 * Get the way the Tile has to be depicted Characters are displayed in priority
 		 */
-		if (this.item == null && this.character == null) {
+		if (item == null && character == null) {
 			return " ";
-		} else if (this.character == null) {
-			return this.item.toString();
+		} else if (character == null) {
+			return item.toString();
 		} else {
-			return this.character.toString();
+			return character.toString();
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
+	public Optional<Item> getItem() {
+		if (item == null) {
+			return Optional.empty();
+		}
+		return Optional.of(item);
+	}
+
+	public int getXPosition() {
+		return xPosition;
+	}
+
+	public int getYPosition() {
+		return yPosition;
+	}
+
+	public boolean hasCharacter() {
+		return (character == null) ? false : true;
+	}
+
+	public boolean hasItem() {
+		return (item == null) ? false : true;
 	}
 
 	public boolean isStaircase() {
 		return item instanceof Staircase;
 	}
 
-	public boolean hasItem() {
-		return (this.item == null) ? false : true;
+	public int manhattanDistanceTo(Tile tile) {
+		// Manhattan distance
+		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.yPosition - yPosition);
+	}
+
+	public void removeCharacter() {
+		character = null;
+	}
+
+	public void removeItem() {
+		if (!isStaircase()) {
+			item = null;
+		}
+	}
+
+	public void setXPosition(int xPosition) {
+		this.xPosition = xPosition;
+	}
+
+	public void setYPosition(int yPosition) {
+		this.yPosition = yPosition;
 	}
 
 	@Override
-	public int compareTo(Tile otherTile) {
-		if (xPosition == otherTile.getXPosition()) {
-			return yPosition - otherTile.getYPosition();
-		} else {
-			return xPosition - otherTile.getXPosition();
-		}
-
+	public String toString() {
+		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
 	}
 }

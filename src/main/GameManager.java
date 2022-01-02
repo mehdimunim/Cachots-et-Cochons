@@ -21,44 +21,61 @@ public class GameManager {
 	 * Manages the game
 	 */
 
+	public class DeadPlayerException extends Exception {
+		private static final long serialVersionUID = 1L;
+
+		public void printMessage() {
+			System.err.println("\nYOU ARE DEAD");
+		}
+
+	}
+
 	private Room currentRoom;
 	private Dungeon dungeon;
 	private HumanPlayer humanPlayer;
 	private List<AIPlayer> AIPlayers;
-	private boolean hasWon =false;
-	
-	
-	public boolean isLastRoom() {
-		return currentRoom.getLevel() == dungeon.size()-1;
+
+	private boolean hasWon = false;
+
+	public void addToGame(AIPlayer player) {
+		player.getCurrentTile().addCharacter(player.getChara());
+		AIPlayers.add(player);
 	}
-	public boolean isFirstRoom() {
-		return currentRoom.getLevel() == 0;
-	}
-	public Room nextRoom() {
-		int level = currentRoom.getLevel();
-		Room room;
-		try {
-		room = dungeon.getRoom(level + 1);
-		}
-		catch (IndexOutOfBoundsException e) {
-			hasWon = true;
-			room = currentRoom;
-		}
-		return room;
-		}
 
 	public void changeRoom(Room adjRoom) {
 		currentRoom = adjRoom;
 		initAIPlayers();
 	}
-	
-	public void initHuman() {
-		humanPlayer.goTo(currentRoom.getFirstTile());
+
+	public void chooseDungeon() throws ParseException {
+		System.out.println("Choose dungeon");
+		System.out.println("\tCreate Default Dungeon      [1]");
+		System.out.println("\tRead Basic Dungeon Example  [2]");
+		System.out.println("\tRead Dungeon Example (1)    [3]");
+		System.out.println("\tRead Dungeon Example (2)    [4]");
+		@SuppressWarnings("resource")
+		int choice = new Scanner(System.in).nextInt();
+		switch (choice) {
+		case 2:
+			readBasicDungeon("data//example//BasicDungeonExample.xml");
+			break;
+		case 3:
+			readBasicDungeon("data//example//DungeonExample1.xml");
+			break;
+		case 4:
+			readBasicDungeon("data//example//DungeonExample2.xml");
+			break;
+		default:
+			createBasicDungeon();
+			break;
+		}
 	}
 
-	public Room prevRoom() {
-		int level = currentRoom.getLevel();
-		return dungeon.getRoom(level - 1);
+	public void createBasicDungeon() {
+		BasicDungeonBuilder bd = new BasicDungeonBuilder();
+		bd.build();
+		dungeon = bd.getDungeon();
+
 	}
 
 	public void createDefaultHuman() {
@@ -68,6 +85,47 @@ public class GameManager {
 		humanPlayer = new HumanPlayer(hero, firstTile);
 		dungeon.getRoom(0).addHero(humanPlayer.getChara());
 
+	}
+
+	public void endMessage() {
+		System.out.println("\nYOU WON");
+	}
+
+	public List<AIPlayer> getAIPlayers() {
+		return AIPlayers;
+	}
+
+	public HumanPlayer getHumanPlayer() {
+		return humanPlayer;
+	}
+
+	public <T extends character.Character> void giveTurnTo(Player<T> player) throws DeadPlayerException {
+		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
+		player.play(reachableTiles);
+		if (player.isOnStaircase()) {
+			if (player.choosesToGoStaircase()) {
+				// go up if the staircase is down
+				Room adjRoom = player.isOnUp() ? prevRoom() : nextRoom();
+				player.goStaircase(adjRoom);
+				changeRoom(adjRoom);
+			}
+		}
+		if (humanPlayer.isDead()) {
+			throw new DeadPlayerException();
+		}
+
+	}
+
+	public void greetings() {
+		System.out.println("Hello!");
+	}
+
+	public boolean hasWonDungeon() {
+		return hasWon;
+	}
+
+	public boolean hasWonRoom() {
+		return AIPlayers.isEmpty();
 	}
 
 	public void initAIPlayers() {
@@ -81,16 +139,57 @@ public class GameManager {
 		}
 	}
 
-	public void updateAIPlayers() {
-		List<AIPlayer> deadAIs = AIPlayers.stream().filter(ai -> ai.isDead()).collect(Collectors.toList());
-		deadAIs.forEach(ai -> removeFromGame(ai));
+	public void initHuman() {
+		humanPlayer.goTo(currentRoom.getFirstTile());
+	}
+
+	public boolean isFirstRoom() {
+		return currentRoom.getLevel() == 0;
+	}
+
+	public boolean isLastRoom() {
+		return currentRoom.getLevel() == dungeon.size() - 1;
+	}
+
+	public Room nextRoom() {
+		int level = currentRoom.getLevel();
+		Room room;
+		try {
+			room = dungeon.getRoom(level + 1);
+		} catch (IndexOutOfBoundsException e) {
+			hasWon = true;
+			room = currentRoom;
+		}
+		return room;
+	}
+
+	public void notifyPrinters() {
+		RoomPrinter.update(currentRoom, humanPlayer);
+		InfoPrinter.update(currentRoom, humanPlayer);
+		InventoryPrinter.update(humanPlayer);
+
+	}
+
+	public Room prevRoom() {
+		int level = currentRoom.getLevel();
+		return dungeon.getRoom(level - 1);
+	}
+
+	public void readBasicDungeon(String xml) throws ParseException {
+		DungeonXMLParser parser = new DungeonXMLParser();
+		dungeon = parser.getDungeon(xml);
+	}
+
+	public void removeFromGame(AIPlayer player) {
+		player.getCurrentTile().removeCharacter();
+		AIPlayers.remove(player);
 	}
 
 	public void start() throws DeadPlayerException {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
-		//init AIPlayers
+		// init AIPlayers
 		initAIPlayers();
 		// iterate over all rooms
 		while (!hasWonDungeon()) {
@@ -116,107 +215,9 @@ public class GameManager {
 		endMessage();
 
 	}
-	
-	public void endMessage() {
-		System.out.println("\nYOU WON");
-	}
 
-	public void createBasicDungeon() {
-		BasicDungeonBuilder bd = new BasicDungeonBuilder();
-		bd.build();
-		dungeon = bd.getDungeon();
-
-	}
-	
-	public void readBasicDungeon(String xml) throws ParseException {
-		DungeonXMLParser parser = new DungeonXMLParser();
-		dungeon = parser.getDungeon(xml);
-	}
-
-	public void notifyPrinters() {
-		RoomPrinter.update(currentRoom, humanPlayer);
-		InfoPrinter.update(currentRoom, humanPlayer);
-		InventoryPrinter.update(humanPlayer);
-
-	}
-	public class DeadPlayerException extends Exception{
-		private static final long serialVersionUID = 1L;
-		
-		public void printMessage() {
-			System.err.println("\nYOU ARE DEAD");
-		}
-		
-	}
-	
-	public <T extends character.Character> void giveTurnTo(Player<T> player) throws DeadPlayerException {
-		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
-		player.play(reachableTiles);
-		if (player.isOnStaircase()) {
-			if (player.choosesToGoStaircase()) {
-				// go up if the staircase is down 
-				Room adjRoom = player.isOnUp() ? prevRoom() : nextRoom();
-				player.goStaircase(adjRoom);
-				changeRoom(adjRoom);
-			}
-		}
-		if (humanPlayer.isDead()) {
-			throw new DeadPlayerException();
-		}
-		
-
-	}
-
-
-	public void removeFromGame(AIPlayer player) {
-		player.getCurrentTile().removeCharacter();
-		AIPlayers.remove(player);
-	};
-	
-	public void addToGame(AIPlayer player) {
-		player.getCurrentTile().addCharacter(player.getChara());
-		AIPlayers.add(player);
-	}
-
-	public boolean hasWonRoom() {
-		return AIPlayers.isEmpty();
-	}
-	
-	public boolean hasWonDungeon() {
-		return hasWon;
-	}
-
-	public List<AIPlayer> getAIPlayers() {
-		return this.AIPlayers;
-	}
-
-	public HumanPlayer getHumanPlayer() {
-		return humanPlayer;
-	}
-	
-	public void greetings() {
-		System.out.println("Hello!");
-	}
-	public void chooseDungeon() throws ParseException {
-		System.out.println("Choose dungeon");
-		System.out.println("\tCreate Default Dungeon      [1]");
-		System.out.println("\tRead Basic Dungeon Example  [2]");
-		System.out.println("\tRead Dungeon Example (1)    [3]");
-		System.out.println("\tRead Dungeon Example (2)    [4]");
-		@SuppressWarnings("resource")
-		int choice = new Scanner(System.in).nextInt();
-		switch(choice) {
-		case 2: 
-			readBasicDungeon("data//example//BasicDungeonExample.xml");
-			break;
-		case 3: 
-			readBasicDungeon("data//example//DungeonExample1.xml");
-			break;
-		case 4:
-			readBasicDungeon("data//example//DungeonExample2.xml");
-			break;
-		default:
-			createBasicDungeon();
-			break;
-		}
+	public void updateAIPlayers() {
+		List<AIPlayer> deadAIs = AIPlayers.stream().filter(ai -> ai.isDead()).collect(Collectors.toList());
+		deadAIs.forEach(ai -> removeFromGame(ai));
 	}
 }

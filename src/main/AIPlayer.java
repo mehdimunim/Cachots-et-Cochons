@@ -14,6 +14,12 @@ public class AIPlayer extends Player<character.Character> {
 	}
 
 	@Override
+	protected boolean choosesToGoStaircase() {
+		// an AI Player never crosses a staircase
+		return false;
+	}
+
+	@Override
 	public void play(List<Tile> reachableTiles) {
 
 		// if no tile is reachable do nothing
@@ -31,7 +37,7 @@ public class AIPlayer extends Player<character.Character> {
 
 			// if no character, move to the tile
 			if (chara.isEmpty()) {
-				this.goTo(randomTile);
+				goTo(randomTile);
 			}
 
 			// else if there is an enemy, attack
@@ -47,12 +53,6 @@ public class AIPlayer extends Player<character.Character> {
 
 		}
 
-	}
-
-	@Override
-	protected boolean choosesToGoStaircase() {
-		// an AI Player never crosses a staircase
-		return false;
 	}
 
 }
