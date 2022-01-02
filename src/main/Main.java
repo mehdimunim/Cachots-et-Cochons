@@ -12,12 +12,11 @@ public class Main {
 
 		// choose dungeon
 		try {
-			gm.readBasicDungeon("data//example//DungeonExample.xml");
-		} catch (ParseException e) {
-			e.printStackTrace();
+			gm.chooseDungeon();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
-		//gm.createBasicDungeon()
-
+		
 		// create a hero from user input
 		gm.createDefaultHuman();
 

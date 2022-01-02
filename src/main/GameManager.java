@@ -3,6 +3,7 @@ package main;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import character.Hero;
@@ -190,5 +191,31 @@ public class GameManager {
 
 	public HumanPlayer getHumanPlayer() {
 		return humanPlayer;
+	}
+	
+	public void greetings() {
+		System.out.println("Hello!");
+	}
+	public void chooseDungeon() throws ParseException {
+		System.out.println("Choose dungeon");
+		System.out.println("\tCreate Default Dungeon      [1]");
+		System.out.println("\tRead Basic Dungeon Example  [2]");
+		System.out.println("\tRead Dungeon Example (1)    [3]");
+		System.out.println("\tRead Dungeon Example (2)    [4]");
+		int choice = new Scanner(System.in).nextInt();
+		switch(choice) {
+		case 2: 
+			readBasicDungeon("data//example//BasicDungeonExample.xml");
+			break;
+		case 3: 
+			readBasicDungeon("data//example//DungeonExample1.xml");
+			break;
+		case 4:
+			readBasicDungeon("data//example//DungeonExample2.xml");
+			break;
+		default:
+			createBasicDungeon();
+			break;
+		}
 	}
 }
