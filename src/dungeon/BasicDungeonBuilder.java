@@ -7,7 +7,7 @@ import character.MonsterFactory;
 import inventory.DefaultItemFactory;
 
 public class BasicDungeonBuilder implements DungeonBuilder {
-	private Dungeon dungeon = new BasicDungeon();
+	private BasicDungeon dungeon = new BasicDungeon();
 
 	@Override
 	public void addHero(Hero hero) {
