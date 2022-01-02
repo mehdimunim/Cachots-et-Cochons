@@ -24,6 +24,7 @@ public class GameManager {
 	private Dungeon dungeon;
 	private HumanPlayer humanPlayer;
 	private List<AIPlayer> AIPlayers;
+	private boolean hasWon =false;
 	
 	
 	public boolean isLastRoom() {
@@ -34,11 +35,20 @@ public class GameManager {
 	}
 	public Room nextRoom() {
 		int level = currentRoom.getLevel();
-		return dungeon.getRoom(level + 1);
-	}
+		Room room;
+		try {
+		room = dungeon.getRoom(level + 1);
+		}
+		catch (IndexOutOfBoundsException e) {
+			hasWon = true;
+			room = currentRoom;
+		}
+		return room;
+		}
 
 	public void changeRoom(Room adjRoom) {
 		currentRoom = adjRoom;
+		initAIPlayers();
 	}
 	
 	public void initHuman() {
@@ -79,9 +89,10 @@ public class GameManager {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
+		//init AIPlayers
+		initAIPlayers();
 		// iterate over all rooms
 		while (!hasWonDungeon()) {
-			initAIPlayers();
 			// refresh printer for the new turn
 			notifyPrinters();
 			// iterate over all players
@@ -104,7 +115,12 @@ public class GameManager {
 			changeRoom(nextRoom());
 			initHuman();
 		}
+		endMessage();
 
+	}
+	
+	public void endMessage() {
+		System.out.println("DUNGEON FINISHED");
 	}
 
 	public void createBasicDungeon() {
@@ -157,7 +173,7 @@ public class GameManager {
 	}
 	
 	public boolean hasWonDungeon() {
-		return false;
+		return hasWon;
 	}
 
 	public List<AIPlayer> getAIPlayers() {
