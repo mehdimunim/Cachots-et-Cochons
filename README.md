@@ -3,7 +3,7 @@
 Projet de Java avancé septembre-janvier 2021
 
 ## Introduction
-Implémentations des patrons de conception dans un jeu.
+Implémentations des patrons de conception dans un jeu type Nethack.
 
 Jeu de mots sur le double sens de *dungeon* (donjon / cachot, oubliettes).
 
@@ -11,13 +11,11 @@ Jeu de mots sur le double sens de *dungeon* (donjon / cachot, oubliettes).
 Java SE-8
 
 ## Installation
-Cloner le répertoire. Puis lancer en ligne de commandes : 
+Cloner le répertoire. Puis lancer en ligne de commandes (bash) : 
 
-`cd Cachots-et-Cochons`
+`javac -source 1.8 -target 1.8 -d bin/ src/*/*.java`
 
-`javac -source 1.8 -target 1.8 -d target/ src/*/*.java`
-
-`java -cp target main.Main`
+`java -cp bin main.Main`
 
 ## Lancement du jeu
 
