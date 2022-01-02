@@ -38,8 +38,17 @@ public abstract class Character {
 		this.attack += gain;
 	}
 	
+	public void loseAttack(int loss) {
+		this.attack -= loss;
+	}
+	
 	public void gainDefense(int gain) {
 		this.defense +=gain;
+	}
+	
+	public void loseDefense(int loss) {
+		this.defense -= loss;
+		
 	}
 	
 	public int getXP() {
@@ -91,5 +100,7 @@ public abstract class Character {
 	public boolean isDead() {
 		return this.HP <= 0;
 	}
+
+
 
 }

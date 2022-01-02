@@ -1,5 +1,7 @@
 package inventory;
 
+import character.Character;
+
 public class Potion extends Item{
 	private int HP; // health points
 	
@@ -19,4 +21,14 @@ public class Potion extends Item{
 	public String getFullDescription() {
 		return "Potion, HP: " + String.valueOf(HP);
 	}
+	
+	@Override
+	public void applyEffect(Character chara) {
+		heal(chara);
+	};
+	
+	@Override
+	public void removeEffect(Character chara) {
+		chara.loseHP(HP);
+	};
 }

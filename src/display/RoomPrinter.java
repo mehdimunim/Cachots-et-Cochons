@@ -1,15 +1,14 @@
 package display;
 
+import character.Hero;
 import dungeon.Room;
 import dungeon.Tile;
 import main.HumanPlayer;
-import character.Hero;
 
 public class RoomPrinter {
 
 	public static void display(Room room, Hero hero) {
 
-		int x = room.getX();
 		int y = room.getY();
 
 		// +2 to include borders
@@ -36,7 +35,5 @@ public class RoomPrinter {
 	public static void update(Room currentRoom, HumanPlayer humanPlayer) {
 		display(currentRoom, humanPlayer.getChara());
 	}
-
-	
 
 }

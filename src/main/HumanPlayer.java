@@ -23,9 +23,8 @@ public class HumanPlayer extends Player<character.Hero> {
 	}
 
 	public Map<String, Tile> listReachableTiles(List<Tile> reachableTiles) {
-		System.out.println("List of all reachable cases");
+		System.out.println("List of all reachable cases: ");
 		reachableTiles.stream().sorted().forEachOrdered(tile -> System.out.println(tile.toString()));
-		
 		return reachableTiles.stream().collect(Collectors.toMap(t -> t.toString(), Function.identity()));
 
 	}
@@ -34,9 +33,8 @@ public class HumanPlayer extends Player<character.Hero> {
 		/**
 		 * Format user input and return the correct formatting for tiles, aka: (line, column)
 		 * Accepted input for Tile:
-		 * (Line, Column)
+		 * (line, column)
 		 * linecolumn if line and column are one digit
-		 * line column
 		 * line,column
 		 * 
 		 */
@@ -59,7 +57,7 @@ public class HumanPlayer extends Player<character.Hero> {
 		// choose a tile with input
 		Tile tile = null;
 		while (tile == null) {
-			System.out.print("Choose case: \n");
+			System.out.print("\nChoose tile: ");
 			String formatInput = formatInputString(scanner.nextLine());
 			tile = tiles.get(formatInput);
 		}
@@ -121,7 +119,7 @@ public class HumanPlayer extends Player<character.Hero> {
 	}
 	
 	private boolean confirmAttack(Scanner scanner) {
-		System.out.println("Do you want to attack? [y/n]");
+		System.out.print("Do you want to attack? [y/n] ");
 		String confirm = scanner.nextLine();
 		if (confirm.toLowerCase().charAt(0) == 'y') {
 			return true;

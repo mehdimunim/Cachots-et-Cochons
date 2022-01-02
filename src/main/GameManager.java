@@ -118,7 +118,7 @@ public class GameManager {
 	}
 	
 	public void endMessage() {
-		System.out.println("\nDUNGEON FINISHED");
+		System.out.println("\nYOU WON");
 	}
 
 	public void createBasicDungeon() {
@@ -202,6 +202,7 @@ public class GameManager {
 		System.out.println("\tRead Basic Dungeon Example  [2]");
 		System.out.println("\tRead Dungeon Example (1)    [3]");
 		System.out.println("\tRead Dungeon Example (2)    [4]");
+		@SuppressWarnings("resource")
 		int choice = new Scanner(System.in).nextInt();
 		switch(choice) {
 		case 2: 

@@ -1,5 +1,7 @@
 package inventory;
 
+import character.Character;
+
 public class Sword extends Item{
 	
 	private int damage;
@@ -23,5 +25,15 @@ public class Sword extends Item{
 	public String getFullDescription() {
 		return "Sword, damage: " + String.valueOf(damage);
 	}
+	
+	@Override
+	public void applyEffect(Character chara) {
+		addAttack(chara);
+	};
+	
+	@Override
+	public void removeEffect(Character chara) {
+		chara.loseAttack(damage);
+	};
 
 }

@@ -9,7 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		// Initialize game manager
 		GameManager gm = new GameManager();
-
+		
+		gm.greetings();
+		
 		// choose dungeon
 		try {
 			gm.chooseDungeon();
