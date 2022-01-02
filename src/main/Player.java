@@ -147,7 +147,7 @@ public abstract class Player<T extends character.Character> {
 	protected abstract boolean choosesToGoStaircase();
 
 	public void goStaircase(Room adjRoom) {
-		goTo(adjRoom.getTile(currentTile.getXPosition()-1, currentTile.getYPosition()-1));
+		goTo(adjRoom.getTile(currentTile.getXPosition(), currentTile.getYPosition()+1));
 		
 	}
 
