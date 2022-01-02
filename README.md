@@ -1,6 +1,7 @@
 # Cachots et Cochons
 
 Projet de Java avancé septembre-janvier 2021
+Diagramme UML dans le dossier principal (UML Class Diagram.jpg).
 
 ## Introduction
 Implémentations des patrons de conception dans un jeu type Nethack.
@@ -18,7 +19,6 @@ Cloner le répertoire. Puis lancer en ligne de commandes (bash) :
 `java -cp bin main.Main`
 
 ## Lancement du jeu
-
 Le jeu se lance en ligne de commande. On joue après l'IA. Il faut sélectionner la position de la case pour le déplacement/attaque. 
 
 ## Contact
