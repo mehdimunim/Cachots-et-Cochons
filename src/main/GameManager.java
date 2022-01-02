@@ -120,7 +120,7 @@ public class GameManager {
 	}
 	
 	public void endMessage() {
-		System.out.println("DUNGEON FINISHED");
+		System.out.println("\nDUNGEON FINISHED");
 	}
 
 	public void createBasicDungeon() {
