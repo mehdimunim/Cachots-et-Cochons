@@ -4,6 +4,7 @@ import java.io.IOException; // builder.parse()
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,6 +22,7 @@ import character.Hero;
 import character.MonsterFactory;
 import inventory.DefaultItemFactory;
 import inventory.Item;
+import inventory.Staircase;
 
 public class DungeonXMLParser implements DungeonParser {
 
@@ -60,7 +62,7 @@ public class DungeonXMLParser implements DungeonParser {
 
 	public List<Room> parseRooms(Element mainElement) throws ParseException {
 		List<Room> listRooms = new ArrayList<Room>();
-		NodeList nodeList = mainElement.getChildNodes();
+		NodeList nodeList = mainElement.getElementsByTagName("rooms").item(0).getChildNodes();
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -73,16 +75,15 @@ public class DungeonXMLParser implements DungeonParser {
 
 	public Tile parseTile(Element element) throws ParseException {
 
-		// get all attributes
+		// get tile position
 		int xPosition = Integer.parseInt(element.getElementsByTagName("xPosition").item(0).getTextContent());
 		int yPosition = Integer.parseInt(element.getElementsByTagName("yPosition").item(0).getTextContent());
-		Character chara = parseCharacter(element);
-		Item item = parseItem(element);
-
 		// build tile
 		Tile tile = new Tile(xPosition, yPosition);
-		tile.addCharacter(chara);
-		tile.addItem(item);
+		
+		// complete tile with character and item
+		parseCharacter(element).ifPresent(chara -> tile.addCharacter(chara));
+		parseItem(element).ifPresent(it -> tile.addItem(it));
 
 		return tile;
 	}
@@ -92,96 +93,62 @@ public class DungeonXMLParser implements DungeonParser {
 		String name = element.getElementsByTagName("name").item(0).getTextContent();
 		int level = Integer.parseInt(element.getElementsByTagName("level").item(0).getTextContent());
 		NodeList nodeList = element.getElementsByTagName("tiles").item(0).getChildNodes();
-
-		List<Tile> listTiles = new ArrayList<Tile>();
+		
+		RoomBuilder rb = new RoomBuilder(name, level);
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element elem = (Element) node;
-				listTiles.add(parseTile(elem));
+				rb.addTile(parseTile(elem));
 			}
 		}
 
-		return buildRoom(name, level, listTiles);
+		return rb.getRoom();
 	}
-
-	private Room buildRoom(String name, int level, List<Tile> listTiles) {
-
-		int xDim = getMaxXPosition(listTiles);
-		int yDim = getMaxYPosition(listTiles);
-
-		Room room = new Room(xDim, yDim, name, level);
-
-		return getfilledRoom(room, listTiles);
-	}
-
-	private Room getfilledRoom(Room room, List<Tile> listTiles) {
-		/**
-		 * Fill an empty room with the correct tiles
-		 */
-
-		listTiles.forEach(t -> t.getCharacter()
-				.ifPresent(chara -> room.getTile(t.getXPosition(), t.getYPosition()).addCharacter(chara)));
-		listTiles.forEach(
-				t -> t.getItem().ifPresent(item -> room.getTile(t.getXPosition(), t.getYPosition()).addItem(item)));
-		return room;
-	}
-
-	private int getMaxXPosition(List<Tile> listTiles) {
-		if (listTiles.isEmpty()) {
-			return 0;
-		}
-		return listTiles.stream().mapToInt(Tile::getXPosition).max().getAsInt();
-	}
-
-	private int getMaxYPosition(List<Tile> listTiles) {
-		if (listTiles.isEmpty()) {
-			return 0;
-		}
-		return listTiles.stream().mapToInt(Tile::getYPosition).max().getAsInt();
-	}
-
-	public Item parseItem(Element element) throws ParseException {
+	
+	public Optional<Item> parseItem(Element element) throws ParseException {
 		String item = element.getElementsByTagName("item").item(0).getTextContent();
 		switch (item) {
 
 		case "Bow":
-			return DefaultItemFactory.createBow();
+			return Optional.of(DefaultItemFactory.createBow());
 		case "Sword":
-			return DefaultItemFactory.createSword();
+			return Optional.of(DefaultItemFactory.createSword());
 		case "Shield":
-			return DefaultItemFactory.createShield();
+			return Optional.of(DefaultItemFactory.createShield());
 		case "Potion":
-			return DefaultItemFactory.createPotion();
+			return Optional.of(DefaultItemFactory.createPotion());
+		case "Staircase down":
+			return Optional.of(new Staircase("down"));
+		case "Staircase up":
+			return Optional.of(new Staircase("up"));
 		default:
-			throw new ParseException(item, 0);
+			return Optional.empty();
 
 		}
 
 	}
 
-	public Character parseCharacter(Element element) throws ParseException {
-		String character = element.getElementsByTagName("item").item(0).getTextContent();
-
+	public Optional<Character> parseCharacter(Element element) throws ParseException {
+		String character = element.getElementsByTagName("character").item(0).getTextContent();
 		MonsterFactory fac = new MonsterFactory();
 		switch (character) {
 
 		case "Hero":
-			return Hero.createDefaultHero();
-
+			return Optional.of(Hero.createDefaultHero());
+			
 		case "Boar":
-			return fac.createBoar();
-
+			return Optional.of(fac.createBoar());
+			
 		case "Sow":
-			return fac.createSow();
-
+			return Optional.of(fac.createSow());
+			
 		case "Shoat":
-			return fac.createShoat();
-
+			return Optional.of(fac.createShoat());
+			
 		default:
-			throw new ParseException(character, 0);
+			return Optional.empty();
 		}
-
 	}
 
 	public int parseDifficulty(Element mainElement) {
