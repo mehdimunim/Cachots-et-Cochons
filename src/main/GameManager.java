@@ -85,7 +85,7 @@ public class GameManager {
 		deadAIs.forEach(ai -> removeFromGame(ai));
 	}
 
-	public void start() {
+	public void start() throws DeadPlayerException {
 
 		// init room
 		currentRoom = dungeon.getRoom(0);
@@ -100,9 +100,6 @@ public class GameManager {
 				// iterate over AI players
 				for (AIPlayer aiPlayer : AIPlayers) {
 					giveTurnTo(aiPlayer);
-					// wait between AI turns
-					// TODO: solve IllegalMonitorException
-					// wait(1000);
 				}
 				notifyPrinters();
 				// give turn to human
@@ -141,9 +138,16 @@ public class GameManager {
 		InventoryPrinter.update(humanPlayer);
 
 	}
-
-	public <T extends character.Character> void giveTurnTo(Player<T> player) {
-
+	public class DeadPlayerException extends Exception{
+		private static final long serialVersionUID = 1L;
+		
+		public void printMessage() {
+			System.err.println("\nYOU ARE DEAD");
+		}
+		
+	}
+	
+	public <T extends character.Character> void giveTurnTo(Player<T> player) throws DeadPlayerException {
 		List<Tile> reachableTiles = player.getReachableTiles(currentRoom);
 		player.play(reachableTiles);
 		if (player.isOnStaircase()) {
@@ -154,6 +158,10 @@ public class GameManager {
 				changeRoom(adjRoom);
 			}
 		}
+		if (humanPlayer.isDead()) {
+			throw new DeadPlayerException();
+		}
+		
 
 	}
 

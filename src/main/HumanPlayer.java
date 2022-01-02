@@ -1,13 +1,11 @@
 package main;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import dungeon.Room;
 import dungeon.Tile;
 import inventory.Item;
 

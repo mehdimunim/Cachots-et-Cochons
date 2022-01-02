@@ -44,14 +44,14 @@ private Dungeon dungeon = new BasicDungeon();
 	public void createRoom(int roomDim, int level) {
 		
 		Room room = new Room(roomDim, roomDim, "Room " + level, level);
-		
+		MonsterFactory fac = new MonsterFactory();
 		// fill the room
 		// fill with monsters
 		// +1 because hero is already at tile 0
 		// mod the size of the room
-		MonsterFactory.spawnBoar(room.getTile(1+ level %roomDim*roomDim));
-		MonsterFactory.spawnSow(room.getTile(2 + level %roomDim*roomDim));
-		MonsterFactory.spawnShoat(room.getTile(3 + level %roomDim*roomDim));
+		fac.spawnBoar(room.getTile(1+ level %roomDim*roomDim));
+		fac.spawnSow(room.getTile(2 + level %roomDim*roomDim));
+		fac.spawnShoat(room.getTile(3 + level %roomDim*roomDim));
 		
 		// fill with items
 		room.getTile(1+ level %roomDim*roomDim).addItem(DefaultItemFactory.createIronArrow());

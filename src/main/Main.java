@@ -2,6 +2,8 @@ package main;
 
 import java.text.ParseException;
 
+import main.GameManager.DeadPlayerException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -10,7 +12,7 @@ public class Main {
 
 		// choose dungeon
 		try {
-			gm.readBasicDungeon("data//example//BasicDungeonExample.xml");
+			gm.readBasicDungeon("data//example//DungeonExample.xml");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -20,6 +22,10 @@ public class Main {
 		gm.createDefaultHuman();
 
 		// launch the game
-		gm.start();
+		try {
+			gm.start();
+		} catch (DeadPlayerException e) {
+			e.printMessage();
+		}
 	}
 }
