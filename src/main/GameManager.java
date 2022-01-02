@@ -1,5 +1,6 @@
 package main;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import display.InventoryPrinter;
 import display.RoomPrinter;
 import dungeon.BasicDungeonBuilder;
 import dungeon.Dungeon;
+import dungeon.DungeonXMLParser;
 import dungeon.Room;
 import dungeon.Tile;
 
@@ -110,6 +112,11 @@ public class GameManager {
 		bd.build();
 		dungeon = bd.getDungeon();
 
+	}
+	
+	public void readBasicDungeon(String xml) throws ParseException {
+		DungeonXMLParser parser = new DungeonXMLParser();
+		dungeon = parser.getDungeon(xml);
 	}
 
 	public void notifyPrinters() {

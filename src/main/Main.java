@@ -1,5 +1,7 @@
 package main;
 
+import java.text.ParseException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -7,7 +9,12 @@ public class Main {
 		GameManager gm = new GameManager();
 
 		// choose dungeon
-		gm.createBasicDungeon();
+		try {
+			gm.readBasicDungeon("data//example//BasicDungeonExample.xml");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//gm.createBasicDungeon()
 
 		// create a hero from user input
 		gm.createDefaultHuman();
