@@ -1,6 +1,6 @@
 # Cachots et Cochons
 
-Projet de Java avancé septembre-janvier 2021
+Projet de Java avancé septembre-janvier 2021-2022
 Diagramme UML dans le dossier principal (UML Class Diagram.jpg).
 
 ## Introduction

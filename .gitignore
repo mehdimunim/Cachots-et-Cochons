@@ -8,11 +8,7 @@
 *.log
 
 # Test file 
-src/test/
 src/test/*
-*/test/*
-**/test/
-/test/
 
 
 # BlueJ files
