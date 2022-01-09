@@ -53,9 +53,9 @@ public class BasicDungeonBuilder implements DungeonBuilder {
 		fac.spawnShoat(room.getTile(3 + level % roomDim * roomDim));
 
 		// fill with items
-		room.getTile(1 + level % roomDim * roomDim).addItem(DefaultItemFactory.createIronArrow());
-		room.getTile(5 + level % roomDim * roomDim).addItem(DefaultItemFactory.createBow());
-		room.getTile(6 + level % roomDim * roomDim).addItem(DefaultItemFactory.createShield());
+		room.getTile(1 + level % roomDim * roomDim).addItem(DefaultItemFactory.createPotion());
+		room.getTile(5 + level % roomDim * roomDim).addItem(DefaultItemFactory.createPotion());
+		room.getTile(6 + level % roomDim * roomDim).addItem(DefaultItemFactory.createPotion());
 		room.getTile(10 + level % roomDim * roomDim).addItem(DefaultItemFactory.createSword());
 
 		addRoom(room);

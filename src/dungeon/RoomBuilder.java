@@ -1,7 +1,9 @@
 package dungeon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoomBuilder {
 	private Room room;
@@ -24,7 +26,11 @@ public class RoomBuilder {
 
 	}
 
-	public Room getRoom() {
+	public Room getRoom() throws InvalidRoomException {
+		List<Integer> rowSizes = room.getTiles().stream().map(row -> row.size()).collect(Collectors.toList());
+		if (Collections.max(rowSizes) != Collections.min(rowSizes)) {
+			throw new InvalidRoomException("The room is not a rectangle");
+		}
 		return room;
 	}
 }

@@ -13,6 +13,7 @@ import display.RoomPrinter;
 import dungeon.BasicDungeonBuilder;
 import dungeon.Dungeon;
 import dungeon.DungeonXMLParser;
+import dungeon.InvalidRoomException;
 import dungeon.Room;
 import dungeon.Tile;
 
@@ -20,15 +21,6 @@ public class GameManager {
 	/*
 	 * Manages the game
 	 */
-
-	public class DeadPlayerException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		public void printMessage() {
-			System.err.println("\nYOU ARE DEAD");
-		}
-
-	}
 
 	private Room currentRoom;
 	private Dungeon dungeon;
@@ -47,7 +39,7 @@ public class GameManager {
 		initAIPlayers();
 	}
 
-	public void chooseDungeon() throws ParseException {
+	public void chooseDungeon() throws ParseException, InvalidRoomException {
 		System.out.println("Choose dungeon");
 		System.out.println("\tCreate Default Dungeon      [1]");
 		System.out.println("\tRead Basic Dungeon Example  [2]");
@@ -106,7 +98,8 @@ public class GameManager {
 			if (player.choosesToGoStaircase()) {
 				// go up if the staircase is down
 				Room adjRoom = player.isOnUp() ? prevRoom() : nextRoom();
-				player.goStaircase(adjRoom);
+				Command goStaircase= new GoStaircaseCommand<T>(player, adjRoom);
+				goStaircase.execute();
 				changeRoom(adjRoom);
 			}
 		}
@@ -175,7 +168,7 @@ public class GameManager {
 		return dungeon.getRoom(level - 1);
 	}
 
-	public void readBasicDungeon(String xml) throws ParseException {
+	public void readBasicDungeon(String xml) throws ParseException, InvalidRoomException {
 		DungeonXMLParser parser = new DungeonXMLParser();
 		dungeon = parser.getDungeon(xml);
 	}
