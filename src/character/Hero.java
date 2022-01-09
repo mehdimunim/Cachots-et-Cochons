@@ -83,4 +83,12 @@ public class Hero extends Character {
 		invent.removeItem(item);
 	}
 
+	@Override
+	public Hero clone() {
+		Hero clonedHero = new Hero(getXP(), getHP(), getAttack(), getDefense(), getMove(), getName());
+		// clone inventory
+		invent.getItems().stream().forEachOrdered(it -> clonedHero.addItem(it.clone()));
+		return clonedHero;
+	}
+
 }

@@ -32,4 +32,9 @@ public class Potion extends Item {
 	public String toString() {
 		return "+";
 	}
+
+	@Override
+	public Potion clone() {
+		return new Potion(HP);
+	}
 }

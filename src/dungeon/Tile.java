@@ -5,7 +5,7 @@ import java.util.Optional;
 import inventory.Item;
 import inventory.Staircase;
 
-public class Tile implements Comparable<Tile> {
+public class Tile implements Comparable<Tile>, Cloneable {
 
 	private int xPosition;
 	private int yPosition;
@@ -130,5 +130,13 @@ public class Tile implements Comparable<Tile> {
 	@Override
 	public String toString() {
 		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
+	}
+	
+	@Override
+	public Tile clone() {
+		Tile clonedTile = new Tile(xPosition, yPosition);
+		if (character != null) clonedTile.addCharacter(character.clone());
+		if (item != null) clonedTile.addItem(item.clone());
+		return clonedTile;
 	}
 }

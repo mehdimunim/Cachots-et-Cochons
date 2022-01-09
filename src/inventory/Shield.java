@@ -33,4 +33,9 @@ public class Shield extends Item {
 	public String toString() {
 		return "#";
 	}
+	
+	@Override
+	public Shield clone() {
+		return new Shield(defense);
+	}
 }

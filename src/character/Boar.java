@@ -13,4 +13,10 @@ public class Boar extends AdultPig {
 	public String toString() {
 		return "B";
 	}
+
+	@Override
+	public Boar clone() {
+		return new Boar(getXP(), getHP(), getAttack(), getDefense(), getMove());
+	}
+	
 }
