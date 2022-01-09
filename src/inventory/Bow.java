@@ -1,6 +1,7 @@
 package inventory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Bow extends Item {
 
@@ -37,6 +38,12 @@ public class Bow extends Item {
 	@Override
 	public String toString() {
 		return ")";
+	}
+	
+	@Override
+	public Bow clone() {
+		List<Arrow> clonedQuiver = quiver.stream().map(a -> a.clone()).collect(Collectors.toList());
+		return new Bow(range, clonedQuiver);
 	}
 
 }

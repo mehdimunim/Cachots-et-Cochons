@@ -19,4 +19,9 @@ public class Shoat extends Monster {
 		// Uppercase for Sow
 		return "s";
 	}
+	
+	@Override
+	public Shoat clone() {
+		return new Shoat(getXP(), getHP(), getAttack(), getDefense(), getMove());
+	}
 }

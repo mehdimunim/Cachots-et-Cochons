@@ -21,4 +21,10 @@ public class Arrow extends Item {
 		return "-";
 	}
 
+	@Override
+	public Arrow clone() {
+		return new Arrow(damage);
+	}
+	
+
 }

@@ -28,5 +28,10 @@ public class Sow extends AdultPig {
 	public String toString() {
 		return "S";
 	}
+	
+	@Override
+	public Sow clone() {
+		return new Sow(getXP(), getHP(), getAttack(), getDefense(), getMove());
+	}
 
 }

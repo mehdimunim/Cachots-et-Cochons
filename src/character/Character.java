@@ -1,6 +1,6 @@
 package character;
 
-public abstract class Character {
+public abstract class Character implements Cloneable {
 
 	private int XP;
 	private int HP;
@@ -96,5 +96,8 @@ public abstract class Character {
 	public void setXP(int xP) {
 		XP = xP;
 	}
+	
+	@Override
+	public abstract Character clone();
 
 }

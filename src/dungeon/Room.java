@@ -9,7 +9,7 @@ import java.util.Random;
 import character.Character;
 import inventory.Item;
 
-public class Room implements Iterable<Tile> {
+public class Room implements Iterable<Tile>, Cloneable {
 	/**
 	 * A Room is a rectangle of tiles with metainfo (description and level in the
 	 * dungeon)
@@ -197,6 +197,15 @@ public class Room implements Iterable<Tile> {
 
 		tiles.get(x).set(y, tile);
 
+	}
+	
+	@Override
+	public Room clone() {
+		RoomBuilder rb = new RoomBuilder(description, level);
+		for (Tile tile : this) {
+			rb.addTile(tile.clone());
+		}
+		return rb.getRoom();
 	}
 
 }

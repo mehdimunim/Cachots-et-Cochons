@@ -32,5 +32,10 @@ public class Staircase extends Item {
 	public String toString() {
 		return "X";
 	}
+	
+	@Override
+	public Staircase clone() {
+		return new Staircase(up?"up":"down");
+	}
 
 }
