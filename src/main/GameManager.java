@@ -98,7 +98,8 @@ public class GameManager {
 			if (player.choosesToGoStaircase()) {
 				// go up if the staircase is down
 				Room adjRoom = player.isOnUp() ? prevRoom() : nextRoom();
-				player.goStaircase(adjRoom);
+				Command goStaircase= new GoStaircaseCommand<T>(player, adjRoom);
+				goStaircase.execute();
 				changeRoom(adjRoom);
 			}
 		}
