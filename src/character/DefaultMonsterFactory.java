@@ -2,7 +2,7 @@ package character;
 
 import dungeon.Tile;
 
-public class MonsterFactory {
+public class DefaultMonsterFactory implements MonsterFactoryInterface {
 
 	public Monster createBoar() {
 		Boar boar = new Boar(10, 200, 50, 10, 1);
