@@ -3,9 +3,9 @@ package inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultItemFactory {
+public class DefaultItemFactory implements ItemFactoryInterface{
 
-	public static Item createBow() {
+	public Item createBow() {
 
 		List<Arrow> quiver = new ArrayList<>();
 
@@ -22,40 +22,40 @@ public class DefaultItemFactory {
 		return bow;
 	}
 
-	public static Item createDownStaircase() {
+	public Item createDownStaircase() {
 		return new Staircase("down");
 	}
 
-	public static Item createIronArrow() {
+	public Item createIronArrow() {
 		Arrow arrow = new Arrow(10);
 		return arrow;
 	}
 
-	public static Item createMagicalArrow() {
+	public Item createMagicalArrow() {
 		Arrow arrow = new Arrow(20);
 		return arrow;
 	}
 
-	public static Item createPotion() {
+	public Item createPotion() {
 		Potion potion = new Potion(10);
 		return potion;
 	}
 
-	public static Item createShield() {
+	public Item createShield() {
 		Shield shield = new Shield(10);
 		return shield;
 	}
 
-	public static Item createSword() {
+	public Item createSword() {
 		Sword sword = new Sword(10);
 		return sword;
 	}
 
-	public static Item createUpStaircase() {
+	public Item createUpStaircase() {
 		return new Staircase("up");
 	}
 
-	public static Item createWoodArrow() {
+	public Item createWoodArrow() {
 		Arrow arrow = new Arrow(1);
 		return arrow;
 	}

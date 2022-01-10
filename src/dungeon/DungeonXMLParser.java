@@ -19,7 +19,7 @@ import org.xml.sax.SAXException; // builder.parse()
 
 import character.Character;
 import character.Hero;
-import character.MonsterFactory;
+import character.DefaultMonsterFactory;
 import inventory.DefaultItemFactory;
 import inventory.Item;
 import inventory.Staircase;
@@ -54,7 +54,7 @@ public class DungeonXMLParser implements DungeonParser {
 
 	public Optional<Character> parseCharacter(Element element) throws ParseException {
 		String character = element.getElementsByTagName("character").item(0).getTextContent();
-		MonsterFactory fac = new MonsterFactory();
+		DefaultMonsterFactory fac = new DefaultMonsterFactory();
 		switch (character) {
 
 		case "Hero":
@@ -88,16 +88,17 @@ public class DungeonXMLParser implements DungeonParser {
 
 	public Optional<Item> parseItem(Element element) throws ParseException {
 		String item = element.getElementsByTagName("item").item(0).getTextContent();
+		DefaultItemFactory fac = new DefaultItemFactory();
 		switch (item) {
 
 		case "Bow":
-			return Optional.of(DefaultItemFactory.createBow());
+			return Optional.of(fac.createBow());
 		case "Sword":
-			return Optional.of(DefaultItemFactory.createSword());
+			return Optional.of(fac.createSword());
 		case "Shield":
-			return Optional.of(DefaultItemFactory.createShield());
+			return Optional.of(fac.createShield());
 		case "Potion":
-			return Optional.of(DefaultItemFactory.createPotion());
+			return Optional.of(fac.createPotion());
 		case "Staircase down":
 			return Optional.of(new Staircase("down"));
 		case "Staircase up":
