@@ -9,25 +9,30 @@ import java.util.Random;
 import character.Character;
 import inventory.Item;
 
+/**
+ * A Room is a rectangle of tiles with meta-info (description and level in the
+ * dungeon). Is built with a room builder
+ */
 public class Room implements Iterable<Tile>, Cloneable {
-	/**
-	 * A Room is a rectangle of tiles with metainfo (description and level in the
-	 * dungeon)
-	 */
 
-	private List<List<Tile>> tiles; // list of rows of tiles
+	/**
+	 * List of rows of tiles so that tiles.get(x).get(y) return the tile at row x
+	 * and column y
+	 */
+	private List<List<Tile>> tiles;
 	private String description = "";
 	private int level;
 
+	/**
+	 * Basic Room constructor. Fill the room with empty tiles
+	 *
+	 * @param x:     x dimension of the room
+	 * @param y:     y dimension of the room
+	 * @param desc:  description of the room
+	 * @param level: level of the room in the dungeon
+	 */
 	public Room(int x, int y, String desc, int level) {
-		/**
-		 * Room constructor
-		 *
-		 * @param x:     x dimension of the room
-		 * @param y:     y dimension of the room
-		 * @param desc:  description of the room
-		 * @param level: level of the room in the dungeon
-		 */
+
 		description = desc;
 		this.level = level;
 		tiles = new ArrayList<List<Tile>>();
@@ -47,28 +52,46 @@ public class Room implements Iterable<Tile>, Cloneable {
 		this.tiles = tiles;
 	}
 
+	/**
+	 * Empty room constructor. Does not fill it with tiles
+	 *
+	 * @param desc:  description of the room
+	 * @param level: level of the room in the dungeon
+	 */
 	public Room(String desc, int level) {
-		/**
-		 * Empty room constructor
-		 *
-		 * @param desc:  description of the room
-		 * @param level: level of the room in the dungeon
-		 */
 		description = desc;
 		this.level = level;
 		tiles = new ArrayList<List<Tile>>();
 	}
 
-	public void addCharacter(character.Character character, int index) {
+	/**
+	 * Add a character at the given index
+	 *
+	 * @param character
+	 * @param index:    index = y*xDim + x if the character is added at Tile (x, y)
+	 * @throws NonEmptyTileException
+	 */
+	public void addCharacter(character.Character character, int index) throws NonEmptyTileException {
 		this.getTile(index).addCharacter(character);
 
 	}
 
-	public void addHero(character.Hero hero) {
-		/**
-		 * Add a hero on the first tile
-		 */
+	/**
+	 * Add a hero on the first tile
+	 *
+	 * @throws NonEmptyTileException
+	 */
+	public void addHero(character.Hero hero) throws NonEmptyTileException {
 		getFirstTile().addCharacter(hero);
+	}
+
+	@Override
+	public Room clone() {
+		RoomBuilder rb = new RoomBuilder(description, level);
+		for (Tile tile : this) {
+			rb.addTile(tile.clone());
+		}
+		return rb.getRoom();
 	}
 
 	public List<character.Character> getCharacters() {
@@ -106,6 +129,14 @@ public class Room implements Iterable<Tile>, Cloneable {
 		return getTile(rand.nextInt(tiles.size()));
 	}
 
+	/**
+	 * Get all reachable tiles from a given reference within a circle. The distance
+	 * is the Manhattan distance.
+	 *
+	 * @param refTile: reference tile
+	 * @param move:    given range
+	 * @return the list of all reachable tiles
+	 */
 	public List<Tile> getReachableTilesFrom(Tile refTile, int move) {
 		List<Tile> res = new ArrayList<Tile>();
 
@@ -127,8 +158,13 @@ public class Room implements Iterable<Tile>, Cloneable {
 		return tiles.get(i - 1);
 	}
 
+	/**
+	 * Get the tile containing a given character
+	 *
+	 * @param newChara
+	 * @return tile
+	 */
 	public Tile getTile(Character newChara) {
-		// get the tile containing newChara
 		for (Tile tile : this) {
 			if (tile.getCharacter().isPresent() && tile.getCharacter().get() == newChara) {
 				return tile;
@@ -155,6 +191,11 @@ public class Room implements Iterable<Tile>, Cloneable {
 		return tiles;
 	}
 
+	/**
+	 * Get the x dimension of the room
+	 *
+	 * @return xDim
+	 */
 	public int getX() {
 		if (tiles == null || tiles.isEmpty()) {
 			return 0;
@@ -166,6 +207,11 @@ public class Room implements Iterable<Tile>, Cloneable {
 		return Collections.max(listXPositions);
 	}
 
+	/**
+	 * Get the y dimension of the room
+	 *
+	 * @return yDim
+	 */
 	public int getY() {
 		if (tiles == null || tiles.get(0).isEmpty()) {
 			return 0;
@@ -197,15 +243,6 @@ public class Room implements Iterable<Tile>, Cloneable {
 
 		tiles.get(x).set(y, tile);
 
-	}
-	
-	@Override
-	public Room clone() {
-		RoomBuilder rb = new RoomBuilder(description, level);
-		for (Tile tile : this) {
-			rb.addTile(tile.clone());
-		}
-		return rb.getRoom();
 	}
 
 }

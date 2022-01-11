@@ -9,6 +9,12 @@ import java.util.stream.Collectors;
 import dungeon.Tile;
 import inventory.Item;
 
+/**
+ * A Human Player corresponding to a Hero
+ *
+ * @author Mehdi
+ *
+ */
 public class HumanPlayer extends Player<character.Hero> {
 	public HumanPlayer(character.Hero hero, Tile currentTile) {
 		super(hero, currentTile);
@@ -49,13 +55,15 @@ public class HumanPlayer extends Player<character.Hero> {
 
 	}
 
+	/**
+	 * Format user input and return the correct formatting for tiles, aka: (line,
+	 * column) Accepted input for Tile: (line, column) linecolumn if line and column
+	 * are one digit line,column
+	 *
+	 * @param input: user string input
+	 */
+
 	public String formatInputString(String input) {
-		/**
-		 * Format user input and return the correct formatting for tiles, aka: (line,
-		 * column) Accepted input for Tile: (line, column) linecolumn if line and column
-		 * are one digit line,column
-		 *
-		 */
 		String fInput = input.strip();
 		int length = input.length();
 

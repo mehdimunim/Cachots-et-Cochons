@@ -1,6 +1,16 @@
 package inventory;
 
+/**
+ * A staircase element object to move from one tile to another.
+ *
+ * @author Mehdi
+ *
+ */
 public class Staircase extends Item {
+	/**
+	 * Position of the staircase (a down staircase element is under an up staircase
+	 * element).
+	 */
 	private boolean up;
 
 	public Staircase(String direction) {
@@ -12,6 +22,11 @@ public class Staircase extends Item {
 			throw new IllegalArgumentException("Wrong direction argument for the staircase");
 		}
 
+	}
+
+	@Override
+	public Staircase clone() {
+		return new Staircase(up ? "up" : "down");
 	}
 
 	@Override
@@ -31,11 +46,6 @@ public class Staircase extends Item {
 	@Override
 	public String toString() {
 		return "X";
-	}
-	
-	@Override
-	public Staircase clone() {
-		return new Staircase(up?"up":"down");
 	}
 
 }

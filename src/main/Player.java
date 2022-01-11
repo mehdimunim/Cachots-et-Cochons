@@ -3,14 +3,15 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import dungeon.NonEmptyTileException;
 import dungeon.Room;
 import dungeon.Tile;
 import inventory.Staircase;
 
+/**
+ * Generic player Instance of Character (either Monster or Human)
+ */
 public abstract class Player<T extends character.Character> {
-	/**
-	 * Generic player Instance of Character (either Monster or Human)
-	 */
 	private T chara;
 	private dungeon.Tile currentTile;
 
@@ -95,7 +96,11 @@ public abstract class Player<T extends character.Character> {
 	public void goTo(dungeon.Tile tile) {
 
 		currentTile.removeCharacter();
-		tile.addCharacter(getChara());
+		try {
+			tile.addCharacter(getChara());
+		} catch (NonEmptyTileException e) {
+			e.printStackTrace();
+		}
 		currentTile = tile;
 
 	}

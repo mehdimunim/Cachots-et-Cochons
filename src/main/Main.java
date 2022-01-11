@@ -15,7 +15,7 @@ public class Main {
 			gm.chooseDungeon();
 		} catch (ParseException e1) {
 			e1.printStackTrace();
-		} 
+		}
 
 		// create a hero from user input
 		gm.createDefaultHuman();

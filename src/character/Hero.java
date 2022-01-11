@@ -2,9 +2,16 @@ package character;
 
 import java.util.Optional;
 
+import inventory.FullInventoryException;
 import inventory.Inventory;
 import inventory.Item;
 
+/**
+ * The Hero is played by humans. Implements singleton design pattern.
+ *
+ * @author Mehdi
+ *
+ */
 public class Hero extends Character {
 
 	private static Hero defaultHero;
@@ -19,6 +26,11 @@ public class Hero extends Character {
 		return defaultHero;
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @return A default hero with the given name
+	 */
 	public static Hero createHero(String name) {
 		/**
 		 * Personalized hero
@@ -45,8 +57,22 @@ public class Hero extends Character {
 		invent = new Inventory(3);
 	}
 
-	public void addItem(Item item) {
+	public void addItem(Item item) throws FullInventoryException {
 		invent.addItem(item);
+	}
+
+	@Override
+	public Hero clone() {
+		Hero clonedHero = new Hero(getXP(), getHP(), getAttack(), getDefense(), getMove(), getName());
+		// clone inventory
+		invent.getItems().stream().forEachOrdered(it -> {
+			try {
+				clonedHero.addItem(it.clone());
+			} catch (FullInventoryException e) {
+				e.printStackTrace();
+			}
+		});
+		return clonedHero;
 	}
 
 	public Inventory getInventory() {
@@ -58,15 +84,28 @@ public class Hero extends Character {
 	}
 
 	@Override
+	/**
+	 * A Hero is at war with monsters
+	 */
 	public boolean isEnnemyWith(Character chara) {
 		// Hero is at war with all characters
 		return chara instanceof Monster;
 	}
 
+	/**
+	 * Search a tile
+	 *
+	 * @param tile
+	 * @return Optional of an item: the item of the tile if it exists
+	 */
 	public Optional<Item> searchTile(dungeon.Tile tile) {
 		Optional<Item> item = tile.getItem();
 		if (item.isPresent()) {
-			invent.addItem(item.get());
+			try {
+				invent.addItem(item.get());
+			} catch (FullInventoryException e) {
+				e.printStackTrace();
+			}
 			item.get().applyEffect(this);
 			tile.removeItem();
 		}
@@ -81,14 +120,6 @@ public class Hero extends Character {
 	public void useItem(Item item) {
 		item.removeEffect(this);
 		invent.removeItem(item);
-	}
-
-	@Override
-	public Hero clone() {
-		Hero clonedHero = new Hero(getXP(), getHP(), getAttack(), getDefense(), getMove(), getName());
-		// clone inventory
-		invent.getItems().stream().forEachOrdered(it -> clonedHero.addItem(it.clone()));
-		return clonedHero;
 	}
 
 }

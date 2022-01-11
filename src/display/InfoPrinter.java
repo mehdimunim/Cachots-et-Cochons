@@ -3,6 +3,12 @@ package display;
 import dungeon.Room;
 import main.HumanPlayer;
 
+/**
+ * Print the information concerning the player
+ *
+ * @author Mehdi
+ *
+ */
 public class InfoPrinter {
 
 	public static void display(character.Hero hero, dungeon.Room room) {

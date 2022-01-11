@@ -9,7 +9,7 @@
 				<tile>
 					<xPosition>1</xPosition>
 					<yPosition>1</yPosition>
-					<character>Hero</character>
+					<character></character>
 					<item></item>
 				</tile>
 				<tile>
@@ -222,7 +222,7 @@
 				<tile>
 					<xPosition>3</xPosition>
 					<yPosition>1</yPosition>
-					<character></character>
+					<character>Boar</character>
 					<item></item>
 				</tile>
 
@@ -250,14 +250,14 @@
 				<tile>
 					<xPosition>3</xPosition>
 					<yPosition>5</yPosition>
-					<character>Boar</character>
+					<character></character>
 					<item></item>
 				</tile>
 
 				<tile>
 					<xPosition>3</xPosition>
 					<yPosition>6</yPosition>
-					<character>Boar</character>
+					<character></character>
 					<item></item>
 				</tile>
 

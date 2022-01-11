@@ -20,6 +20,11 @@ public class Shield extends Item {
 	}
 
 	@Override
+	public Shield clone() {
+		return new Shield(defense);
+	}
+
+	@Override
 	public String getFullDescription() {
 		return "Shield, defense: " + String.valueOf(defense);
 	}
@@ -32,10 +37,5 @@ public class Shield extends Item {
 	@Override
 	public String toString() {
 		return "#";
-	}
-	
-	@Override
-	public Shield clone() {
-		return new Shield(defense);
 	}
 }

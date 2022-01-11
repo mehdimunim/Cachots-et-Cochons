@@ -1,6 +1,5 @@
 package main;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -8,10 +7,14 @@ import java.util.Random;
 import character.Character;
 import dungeon.Tile;
 
+/**
+ * An player controlled by the computer
+ *
+ * @author Mehdi
+ *
+ */
 public class AIPlayer extends Player<character.Character> {
-	
-	private final HashMap<String, Command> commandMap = new HashMap<>();
-	
+
 	public AIPlayer(Character chara, Tile currentTile) {
 		super(chara, currentTile);
 	}

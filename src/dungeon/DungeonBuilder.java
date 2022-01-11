@@ -4,9 +4,15 @@ import java.util.List;
 
 import character.Hero;
 
+/**
+ * Build a dungeon and implements the Builder design Pattern
+ *
+ * @author Mehdi
+ *
+ */
 public interface DungeonBuilder {
 
-	public void addHero(Hero hero);
+	public void addHero(Hero hero) throws NonEmptyTileException;
 
 	public void addRoom(Room room);
 
@@ -14,7 +20,7 @@ public interface DungeonBuilder {
 
 	public void build();
 
-	public void createRoom(int roomDim, int level);
+	public void createRoom(int roomDim, int level) throws NonEmptyTileException;
 
 	public Dungeon getDungeon();
 

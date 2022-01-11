@@ -11,16 +11,20 @@ import display.InfoPrinter;
 import display.InventoryPrinter;
 import display.RoomPrinter;
 import dungeon.BasicDungeonBuilder;
+import dungeon.BasicDungeonXMLParser;
 import dungeon.Dungeon;
-import dungeon.DungeonXMLParser;
 import dungeon.InvalidRoomException;
+import dungeon.NonEmptyTileException;
 import dungeon.Room;
 import dungeon.Tile;
 
+/**
+ * Class to manage the game
+ *
+ * @author Mehdi
+ *
+ */
 public class GameManager {
-	/*
-	 * Manages the game
-	 */
 
 	private Room currentRoom;
 	private Dungeon dungeon;
@@ -30,7 +34,11 @@ public class GameManager {
 	private boolean hasWon = false;
 
 	public void addToGame(AIPlayer player) {
-		player.getCurrentTile().addCharacter(player.getChara());
+		try {
+			player.getCurrentTile().addCharacter(player.getChara());
+		} catch (NonEmptyTileException e) {
+			e.printStackTrace();
+		}
 		AIPlayers.add(player);
 	}
 
@@ -75,7 +83,11 @@ public class GameManager {
 		Hero hero = Hero.createDefaultHero();
 		Tile firstTile = dungeon.getRoom(0).getTile(0);
 		humanPlayer = new HumanPlayer(hero, firstTile);
-		dungeon.getRoom(0).addHero(humanPlayer.getChara());
+		try {
+			dungeon.getRoom(0).addHero(humanPlayer.getChara());
+		} catch (NonEmptyTileException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -98,7 +110,7 @@ public class GameManager {
 			if (player.choosesToGoStaircase()) {
 				// go up if the staircase is down
 				Room adjRoom = player.isOnUp() ? prevRoom() : nextRoom();
-				Command goStaircase= new GoStaircaseCommand<T>(player, adjRoom);
+				Command goStaircase = new GoStaircaseCommand<T>(player, adjRoom);
 				goStaircase.execute();
 				changeRoom(adjRoom);
 			}
@@ -169,7 +181,7 @@ public class GameManager {
 	}
 
 	public void readBasicDungeon(String xml) throws ParseException, InvalidRoomException {
-		DungeonXMLParser parser = new DungeonXMLParser();
+		BasicDungeonXMLParser parser = new BasicDungeonXMLParser();
 		dungeon = parser.getDungeon(xml);
 	}
 
