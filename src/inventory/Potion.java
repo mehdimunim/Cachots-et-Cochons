@@ -15,6 +15,11 @@ public class Potion extends Item {
 	}
 
 	@Override
+	public Potion clone() {
+		return new Potion(HP);
+	}
+
+	@Override
 	public String getFullDescription() {
 		return "Potion, HP: " + String.valueOf(HP);
 	}
@@ -31,10 +36,5 @@ public class Potion extends Item {
 	@Override
 	public String toString() {
 		return "+";
-	}
-
-	@Override
-	public Potion clone() {
-		return new Potion(HP);
 	}
 }

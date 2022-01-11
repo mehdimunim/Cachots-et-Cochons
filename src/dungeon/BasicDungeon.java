@@ -1,5 +1,11 @@
 package dungeon;
 
+/**
+ * Concrete class to represents a Dungeon
+ *
+ * @author Mehdi
+ *
+ */
 public class BasicDungeon extends Dungeon {
 
 	@Override

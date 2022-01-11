@@ -22,6 +22,11 @@ public class Sword extends Item {
 	}
 
 	@Override
+	public Sword clone() {
+		return new Sword(damage);
+	}
+
+	@Override
 	public String getFullDescription() {
 		return "Sword, damage: " + String.valueOf(damage);
 	}
@@ -34,11 +39,6 @@ public class Sword extends Item {
 	@Override
 	public String toString() {
 		return "/";
-	}
-	
-	@Override
-	public Sword clone() {
-		return new Sword(damage);
 	}
 
 }

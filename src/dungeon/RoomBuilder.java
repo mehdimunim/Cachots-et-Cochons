@@ -5,6 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Build a room
+ *
+ * @author Mehdi
+ *
+ */
 public class RoomBuilder {
 	private Room room;
 
@@ -12,6 +18,11 @@ public class RoomBuilder {
 		room = new Room(name, level);
 	}
 
+	/**
+	 * Append a tile to the room in progress
+	 *
+	 * @param tile: tile to add
+	 */
 	public void addTile(Tile tile) {
 		int x = tile.getXPosition();
 		if (x <= room.getX()) {
@@ -26,6 +37,12 @@ public class RoomBuilder {
 
 	}
 
+	/**
+	 * Get the room built if the construction is complete.
+	 *
+	 * @return a rectangle-shaped room
+	 * @throws InvalidRoomException
+	 */
 	public Room getRoom() throws InvalidRoomException {
 		List<Integer> rowSizes = room.getTiles().stream().map(row -> row.size()).collect(Collectors.toList());
 		if (Collections.max(rowSizes) != Collections.min(rowSizes)) {

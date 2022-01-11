@@ -18,14 +18,28 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException; // builder.parse()
 
 import character.Character;
-import character.Hero;
 import character.DefaultMonsterFactory;
+import character.Hero;
 import inventory.DefaultItemFactory;
 import inventory.Item;
 import inventory.Staircase;
 
-public class DungeonXMLParser implements DungeonParser {
+/**
+ * Parse a basic dungeon from an XML file. Uses javax.xml.parsers and
+ * org.w3c.dom.
+ *
+ * @author Mehdi
+ *
+ */
+public class BasicDungeonXMLParser implements DungeonParser {
 
+	/**
+	 * Build a dungeon from the list of its elements.
+	 *
+	 * @param diff:  difficulty of the dungeon
+	 * @param rooms: list of rooms
+	 * @return the dungeon object from the input elements
+	 */
 	private Dungeon buildDungeon(int diff, List<Room> rooms) {
 		Dungeon dungeon = new BasicDungeon();
 		dungeon.setDifficulty(diff);
@@ -150,8 +164,20 @@ public class DungeonXMLParser implements DungeonParser {
 		Tile tile = new Tile(xPosition, yPosition);
 
 		// complete tile with character and item
-		parseCharacter(element).ifPresent(chara -> tile.addCharacter(chara));
-		parseItem(element).ifPresent(it -> tile.addItem(it));
+		parseCharacter(element).ifPresent(chara -> {
+			try {
+				tile.addCharacter(chara);
+			} catch (NonEmptyTileException e) {
+				e.printStackTrace();
+			}
+		});
+		parseItem(element).ifPresent(it -> {
+			try {
+				tile.addItem(it);
+			} catch (NonEmptyTileException e) {
+				e.printStackTrace();
+			}
+		});
 
 		return tile;
 	}

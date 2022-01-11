@@ -5,8 +5,18 @@ import java.util.Optional;
 import inventory.Item;
 import inventory.Staircase;
 
+/**
+ * A tile is the component of a room. A tile can contains at most one character
+ * and one item
+ *
+ * @author Mehdi
+ *
+ */
 public class Tile implements Comparable<Tile>, Cloneable {
 
+	/**
+	 * x and y positions are the position of the tile in the room
+	 */
 	private int xPosition;
 	private int yPosition;
 	private character.Character character;
@@ -17,22 +27,51 @@ public class Tile implements Comparable<Tile>, Cloneable {
 		yPosition = YPosition;
 	}
 
-	public void addCharacter(character.Character newCharacter) {
-		/**
-		 * Add a character
-		 */
+	/**
+	 * Add a character
+	 *
+	 * @param newCharacter
+	 * @throws NonEmptyTileException when the tile is
+	 */
+	public void addCharacter(character.Character newCharacter) throws NonEmptyTileException {
 		if (character == null) {
 			character = newCharacter;
+		} else {
+			throw new NonEmptyTileException("The tile already has a character");
 		}
-
-		// else conflict between newCharacter and character
-		// else do nothing
 	}
 
-	public void addItem(inventory.Item item) {
-		this.item = item;
+	public void addItem(inventory.Item newItem) throws NonEmptyTileException {
+		if (item == null) {
+			item = newItem;
+		} else {
+			throw new NonEmptyTileException("The tile already has an item");
+		}
 	}
 
+	@Override
+	public Tile clone() {
+		Tile clonedTile = new Tile(xPosition, yPosition);
+		if (character != null)
+			try {
+				clonedTile.addCharacter(character.clone());
+			} catch (NonEmptyTileException e) {
+				e.printStackTrace();
+			}
+		if (item != null)
+			try {
+				clonedTile.addItem(item.clone());
+			} catch (NonEmptyTileException e) {
+				e.printStackTrace();
+			}
+		return clonedTile;
+	}
+
+	/**
+	 * A tile is "bigger" than another if its xPosition is greater or if equal, if
+	 * the yPosition is greater.
+	 *
+	 */
 	@Override
 	public int compareTo(Tile otherTile) {
 		if (xPosition == otherTile.getXPosition()) {
@@ -52,8 +91,13 @@ public class Tile implements Comparable<Tile>, Cloneable {
 		return false;
 	}
 
+	/**
+	 * Euclidian distance between tiles
+	 *
+	 * @param tile
+	 * @return positive integer
+	 */
 	public double euclidianDistanceTo(Tile tile) {
-		// Euclidian distance
 		return Math.sqrt(Math.pow(tile.xPosition - xPosition, 2) + Math.pow(tile.yPosition - yPosition, 2));
 	}
 
@@ -64,10 +108,10 @@ public class Tile implements Comparable<Tile>, Cloneable {
 		return Optional.of(character);
 	}
 
+	/**
+	 * Get the way the tile has to be depicted Characters are displayed in priority
+	 */
 	public String getDepiction() {
-		/**
-		 * Get the way the Tile has to be depicted Characters are displayed in priority
-		 */
 		if (item == null && character == null) {
 			return " ";
 		} else if (character == null) {
@@ -104,8 +148,13 @@ public class Tile implements Comparable<Tile>, Cloneable {
 		return item instanceof Staircase;
 	}
 
+	/**
+	 * Manhattan distance between tiles
+	 *
+	 * @param tile
+	 * @return a positive integer
+	 */
 	public int manhattanDistanceTo(Tile tile) {
-		// Manhattan distance
 		return Math.abs(tile.xPosition - xPosition) + Math.abs(tile.yPosition - yPosition);
 	}
 
@@ -130,13 +179,5 @@ public class Tile implements Comparable<Tile>, Cloneable {
 	@Override
 	public String toString() {
 		return "(" + String.valueOf(xPosition) + "," + String.valueOf(yPosition) + ")";
-	}
-	
-	@Override
-	public Tile clone() {
-		Tile clonedTile = new Tile(xPosition, yPosition);
-		if (character != null) clonedTile.addCharacter(character.clone());
-		if (item != null) clonedTile.addItem(item.clone());
-		return clonedTile;
 	}
 }

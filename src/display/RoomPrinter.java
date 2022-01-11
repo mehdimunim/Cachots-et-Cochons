@@ -5,6 +5,13 @@ import dungeon.Room;
 import dungeon.Tile;
 import main.HumanPlayer;
 
+/**
+ *
+ * Print a room
+ *
+ * @author Mehdi
+ *
+ */
 public class RoomPrinter {
 
 	public static void display(Room room, Hero hero) {

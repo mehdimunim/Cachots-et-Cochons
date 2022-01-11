@@ -1,7 +1,19 @@
 package character;
 
+/**
+ * A character includes the main hero, monsters and unarmed characters
+ * (merchants, etc.)
+ *
+ * @author Mehdi
+ *
+ */
 public abstract class Character implements Cloneable {
 
+	/**
+	 *
+	 * XP: Character experience
+	 * HP: health point
+	 */
 	private int XP;
 	private int HP;
 	private int attack;
@@ -17,6 +29,9 @@ public abstract class Character implements Cloneable {
 		this.defense = defense;
 		this.move = move;
 	}
+
+	@Override
+	public abstract Character clone();
 
 	public void gainAttack(int gain) {
 		attack += gain;
@@ -96,8 +111,5 @@ public abstract class Character implements Cloneable {
 	public void setXP(int xP) {
 		XP = xP;
 	}
-	
-	@Override
-	public abstract Character clone();
 
 }

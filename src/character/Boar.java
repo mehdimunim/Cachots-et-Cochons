@@ -1,12 +1,16 @@
 package character;
 
+/**
+ * Male adult pig
+ */
 public class Boar extends AdultPig {
-	/*
-	 * Male adult pig
-	 */
 	public Boar(int XP, int HP, int attack, int defense, int move) {
 		super(XP, HP, attack, defense, move);
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Boar clone() {
+		return new Boar(getXP(), getHP(), getAttack(), getDefense(), getMove());
 	}
 
 	@Override
@@ -14,9 +18,4 @@ public class Boar extends AdultPig {
 		return "B";
 	}
 
-	@Override
-	public Boar clone() {
-		return new Boar(getXP(), getHP(), getAttack(), getDefense(), getMove());
-	}
-	
 }
